@@ -48,7 +48,7 @@ namespace Home
         {
             btnCloseMenu.Visibility = Visibility.Visible;
             btnOpenMenu.Visibility = Visibility.Collapsed;
-            currentTabPanel.Width = 920;
+  
 
         }
 
@@ -56,7 +56,7 @@ namespace Home
         {
             btnOpenMenu.Visibility = Visibility.Visible;
             btnCloseMenu.Visibility = Visibility.Collapsed;
-            currentTabPanel.Width = 1080;
+    
 
         }
 
@@ -74,7 +74,7 @@ namespace Home
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            this.DragMove();
            
         }
 
@@ -90,6 +90,18 @@ namespace Home
         private void addChildForm(UserControl child)
         {
             parentForm.Content = child;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            currentCatogoryName.Text = "Trang chủ";
+            addChildForm(new HomeScreen());
+        }
+
+        private void Grid_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            currentCatogoryName.Text = "Trang chủ";
+            addChildForm(new HomeScreen());
         }
     }
 }

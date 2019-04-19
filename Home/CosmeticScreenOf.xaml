@@ -7,24 +7,33 @@
              xmlns:converter="clr-namespace:Home.converter"
              mc:Ignorable="d" 
              Background="White"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="760" d:DesignWidth="1020">
     <UserControl.Resources>
         <converter:CosmeticConvertImageRelativePathToAbsolutePath x:Key="convertImageCosmetic"/>
     </UserControl.Resources>
     
     <Grid>
 
-        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="listCosmetic" ScrollViewer.VerticalScrollBarVisibility="Disabled" Margin="0,53,0,0">
-           
-            
-            <ListView.ItemTemplate>
+        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" Name="listCosmetic" Margin="10">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel MouseLeftButtonDown="Category_click">
-                        <Image Height="50" Width="50" Source="{Binding Image_url, Converter={StaticResource convertImageCosmetic}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Label Content="{Binding Name}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                    </StackPanel>
+                    <Border CornerRadius="6" BorderBrush="LightPink" BorderThickness="2">
+                        <StackPanel MouseLeftButtonDown="StackPanel_MouseLeftButtonDown"  Height="260" Width="180">
+                            <Image Height="100" Width="100"  Source="{Binding Image_url, Converter={StaticResource convertImageCosmetic}}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+                            <TextBlock MinHeight="80" MaxHeight="80" TextWrapping="Wrap" Text="{Binding Name}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Margin="5 0 5 0"/>
+                            <Separator/>
+                            <Label Content="{Binding Price}" Margin="5 0 5 0 " FontWeight="Bold"/>
+                            <Button Content="Chọn" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"/> 
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            
         </ListView>
 
     </Grid>
