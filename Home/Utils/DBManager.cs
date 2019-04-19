@@ -53,6 +53,24 @@ namespace Home.Utils
             return sheets;
         }
 
+        public BindingList<Category> getAllCategoryName()
+        {
+            BindingList<Category> categoryName = new BindingList<Category>();
+
+            var sheets = getAllSheet();
+            foreach (var sheet in sheets)
+            {
+                categoryName.Add(
+                    new Category {
+                        Name = sheet.Name,
+                        Icon = sheet.Cells[$"{Category.COL_ICON}{2}"].StringValue
+                    }    
+                );
+            }
+
+            return categoryName;
+        }
+
         private Cosmetic getCosmeticFrom(List<string> rowData)
         {
             return new Cosmetic
@@ -151,6 +169,7 @@ namespace Home.Utils
                         new Category
                         {
                             Name = sheet.Name,
+                            Icon = sheet.Cells[$"{Category.COL_ICON}{2}"].StringValue,
                             Cosmetics = getAllCosmeticOf(sheet)
                         }
                     );
@@ -176,6 +195,7 @@ namespace Home.Utils
                     sheet.Cells[$"{Cosmetic.COL_PRICE}{1}"].Value = "Price";
                     sheet.Cells[$"{Cosmetic.COL_ORIGIN}{1}"].Value = "Origin";
                     sheet.Cells[$"{Cosmetic.COL_DETAIL}{1}"].Value = "Detail";
+                    sheet.Cells[$"{Category.COL_ICON}{1}"].Value = "Icon Category";
 
                     saveChanged();
                     return true;
@@ -185,7 +205,7 @@ namespace Home.Utils
             return false;
         }
 
-        public bool editCategory(string oldName, string newName)
+        public bool editNameCategory(string oldName, string newName)
         {
             if (workbook != null)
             {
@@ -193,6 +213,24 @@ namespace Home.Utils
                 if (workbook.Worksheets.Contains(sheet))
                 {
                     sheet.Name = newName;
+
+                    saveChanged();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool editIconCategory(string sheetName, string newIcon)
+        {
+            if (workbook != null)
+            {
+                var sheet = workbook.Worksheets[sheetName];
+                if (workbook.Worksheets.Contains(sheet))
+                {
+                    sheet.Cells[$"{Category.COL_ICON}{2}"].Value = newIcon;
+
                     saveChanged();
                     return true;
                 }

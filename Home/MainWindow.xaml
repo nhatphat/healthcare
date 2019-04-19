@@ -4,9 +4,78 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Home"
+        xmlns:converter="clr-namespace:Home.converter"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="800" Width="1080" WindowStyle="None">
+    <Window.Resources>
+        <converter:CategoryConvertImageRelativePathToAbsolutePath x:Key="convertImageCategory"/>
+
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="menuLayer">
+                <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="230"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="menuLayer">
+                <EasingDoubleKeyFrame KeyTime="0" Value="230"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="70"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnOpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
+        </EventTrigger>
+    </Window.Triggers>
     <Grid>
+
+        <Grid Height="40" Background="#FFECB2B2" VerticalAlignment="Top" Grid.ColumnSpan="2" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+            <!--Hiển thị current tab-->
+            <StackPanel Name="currentTabPanel">
+                <TextBlock Name="currentCatogoryName"  FontSize="26" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            </StackPanel>
+        </Grid>
+        <StackPanel Orientation="Horizontal">
+            <Grid Name="menuLayer" Width="70" Height="800"  HorizontalAlignment="Left" Background="#FFF78787" >
+                <StackPanel>
+                    <Grid Height="200" VerticalAlignment="Top" >
+                        <Grid.Background>
+                            <ImageBrush ImageSource="/Images/app/cosmetic.png" Stretch="Uniform"/>
+                        </Grid.Background>
+                        <Button Name="btnOpenMenu" Width="70"  Height="50" VerticalAlignment="Top" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="BtnOpenMenu_Click">
+                            <materialDesign:PackIcon Kind="Menu" Foreground="White" Width="25" Height="25"/>
+                        </Button>
+                        <Button Name="btnCloseMenu" Width="50"  Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Collapsed" Click="BtnCloseMenu_Click">
+                            <materialDesign:PackIcon Kind="ArrowLeft" Foreground="White" Width="25" Height="25"/>
+                        </Button>
+                    </Grid>
+
+                    <ListView Height="500" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="listCategory" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" MouseLeftButtonDown="Category_click">
+                                    <Image Height="50" Width="50" Source="{Binding Icon, Converter={StaticResource convertImageCategory}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Label Content="{Binding Name}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Image Name="managerProduct" MouseLeftButtonDown="managerProduct_click" Source="./Images/app/three_dot.png" Width="60"/>
+
+                </StackPanel>
+            </Grid>
+
+            <!--show detail cosmetic of category-->
+            <ContentControl Name="parentForm" VerticalAlignment="Bottom" Height="760" Width="1010"/>
+
+        </StackPanel>
 
 
     </Grid>
