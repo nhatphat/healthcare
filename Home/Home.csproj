@@ -38,6 +38,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>libs\Aspose.Cells.dll</HintPath>
     </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.1.1345, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.5.1\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -58,9 +64,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Catogory1.xaml.cs">
+      <DependentUpon>Catogory1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="converter\CosmeticConvertImageRelativePathToAbsolutePath.cs" />
+    <Compile Include="CosmeticScreenOf.xaml.cs">
+      <DependentUpon>CosmeticScreenOf.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerProductScreen.xaml.cs">
+      <DependentUpon>ManagerProductScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="models\Category.cs" />
     <Compile Include="Utils\DBManager.cs" />
     <Compile Include="Utils\Global.cs" />
+    <Page Include="Catogory1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CosmeticScreenOf.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,6 +97,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ManagerProductScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="models\Cosmetic.cs" />
@@ -94,6 +122,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="data\master_data.xlsx" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -101,6 +130,74 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\app\cosmetic.png" />
+    <Resource Include="Images\category\body-icon.png" />
+    <Resource Include="Images\category\Drug-icon.png" />
+    <Resource Include="Images\category\eyes-icon.png" />
+    <Resource Include="Images\category\face-icon.png" />
+    <Resource Include="Images\category\makeuptools-icon.png" />
+    <Resource Include="Images\category\Perfume-icon.png" />
+    <Resource Include="Images\cosmetic\bo-kem-tam-trang-cao-cap-tieu-chuan-spa-sakura-super-white-spa-system.png" />
+    <Resource Include="Images\cosmetic\iS_Clinical_Body_Complex_180ml.png" />
+    <Resource Include="Images\cosmetic\kem-duong-the-paula-s-choice-resist-skin-revealing-body-lotion-with-10-aha.png" />
+    <Resource Include="Images\cosmetic\kem-duong-trang-da-va-trang-diem-nhe-toan-than-sakura-skin-whitening-bb-body-cream.png" />
+    <Resource Include="Images\cosmetic\kem-duong-trang-da-vung-nhay-cam-bella-belle-sensitive-areas-solution-lightening-gel.png" />
+    <Resource Include="Images\cosmetic\kem-no-nguc-sampar-lift-me-up-bust-cream-a.png" />
+    <Resource Include="Images\cosmetic\kem-tai-tao-te-bao-tre-hoa-da-cho-doi-tay-cell-shock-age-cellular-recovery-3d-hand-cream-1.png" />
+    <Resource Include="Images\cosmetic\kemduongco.jpg" />
+    <Resource Include="Images\cosmetic\serum-nang-nguc-dr-spiller-neck-and-decollete-cream.jpg" />
+    <Resource Include="Images\cosmetic\Bộ_sản_phẩm_mụn_is_clinical.png" />
+    <Resource Include="Images\cosmetic\duong-am-dieu-tri-lao-hoa-da-tensage-cream-endocare.png" />
+    <Resource Include="Images\cosmetic\gel-chong-nang-heliocare-gel-spf50-cho-da-nhon-mun.png" />
+    <Resource Include="Images\cosmetic\iS_Clinical_Tri-Active_Exfoliant1.png" />
+    <Resource Include="Images\cosmetic\kem-duong-trang-da-mo-dom-nau-frezyderm-spot-end-corrective.png" />
+    <Resource Include="Images\cosmetic\kem-phuc-hoi-sau-tri-lieu-dermaceutic-k-ceutic.png" />
+    <Resource Include="Images\cosmetic\nhutuongchongnang.png" />
+    <Resource Include="Images\cosmetic\te-bao-goc-mesoestetic-stem-cell-serum-restructurative-dung-tai-phong-kham.png" />
+    <Resource Include="Images\cosmetic\traitement-au-collagene-pur-90-collagen-cho-da-lao-hoa.png" />
+    <Resource Include="Images\cosmetic\xit-duong-giup-da-tuoi-mat-va-cang-min-is-clinical-copper-firming-mist.png" />
+    <Resource Include="Images\cosmetic\100.jpg" />
+    <Resource Include="Images\cosmetic\nuoc-hoa-chanel-gabrielle-for-women.png" />
+    <Resource Include="Images\cosmetic\nuoc-hoa-chanel-n-5-eau-de-parfum-red-edition.jpg" />
+    <Resource Include="Images\cosmetic\nuoc-hoa-cho-nu-dkny-be-desired.jpg" />
+    <Resource Include="Images\cosmetic\nuoc-hoa-dior-joy-eau-de-parfum.png" />
+    <Resource Include="Images\cosmetic\nuoc-hoa-kilian-woman-in-gold-50ml.jpg" />
+    <Resource Include="Images\cosmetic\nuoc-hoa-nu-kenzo-flower-by-kenzo-eau-de-lumiere-edt-50ml-a.png" />
+    <Resource Include="Images\cosmetic\nuoc-hoa-nu-paco-rabanne-pure-xs-edp-80ml.png" />
+    <Resource Include="Images\cosmetic\set-nuoc-hoa-nu-narciso-rodriguez-poudree-2pcs.png" />
+    <Resource Include="Images\cosmetic\set-nuoc-hoa-nu-narciso-set-edp-3x10ml.png" />
+    <Resource Include="Images\cosmetic\bo-dau-goi-moc-toc-day-dai-ngan-ngua-rung-toc-giup-bong-muot-tu-nhien-khoe-manh-md-revitalizing-.jpg" />
+    <Resource Include="Images\cosmetic\dau-goi-moc-toc-day-dai-ngan-ngua-rung-toc-giup-bong-muot-tu-nhien-khoe-manh-md-revitalizing-shampoo2.png" />
+    <Resource Include="Images\cosmetic\dau-goi-tri-rung-toc-herbgrow-shampoo.jpg" />
+    <Resource Include="Images\cosmetic\dau-goi-va-tam-cao-cap-2-trong-1-paula-s-choice-all-over-hair-and-body-shampoo.png" />
+    <Resource Include="Images\cosmetic\dau-xa-silk-finish-conditioner-250ml.png" />
+    <Resource Include="Images\cosmetic\serum-duong-dai-long-may-va-long-mi-image-skincare-i-beauty-brown-lash-enhancement-serum.png" />
+    <Resource Include="Images\cosmetic\serum-moc-dai-mi-solution-3ml.jpg" />
+    <Resource Include="Images\cosmetic\serummocmi2.0ml_.png" />
+    <Resource Include="Images\cosmetic\thuoc-moc-toc-md-hair-restoration-follicle-energizer.png" />
+    <Resource Include="Images\cosmetic\kem-che-khuyet-diem-even-better-brighter-bb-cream-spf-30.jpg" />
+    <Resource Include="Images\cosmetic\kem-chong-nang-neova-dna-damage-control-active-silc-sheer-2-0-spf40-74ml.png" />
+    <Resource Include="Images\cosmetic\kem-nen-trang-diem-bb-astalift-bb-cream-spf50-pa-natural.png" />
+    <Resource Include="Images\cosmetic\kem-sinh-hoc-da-chuc-nang-nuoi-duong-bao-ve-da-va-tao-nen-make-up-hoan-hao-aqua-vitale-bloom-flash.png" />
+    <Resource Include="Images\cosmetic\kem-trang-diem-bella-belle-air-dd-cushion-spf50-pa.jpg" />
+    <Resource Include="Images\cosmetic\nude-pop.png" />
+    <Resource Include="Images\cosmetic\phan-ma-hong-astalift-cheek-color-pink.png" />
+    <Resource Include="Images\cosmetic\phan-phu-duong-trang-da-giam-mun-jc-program-31.jpg" />
+    <Resource Include="Images\cosmetic\son-duong-co-mau-dang-but-chi-clinique-chubby-stick-intense-moisturizing-Chunkiest-Chili1.png" />
+    <Resource Include="Images\cosmetic\son-kem-li-3ce-soft-lip-lacquer-change-mode-do-lanh-1.png" />
+    <Resource Include="Images\cosmetic\collagen-tinh-khiet-dang-bot-astalift-collagen-powder.png" />
+    <Resource Include="Images\cosmetic\nuoc-uong-dep-da-placenta-82x-sakura-premium.jpg" />
+    <Resource Include="Images\cosmetic\nuoc-uong-lam-sang-da-astalift-white-drink-whiteshield.png" />
+    <Resource Include="Images\cosmetic\vien-uong-chong-nang-heliocare-oral-ultra.png" />
+    <Resource Include="Images\cosmetic\vien-uong-chong-nang-sunsafe-rx-lam-trang-da-30-vien1.jpg" />
+    <Resource Include="Images\cosmetic\vien-uong-giam-mun-giai-doc-to-dep-da-md-ultimate-green.png" />
+    <Resource Include="Images\cosmetic\vien-uong-giam-nam-chuyen-sau-sakura-hcl-white-blossoms-ex.png" />
+    <Resource Include="Images\cosmetic\vien-uong-trang-da-cao-cap-heliocare-purewhite-radiance-max-240-1.jpg" />
+    <Resource Include="Images\cosmetic\vien-uong-trang-da-giam-nam-nep-nhan-va-suc-khoe-tong-the-murad-firm-and-tone-dietary-supplement.png" />
+    <Resource Include="Images\cosmetic\default.jpg" />
+    <Resource Include="Images\app\three_dot.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="libs\Aspose.Cells.dll" />

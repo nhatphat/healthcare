@@ -1,5 +1,6 @@
 ﻿using Home.models;
 using Home.Utils;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,11 +26,14 @@ namespace Home
     {
         private DBManager dbManager;
 
+        public bool? Form { get; private set; }
+
         public MainWindow()
         {
             InitializeComponent();
 
             dbManager = DBManager.getInstance();
+            listCategory.ItemsSource = dbManager.getAllCategoryName();
 
             this.Closed += new EventHandler(closed);
         }
@@ -38,6 +42,54 @@ namespace Home
         {
             // save all changed again
             dbManager.saveChanged();
+        }
+
+        private void BtnOpenMenu_Click(object sender, RoutedEventArgs e)
+        {
+            btnCloseMenu.Visibility = Visibility.Visible;
+            btnOpenMenu.Visibility = Visibility.Collapsed;
+            currentTabPanel.Width = 920;
+
+        }
+
+        private void BtnCloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            btnOpenMenu.Visibility = Visibility.Visible;
+            btnCloseMenu.Visibility = Visibility.Collapsed;
+            currentTabPanel.Width = 1080;
+
+        }
+
+        private void Category_click(object sender, MouseButtonEventArgs e)
+        {
+            var stackPanel = sender as StackPanel;
+            var data_context = stackPanel.DataContext;
+            var category_selected = data_context as Category;
+            currentCatogoryName.Text = category_selected.Name;
+
+            category_selected.Cosmetics = dbManager.getAllCosmeticBySheetName(category_selected.Name);
+
+            addChildForm(new CosmeticScreenOf(category_selected));
+        }
+
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+           
+        }
+
+        private void managerProduct_click(object sender, MouseButtonEventArgs e)
+        {
+            var file = Global.getFile();
+            if(file != null)
+            {
+                Global.copyFileTo(file.FileName, $"{Global.getBaseFolder()}\\Images\\{file.SafeFileName}");
+            }
+        }
+
+        private void addChildForm(UserControl child)
+        {
+            parentForm.Content = child;
         }
     }
 }

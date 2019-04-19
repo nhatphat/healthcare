@@ -15,7 +15,7 @@ namespace Home.models
 
         private string id;
         private string name;
-        private string image_url = "http://mdland.com.vn/skin/images/default.jpg";
+        private string image_url = "default.jpg";
         private uint price;
         private string origin;
         private string detail;
