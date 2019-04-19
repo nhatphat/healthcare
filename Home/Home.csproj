@@ -64,12 +64,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Catogory1.xaml.cs">
-      <DependentUpon>Catogory1.xaml</DependentUpon>
-    </Compile>
     <Compile Include="converter\CosmeticConvertImageRelativePathToAbsolutePath.cs" />
     <Compile Include="CosmeticScreenOf.xaml.cs">
       <DependentUpon>CosmeticScreenOf.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HomeScreen.xaml.cs">
+      <DependentUpon>HomeScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagerProductScreen.xaml.cs">
       <DependentUpon>ManagerProductScreen.xaml</DependentUpon>
@@ -77,11 +77,11 @@
     <Compile Include="models\Category.cs" />
     <Compile Include="Utils\DBManager.cs" />
     <Compile Include="Utils\Global.cs" />
-    <Page Include="Catogory1.xaml">
+    <Page Include="CosmeticScreenOf.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CosmeticScreenOf.xaml">
+    <Page Include="HomeScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -133,12 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\app\cosmetic.png" />
-    <Resource Include="Images\category\body-icon.png" />
-    <Resource Include="Images\category\Drug-icon.png" />
-    <Resource Include="Images\category\eyes-icon.png" />
-    <Resource Include="Images\category\face-icon.png" />
-    <Resource Include="Images\category\makeuptools-icon.png" />
-    <Resource Include="Images\category\Perfume-icon.png" />
     <Resource Include="Images\cosmetic\bo-kem-tam-trang-cao-cap-tieu-chuan-spa-sakura-super-white-spa-system.png" />
     <Resource Include="Images\cosmetic\iS_Clinical_Body_Complex_180ml.png" />
     <Resource Include="Images\cosmetic\kem-duong-the-paula-s-choice-resist-skin-revealing-body-lotion-with-10-aha.png" />
@@ -200,6 +194,12 @@
     <Resource Include="Images\app\three_dot.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\category\body-icon.ico" />
+    <Resource Include="Images\category\Drug-icon.ico" />
+    <Resource Include="Images\category\eyes-icon.ico" />
+    <Resource Include="Images\category\face-icon.ico" />
+    <Resource Include="Images\category\makeuptools-icon.ico" />
+    <Resource Include="Images\category\Perfume-icon.ico" />
     <Content Include="libs\Aspose.Cells.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

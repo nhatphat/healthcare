@@ -10,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Home
 {
     /// <summary>
-    /// Interaction logic for Catogory1.xaml
+    /// Interaction logic for HomeScreen.xaml
     /// </summary>
-    public partial class Catogory1 : Window
+    public partial class HomeScreen : UserControl
     {
-        public Catogory1()
+        public HomeScreen()
         {
             InitializeComponent();
         }
-
-        
     }
 }
