@@ -103,5 +103,20 @@ namespace Home
             currentCatogoryName.Text = "Trang chủ";
             addChildForm(new HomeScreen());
         }
+
+        private void BtnCloseWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if(
+                MessageBox.Show("Bạn muốn đóng chương trình?", "Xác nhận thoát", MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                 == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        private void btnMinimize_click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
     }
 }

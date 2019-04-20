@@ -9,6 +9,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1090" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Window.Resources>
+        <!--cách khai báo converter cho ảnh,
+            lưu ý: cần add xmlns:converter="clr-namespace:Home.converter" và tag window để sử dụng
+            áp dụng y sì cho màn hình nào cần :v
+        -->
         <converter:CategoryConvertImageRelativePathToAbsolutePath x:Key="convertImageCategory"/>
 
         <Storyboard x:Key="OpenMenu">
@@ -88,11 +92,12 @@
                   
                         <TextBlock Name="currentCatogoryName"  FontSize="26" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <!--Hai nut này commit tạm vậy đã - t đi ăn cơm đã nha!-->
+                    <!--Đã giải quyết-->
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Button ToolTip="Thu nhỏ" Name="btnMinimize" Width="60"  Height="40"  >
+                        <Button ToolTip="Thu nhỏ" Name="btnMinimize" Click="btnMinimize_click" Width="60"  Height="40"  >
                             Mini
                         </Button>
-                        <Button ToolTip="Thoát" Name="btnCloseWindow" Width="80"  Height="40"   HorizontalAlignment="Center">
+                        <Button ToolTip="Thoát" Name="btnCloseWindow" Click="BtnCloseWindow_Click" Width="80"  Height="40"   HorizontalAlignment="Center">
                             Close
                         </Button>
                     </StackPanel>
