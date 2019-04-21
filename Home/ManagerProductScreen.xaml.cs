@@ -24,5 +24,44 @@ namespace Home
         {
             InitializeComponent();
         }
+
+        private void AddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            functionForm.Visibility = Visibility.Collapsed;
+            btnBack.Visibility = Visibility.Visible;
+            addForm.Visibility = Visibility.Visible;
+        }
+
+        private void EditProduct_Click(object sender, RoutedEventArgs e)
+        {
+            functionForm.Visibility = Visibility.Collapsed;
+            btnBack.Visibility = Visibility.Visible;
+            deleteForm.Visibility = Visibility.Visible;
+        }
+
+        private void DeleteProduct_Click(object sender, RoutedEventArgs e)
+        {
+            functionForm.Visibility = Visibility.Collapsed;
+            btnBack.Visibility = Visibility.Visible;
+            editForm.Visibility = Visibility.Visible;
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            functionForm.Visibility = Visibility.Visible;
+            btnBack.Visibility = Visibility.Collapsed;
+            if (editForm.Visibility == Visibility.Visible)
+            {
+                editForm.Visibility = Visibility.Collapsed;
+            }
+            else if (deleteForm.Visibility == Visibility.Visible)
+            {
+                deleteForm.Visibility = Visibility.Collapsed;
+            }
+            else if (addForm.Visibility == Visibility.Visible)
+            {
+                addForm.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

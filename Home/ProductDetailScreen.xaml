@@ -9,14 +9,12 @@
              Background="White"
              d:DesignHeight="760" d:DesignWidth="1020">
     <UserControl.Resources>
-        <converter:CategoryConvertImageRelativePathToAbsolutePath x:Key="convertImageCosmetic"/>
+        <converter:CosmeticConvertImageRelativePathToAbsolutePath x:Key="convertImageCosmetic"/>
     </UserControl.Resources>
     
-    <Grid Height="760" Width="1020">
+    <Grid>
         <StackPanel Name="productFullDetail" Margin="60" Orientation="Horizontal">
-            <!--Không hiểu sao chưa binding được image-->
-            <!--<Image Height="300" Source="{Binding Image_url, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>-->
-            <Image Height="300" Source="D:\Milestone\Home\Images\cosmetic\bo-dau-goi-moc-toc-day-dai-ngan-ngua-rung-toc-giup-bong-muot-tu-nhien-khoe-manh-md-revitalizing-.jpg"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Image Height="300" Source="{Binding Image_url, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <StackPanel Margin="50 0 0 0" MaxWidth="600">
                 
                 <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  FontSize="30"  FontWeight="Bold" />

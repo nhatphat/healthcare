@@ -221,6 +221,7 @@
     <Resource Include="Images\app\delete-btn.png" />
     <Resource Include="Images\app\edit-btn.png" />
     <Resource Include="Images\app\minimize-btn.png" />
+    <Resource Include="Images\app\back-icon.ico" />
     <Content Include="libs\Aspose.Cells.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
