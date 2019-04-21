@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Home.models;
+using Home.Utils;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +23,12 @@ namespace Home
     /// </summary>
     public partial class ManagerProductScreen : UserControl
     {
+        private DBManager dbManager = DBManager.getInstance();
+
         public ManagerProductScreen()
         {
             InitializeComponent();
+            
         }
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
@@ -30,6 +36,10 @@ namespace Home
             functionForm.Visibility = Visibility.Collapsed;
             btnBack.Visibility = Visibility.Visible;
             addForm.Visibility = Visibility.Visible;
+            BindingList<Category> catogory = new BindingList<Category>();
+            catogory = dbManager.loadAllCategoryOfCosmetic();
+            cbCatogoryFrmAdd.ItemsSource = catogory;
+ 
         }
 
         private void EditProduct_Click(object sender, RoutedEventArgs e)
@@ -62,6 +72,51 @@ namespace Home
             {
                 addForm.Visibility = Visibility.Collapsed;
             }
+        }
+
+        
+
+
+        private void SelectProductDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteProductSelected_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddProductFrmAdd_Click(object sender, RoutedEventArgs e)
+        {
+          
+            uint price;
+            string catogory = ((Category)cbCatogoryFrmAdd.SelectedItem).Name;
+        
+            if (!uint.TryParse(txtProductPrice.Text, out price))
+            {
+                MessageBox.Show("Lỗi", "Giá của sản phẩm không hợp lệ!");
+            }
+            else
+            {
+                Cosmetic cosmetic = new Cosmetic();
+                cosmetic.Name = txtProductName.Text;
+                cosmetic.Price = price;
+                cosmetic.Origin = txtProductOrgin.Text;
+                cosmetic.Image_url = "default.jpg";
+                int result = dbManager.addNewCosmeticOfSheet(cosmetic, catogory);
+
+                if (result != -1)
+                {
+                    cosmetic.row_in_db = result;
+                    MessageBox.Show("Lỗi", "Thêm thành công!");
+                }
+                else
+                {
+                    MessageBox.Show("Lỗi", "Thêm không thành công!");
+                }
+            }
+
         }
     }
 }

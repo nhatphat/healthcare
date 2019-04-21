@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Home"
+             xmlns:converter="clr-namespace:Home.converter"
              mc:Ignorable="d" 
              d:DesignHeight="760" d:DesignWidth="1020">
+    <UserControl.Resources>
+        <converter:CosmeticConvertImageRelativePathToAbsolutePath x:Key="convertImageCosmetic"/>
+    </UserControl.Resources>
     <Grid Background="White">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Name="functionForm">
             <Label Content="Chọn chức năng" FontWeight="Bold" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -30,10 +34,10 @@
         </Button>
         <StackPanel Name="addForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
             <Label Content="Chọn danh mục" FontSize="20" FontWeight="Bold"/>
-            <ComboBox Height="40" Width="400" ItemsSource="{Binding Catogory}" Background="{x:Null}">
+            <ComboBox Name="cbCatogoryFrmAdd" Height="40" Width="400"  Background="{x:Null}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -45,7 +49,7 @@
             <TextBox Name="txtProductOrgin" FontSize="20" Padding="1" Width="400" Margin="0 10 0 0" CaretBrush="#FFF78787"/>
             <Label Content="Chi tiết sản phẩm" FontSize="20" FontWeight="Bold"/>
             <TextBox Name="txtProductDetail" FontSize="20" Padding="1" Width="400" Height="150" Margin="0 10 0 0" CaretBrush="#FFF78787"/>
-            <Button Background="#FFF78787" Width="100" Padding="2" Content="Thêm" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Margin="0 15 0 0" BorderBrush="{x:Null}"/>
+            <Button Name="addProductFrmAdd" Background="#FFF78787" Width="100" Padding="2" Content="Thêm" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Margin="0 15 0 0" BorderBrush="{x:Null}" Click="AddProductFrmAdd_Click"/>
         </StackPanel>
 
         <StackPanel Name="deleteForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" >
@@ -65,7 +69,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Background="#FFF78787" Width="100" Padding="2" Content="Xóa" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Margin="0 15 0 0" BorderBrush="{x:Null}"/>
+            <Button Background="#FFF78787" Name="selectProductDelete" Width="100" Padding="2" Content="Chọn" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Margin="0 15 0 0" BorderBrush="{x:Null}" Click="SelectProductDelete_Click"/>
         </StackPanel>
 
         <StackPanel Name="editForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" >
@@ -88,6 +92,31 @@
             <Button Background="#FFF78787" Width="100" Padding="2" Content="Sửa" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Margin="0 15 0 0" BorderBrush="{x:Null}"/>
         </StackPanel>
 
+        <!--Show sản phẩm muốn xóa sau khi chọn danh mục và sản phẩm-->
 
+        <StackPanel Name="productFullDetail" Margin="60" Orientation="Horizontal" Visibility="Collapsed">
+            <Image Height="100" Source="{Binding Image_url, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <StackPanel Margin="50 0 0 0" MaxWidth="200">
+
+                <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  FontSize="20"  FontWeight="Bold" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="2.5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row ="0" Content="Giá bán:" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" />
+                    <Label Grid.Column="0" Grid.Row ="1" Content="Xuất xứ:" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" />
+                    <Label Grid.Column="1" Grid.Row ="0" Content="{Binding Price}" FontSize="15" FontWeight="Bold" HorizontalContentAlignment="Left" Foreground="DarkRed" />
+                    <Label Grid.Column="1" Grid.Row ="1" Content="{Binding Origin}" FontSize="15" FontWeight="Bold" HorizontalContentAlignment="Left"/>
+                </Grid>
+                <Label Content="Thông tin chi tiết:" FontSize="15" FontWeight="Bold"  />
+                <TextBlock Text="{Binding Detail}" TextWrapping="Wrap" FontSize="15"/>
+                <Button FontSize="15" Name="deleteProductSelected" FontWeight="Bold" Foreground="White" Background="#FFF78787" Content="Xóa" Click="DeleteProductSelected_Click"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

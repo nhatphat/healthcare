@@ -377,6 +377,11 @@ namespace Home.Utils
         public void saveChanged()
         {
             workbook.Save(Global.getBaseFolder() + DATA_PATH);
+
+            workbook = null;
+            var file = File.Open(Global.getBaseFolder() + DATA_PATH, FileMode.Open);
+            workbook = new Workbook(file);
+            file.Close();
         }
     }
 }
