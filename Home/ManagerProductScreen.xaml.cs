@@ -37,7 +37,7 @@ namespace Home
             btnBack.Visibility = Visibility.Visible;
             addForm.Visibility = Visibility.Visible;
             BindingList<Category> catogory = new BindingList<Category>();
-            catogory = dbManager.loadAllCategoryOfCosmetic();
+            catogory = dbManager.getAllCategoryName();
             cbCatogoryFrmAdd.ItemsSource = catogory;
  
         }
@@ -92,28 +92,34 @@ namespace Home
           
             uint price;
             string catogory = ((Category)cbCatogoryFrmAdd.SelectedItem).Name;
-        
-            if (!uint.TryParse(txtProductPrice.Text, out price))
+
+            if (string.IsNullOrEmpty(txtProductName.Text) || string.IsNullOrEmpty(txtProductPrice.Text) || string.IsNullOrEmpty(txtProductOrgin.Text) || string.IsNullOrEmpty(txtProductDetail.Text))
             {
-                MessageBox.Show("Lỗi", "Giá của sản phẩm không hợp lệ!");
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Lỗi");
+            }
+            else if (!uint.TryParse(txtProductPrice.Text, out price))
+            {
+                MessageBox.Show("Giá của sản phẩm không hợp lệ!", "Lỗi");
             }
             else
             {
                 Cosmetic cosmetic = new Cosmetic();
+             
                 cosmetic.Name = txtProductName.Text;
                 cosmetic.Price = price;
                 cosmetic.Origin = txtProductOrgin.Text;
+                cosmetic.Detail = txtProductDetail.Text;
                 cosmetic.Image_url = "default.jpg";
                 int result = dbManager.addNewCosmeticOfSheet(cosmetic, catogory);
 
                 if (result != -1)
                 {
                     cosmetic.row_in_db = result;
-                    MessageBox.Show("Lỗi", "Thêm thành công!");
+                    MessageBox.Show("Thêm thành công", "Lỗi");
                 }
                 else
                 {
-                    MessageBox.Show("Lỗi", "Thêm không thành công!");
+                    MessageBox.Show("Thêm không thành công", "Lỗi!");
                 }
             }
 
