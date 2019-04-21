@@ -41,8 +41,9 @@ namespace Home
         private void Product_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var stack = sender as StackPanel;
-            var product = stack.DataContext as Cosmetic;
-            this.Content = new ProductDetailScreen(product);
+            var data = stack.DataContext as Cosmetic;
+            ProductDetailScreen screen = new ProductDetailScreen(data);
+            this.Content = screen;
         }
 
         
