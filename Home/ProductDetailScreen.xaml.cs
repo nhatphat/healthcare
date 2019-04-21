@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Home.models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,19 @@ using System.Windows.Shapes;
 namespace Home
 {
     /// <summary>
-    /// Interaction logic for ManagerProductScreen.xaml
+    /// Interaction logic for ProductDetailScreen.xaml
     /// </summary>
-    public partial class ManagerProductScreen : UserControl
+    public partial class ProductDetailScreen : UserControl
     {
-        public ManagerProductScreen()
+        public ProductDetailScreen(Cosmetic data)
         {
             InitializeComponent();
+
+            Cosmetic product = data;
+            productFullDetail.DataContext = data;
+
+
         }
     }
+       
 }

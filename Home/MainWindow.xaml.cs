@@ -103,5 +103,32 @@ namespace Home
             currentCatogoryName.Text = "Trang chủ";
             addChildForm(new HomeScreen());
         }
+
+        private void BtnCloseWindow_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+      
+        private void CatogoryManager_Click(object sender, RoutedEventArgs e)
+        {
+            currentCatogoryName.Text = "Quản lý danh mục";
+            addChildForm(new ManagerCatogoryScreen());
+        }
+
+        private void ProductManager_Click(object sender, RoutedEventArgs e)
+        {
+            currentCatogoryName.Text = "Quản lý sản phẩm";
+            addChildForm(new ManagerProductScreen());
+        }
+
+        
+
+        
     }
 }

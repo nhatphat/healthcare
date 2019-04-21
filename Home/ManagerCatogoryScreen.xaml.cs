@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Home
 {
     /// <summary>
-    /// Interaction logic for ManagerProductScreen.xaml
+    /// Interaction logic for ManagerCatogoryScreen.xaml
     /// </summary>
-    public partial class ManagerProductScreen : UserControl
+    public partial class ManagerCatogoryScreen : UserControl
     {
-        public ManagerProductScreen()
+        public ManagerCatogoryScreen()
         {
             InitializeComponent();
         }

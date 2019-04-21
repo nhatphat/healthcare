@@ -36,15 +36,16 @@ namespace Home
             }
 
         }
+       
 
-        private void Category_click(object sender, MouseButtonEventArgs e)
+        private void Product_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            var stack = sender as StackPanel;
+            var product = stack.DataContext as Cosmetic;
+            this.Content = new ProductDetailScreen(product);
         }
 
-        private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
+        
+        
     }
 }

@@ -6,7 +6,14 @@
              xmlns:local="clr-namespace:Home"
              mc:Ignorable="d" 
              d:DesignHeight="760" d:DesignWidth="1020">
-    <Grid Background="LightPink">
-        <Label Content="HOME" FontSize="100" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid Background="White">
+        <StackPanel Margin="30">
+            <Image Source="/Images/app/panel-home.jpg" ></Image>
+            <!--<Separator/>-->
+            <StackPanel Margin="0 30 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Image Source="/Images/app/panel-home-2.jpg" Width="500"></Image>
+                <Image Source="/Images/app/panel-home-3.jpg" Width="500" ></Image>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Home.ProductDetailScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Home"
+             xmlns:converter="clr-namespace:Home.converter"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="760" d:DesignWidth="1020">
+    <UserControl.Resources>
+        <converter:CategoryConvertImageRelativePathToAbsolutePath x:Key="convertImageCosmetic"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <StackPanel Name="productFullDetail" >
+            <Image Height="200" Width="200" Source="{Binding Image_url, Converter={StaticResource convertImageCosmetic}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Content="{Binding Name}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="17" FontWeight="Bold" />
+            <Label Content="{Binding Price}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="17" FontWeight="Bold"  />
+            <Label Content="{Binding Origin}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="17" FontWeight="Bold"  />
+            <Label Content="{Binding Detail}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="17" FontWeight="Bold"  />
+        </StackPanel>
+    </Grid>
+</UserControl>
