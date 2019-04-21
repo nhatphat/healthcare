@@ -63,5 +63,16 @@ namespace Home
                 addForm.Visibility = Visibility.Collapsed;
             } 
         }
+
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            btnEdit.Visibility = Visibility.Collapsed;
+            fillForm.Visibility = Visibility.Visible;
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            //Lưu lại danh mục được chỉnh sửa
+        }
     }
 }
