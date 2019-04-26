@@ -106,21 +106,12 @@ namespace Home
 
         private void BtnCloseWindow_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
-            if(
-                MessageBox.Show("Bạn muốn đóng chương trình?", "Xác nhận thoát", MessageBoxButton.YesNo, MessageBoxImage.Warning)
-                 == MessageBoxResult.Yes)
-            {
-                this.Close();
-            }
+            this.Close();
         }
 
         private void btnMinimize_click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
-        }
-=======
-            this.Close();
         }
 
         private void BtnMinimize_Click(object sender, RoutedEventArgs e)
@@ -140,10 +131,6 @@ namespace Home
             currentCatogoryName.Text = "Quản lý sản phẩm";
             addChildForm(new ManagerProductScreen());
         }
-
         
-
-        
->>>>>>> KhanhNhat
     }
 }

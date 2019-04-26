@@ -16,12 +16,6 @@ namespace Home.Utils
         private DBManager() { }
 
         //singleton
-
-        /// <summary>
-        /// tạo đối tượng dbManager thông qua getInstance();
-        /// ví dụ: var dbManager = DBManager.getInstance();
-        /// </summary>
-        /// <returns></returns>
         public static DBManager getInstance()
         {
             if (instance == null)
@@ -36,10 +30,6 @@ namespace Home.Utils
             return instance;
         }
 
-        /// <summary>
-        /// load tất cả các sheet
-        /// </summary>
-        /// <returns></returns>
         public List<Worksheet> getAllSheet()
         {
             List<Worksheet> sheets = new List<Worksheet>();
@@ -63,10 +53,6 @@ namespace Home.Utils
             return sheets;
         }
 
-        /// <summary>
-        /// chỉ load tên và icon và các category
-        /// </summary>
-        /// <returns> danh sách các category chỉ bao gồm tên và icon</returns>
         public BindingList<Category> getAllCategoryName()
         {
             BindingList<Category> categoryName = new BindingList<Category>();
@@ -75,21 +61,17 @@ namespace Home.Utils
             foreach (var sheet in sheets)
             {
                 categoryName.Add(
-                    new Category {
+                    new Category
+                    {
                         Name = sheet.Name,
                         Icon = sheet.Cells[$"{Category.COL_ICON}{2}"].StringValue
-                    }    
+                    }
                 );
             }
 
             return categoryName;
         }
 
-        /// <summary>
-        /// chuyển 1 row dữ liệu thành đối tượng cosmetic
-        /// </summary>
-        /// <param name="rowData"> là 1 row dữ liệu lấy ra từ file excel</param>
-        /// <returns> 1 đối tượng cosmetic </returns>
         private Cosmetic getCosmeticFrom(List<string> rowData)
         {
             return new Cosmetic
@@ -104,13 +86,6 @@ namespace Home.Utils
             };
         }
 
-
-        /// <summary>
-        /// load tất cả các cosmetic của 1 category dựa vào sheet
-        /// lưu ý: hàm này bổ trợ cho getAllCosmeticBySheetName() bên dưới
-        /// </summary>
-        /// <param name="sheet"> 1 sheet của file excel </param>
-        /// <returns> tất cả các cosmetic của category nào đó</returns>
         private BindingList<Cosmetic> getAllCosmeticOf(Worksheet sheet)
         {
             BindingList<Cosmetic> cosmetics = new BindingList<Cosmetic>();
@@ -168,11 +143,6 @@ namespace Home.Utils
             return cosmetics;
         }
 
-        /// <summary>
-        /// load tất cả cosmetic của category dựa vào tên của category
-        /// </summary>
-        /// <param name="sheetName">tên của category </param>
-        /// <returns> tất cả các cosmetic của category với tên truyền vào </returns>
         public BindingList<Cosmetic> getAllCosmeticBySheetName(string sheetName)
         {
             if (workbook != null)
@@ -187,10 +157,6 @@ namespace Home.Utils
             return null;
         }
 
-        /// <summary>
-        /// load tất cả category có trong database
-        /// </summary>
-        /// <returns> Trả ra tất cả category, bao gồm tên, icon và tất cả các cosmetic mà nó chứa </returns>
         public BindingList<Category> loadAllCategoryOfCosmetic()
         {
             BindingList<Category> categories = new BindingList<Category>();
@@ -214,24 +180,7 @@ namespace Home.Utils
             return categories;
         }
 
-
-        /// <summary>
-        /// thêm 1 category
-        /// </summary>
-        /// <param name="name"> tên của category</param>
-        /// <param name="icon"> icon của category
-        ///     lưu ý: icon chính là tên file icon
-        ///     ví dụ: icon.png
-        /// </param>
-        /// <returns> 
-        ///     true: thêm thành công
-        ///     false: ngược lại
-        ///     
-        /// lưu ý: 
-        ///         +> sau khi cho người ta chọn icon nhớ copy file icon đó vào thư mục image :v
-        ///         +> nhớ làm tương tự với update :v
-        /// </returns>
-        public bool addNewCategory(string name, string icon)
+        public bool addNewCategory(string name)
         {
             if (workbook != null)
             {
@@ -248,7 +197,6 @@ namespace Home.Utils
                     sheet.Cells[$"{Cosmetic.COL_ORIGIN}{1}"].Value = "Origin";
                     sheet.Cells[$"{Cosmetic.COL_DETAIL}{1}"].Value = "Detail";
                     sheet.Cells[$"{Category.COL_ICON}{1}"].Value = "Icon Category";
-                    sheet.Cells[$"{Category.COL_ICON}{2}"].Value = icon;
 
                     saveChanged();
                     return true;
@@ -258,16 +206,6 @@ namespace Home.Utils
             return false;
         }
 
-
-        /// <summary>
-        /// chỉ sửa tên category
-        /// </summary>
-        /// <param name="oldName"> tên ban đầu </param>
-        /// <param name="newName"> tên muốn sửa </param>
-        /// <returns>
-        ///     true: sửa thành công
-        ///     false: ngược lại
-        /// </returns>
         public bool editNameCategory(string oldName, string newName)
         {
             if (workbook != null)
@@ -285,12 +223,6 @@ namespace Home.Utils
             return false;
         }
 
-        /// <summary>
-        /// chỉ sửa icon category
-        /// </summary>
-        /// <param name="sheetName">tên category cần sửa</param>
-        /// <param name="newIcon"> icon mới </param>
-        /// <returns> true nếu thành công và ngược lại</returns>
         public bool editIconCategory(string sheetName, string newIcon)
         {
             if (workbook != null)
@@ -308,38 +240,6 @@ namespace Home.Utils
             return false;
         }
 
-
-        /// <summary>
-        /// sửa cả tên và icon của category
-        /// </summary>
-        /// <param name="oldSheetName"> tên ban đầu </param>
-        /// <param name="newSheetName"> tên mới </param>
-        /// <param name="newIcon"> iocn mới </param>
-        public void editCategory(string oldSheetName, string newSheetName, string newIcon)
-        {
-            if (!string.IsNullOrEmpty(newSheetName))
-            {
-                bool c = editNameCategory(oldSheetName, newSheetName);
-                if (c)
-                {
-                    editIconCategory(newSheetName, newIcon);
-                }
-                else
-                {
-                    editIconCategory(oldSheetName, newIcon);
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// tìm ra dòng tiếp theo trong sheet có thể thêm dữ liệu
-        /// </summary>
-        /// <param name="name"> tên của category </param>
-        /// <returns>
-        ///     -1: nếu có lỗi xảy ra
-        ///     any: thành công
-        /// </returns>
         private int findNewRowOfSheet(string name)
         {
             if (workbook != null)
@@ -361,32 +261,6 @@ namespace Home.Utils
             return -1;
         }
 
-
-        /// <summary>
-        /// thêm 1 cosmetic vào category
-        /// </summary>
-        /// <param name="cosmetic"> cosmetic cần thêm </param>
-        /// <param name="sheetName"> category của cosmetic </param>
-        /// <returns>
-        ///     trả về vị trí row của cosmetic trong database nếu thêm thành công
-        ///     -1: nếu thêm bị ngu
-        ///     
-        /// lưu ý: +> sau khi thêm thành công 1 cosmetic, cần thêm thuộc tính row_in_db của comestic đó bằng chính giá trị trả về
-        ///        +> giá trị row_in_db càu cosmetic nhằm để dễ chỉnh sửa cosmetic sau này :v
-        ///        +> ví dụ:
-        ///             var cosmetic = new Cosmetic{..........}
-        ///             var categoryName = "Body"
-        ///             int result = dbManager.addNewCosmeticOfSheet(cosmetic, categoryName)
-        ///             
-        ///             if( result != -1){
-        ///                 cosmetic.row_in_db = result
-        ///             }else{
-        ///                 add bị ngu
-        ///             }
-        ///             
-        ///        +> nếu có update icon, sau khi cho người ta chọn icon nhớ copy file icon đó vào thư mục image :v
-        /// 
-        /// </returns>
         public int addNewCosmeticOfSheet(Cosmetic cosmetic, string sheetName)
         {
             if (workbook != null)
@@ -414,14 +288,7 @@ namespace Home.Utils
             return -1;
         }
 
-
-        /// <summary>
-        /// xóa 1 cosmetic
-        /// </summary>
-        /// <param name="row_db"> row_in_db của cosmetic </param>
-        /// <param name="nameSheet"> tên category mà cosmetic thuộc về </param>
-        /// <returns> true nếu thành công </returns>
-        public bool deleteCosmeticInSheetWithRow(int row_db, string nameSheet)
+        public bool deleteCosmeticWithInSheetWithRow(int row_db, string nameSheet)
         {
             if (workbook != null)
             {
@@ -438,11 +305,6 @@ namespace Home.Utils
             return false;
         }
 
-        /// <summary>
-        /// kiểm tra xem category có rỗng hay không
-        /// </summary>
-        /// <param name="sheet"> tên category cần check </param>
-        /// <returns> true nếu rỗng </returns>
         private bool isEmptyCategory(Worksheet sheet)
         {
             if (workbook != null)
@@ -468,12 +330,6 @@ namespace Home.Utils
             return true;
         }
 
-
-        /// <summary>
-        /// xóa 1 category, nếu rỗng mới dk xóa
-        /// </summary>
-        /// <param name="nameSheet"> tên category cần xóa </param>
-        /// <returns> true nếu thành công </returns>
         public bool deleteCategoryWithName(string nameSheet)
         {
             if (workbook != null)
@@ -494,19 +350,6 @@ namespace Home.Utils
             return false;
         }
 
-
-        /// <summary>
-        /// update 1 cosmetic
-        /// </summary>
-        /// <param name="cosmetic"> cosmetic </param>
-        /// <param name="sheetName"> category của comestic
-        ///     lưu ý: tại sao không lưu thuộc tính category Name vào trong comestic cho dễ truy cập :v
-        ///            -> trả lời: nếu sửa category name thì phải duyệt hết các thằng con để sửa category name thì mất công :v
-        /// 
-        /// </param>
-        /// <returns>
-        /// true nếu thành công
-        ///</returns>
         public bool editCosmeticOfSheet(Cosmetic cosmetic, string sheetName)
         {
             if (workbook != null)
@@ -532,10 +375,6 @@ namespace Home.Utils
             return false;
         }
 
-
-        /// <summary>
-        /// save tất cả thay đổi sau khi tương tác với file excel
-        /// </summary>
         public void saveChanged()
         {
             workbook.Save(Global.getBaseFolder() + DATA_PATH);

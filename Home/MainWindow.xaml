@@ -9,10 +9,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1090" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Window.Resources>
-        <!--cách khai báo converter cho ảnh,
-            lưu ý: cần add xmlns:converter="clr-namespace:Home.converter" và tag window để sử dụng
-            áp dụng y sì cho màn hình nào cần :v
-        -->
         <converter:CategoryConvertImageRelativePathToAbsolutePath x:Key="convertImageCategory"/>
 
         <Storyboard x:Key="OpenMenu">
@@ -54,7 +50,7 @@
     </Window.Triggers>
     <Grid>
 
-        
+
         <StackPanel Orientation="Horizontal">
             <Grid Name="menuLayer" Width="70" Height="800"  HorizontalAlignment="Left" Background="#FFF78787" >
                 <StackPanel>
@@ -69,7 +65,7 @@
                             <materialDesign:PackIcon Kind="ArrowLeft" Foreground="White" Width="25" Height="25"/>
                         </Button>
                     </Grid>
-      
+
                     <ListView Height="500" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="listCategory" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -82,31 +78,22 @@
                     </ListView>
 
                     <!--<Image Name="managerProduct" MouseLeftButtonDown="managerProduct_click" Source="./Images/app/three_dot.png" Width="60"/>-->
-                    
+
                 </StackPanel>
             </Grid>
             <!--Taskbar-->
             <StackPanel Name="rightLayer">
                 <Grid Height="40" Background="LightPink" VerticalAlignment="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
                     <!--Hiển thị current tab-->
-                  
-                        <TextBlock Name="currentCatogoryName"  FontSize="26" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <TextBlock Name="currentCatogoryName"  FontSize="26" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <!--Hai nut này commit tạm vậy đã - t đi ăn cơm đã nha!-->
-                    <!--Đã giải quyết-->
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-<<<<<<< HEAD
-                        <Button ToolTip="Thu nhỏ" Name="btnMinimize" Click="btnMinimize_click" Width="60"  Height="40"  >
-                            Mini
-                        </Button>
-                        <Button ToolTip="Thoát" Name="btnCloseWindow" Click="BtnCloseWindow_Click" Width="80"  Height="40"   HorizontalAlignment="Center">
-                            Close
-=======
                         <Button ToolTip="Thu nhỏ" Name="btnMinimize" Width="50"  Height="40" Click="BtnMinimize_Click" Background="{x:Null}" BorderBrush="{x:Null}" >
-                            <Image Source="/Images/app/minimize-btn.png" /> 
+                            <Image Source="/Images/app/minimize-btn.png" />
                         </Button>
                         <Button ToolTip="Thoát" Name="btnCloseWindow" Width="50"  Height="40" HorizontalAlignment="Center" Click="BtnCloseWindow_Click"  Background="{x:Null}" BorderBrush="{x:Null}">
                             <Image Source="/Images/app/close-btn.png" />
->>>>>>> KhanhNhat
                         </Button>
                         <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges"  StaysOpen="False" Foreground="White">
                             <StackPanel Width="160">
