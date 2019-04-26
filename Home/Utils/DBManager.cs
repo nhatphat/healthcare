@@ -76,13 +76,13 @@ namespace Home.Utils
         {
             return new Cosmetic
             {
-                ID = rowData[1],
+                ID = int.Parse(rowData[1]),
                 Name = rowData[2],
-                Image_url = rowData[3],
-                Price = uint.Parse(rowData[4]),
+                Image = rowData[3],
+                Price = int.Parse(rowData[4]),
                 Origin = rowData[5],
                 Detail = rowData[6],
-                row_in_db = int.Parse(rowData[7])
+                //row_in_db = int.Parse(rowData[7])
             };
         }
 
@@ -120,8 +120,6 @@ namespace Home.Utils
                     // end of row, add cosmetic to list
                     if (row_data.Count > 0)
                     {
-                        // save location of data 
-                        row_data.Add(row.ToString());
                         cosmetics.Add(getCosmeticFrom(row_data));
 
                         // reset row data
@@ -274,7 +272,7 @@ namespace Home.Utils
                         sheet.Cells[$"{Cosmetic.COL_STATUS}{row}"].Value = "0";
                         sheet.Cells[$"{Cosmetic.COL_ID}{row}"].Value = row - 1;
                         sheet.Cells[$"{Cosmetic.COL_NAME}{row}"].Value = cosmetic.Name;
-                        sheet.Cells[$"{Cosmetic.COL_IMAGE_URL}{row}"].Value = cosmetic.Image_url;
+                        sheet.Cells[$"{Cosmetic.COL_IMAGE_URL}{row}"].Value = cosmetic.Image;
                         sheet.Cells[$"{Cosmetic.COL_PRICE}{row}"].Value = cosmetic.Price;
                         sheet.Cells[$"{Cosmetic.COL_ORIGIN}{row}"].Value = cosmetic.Origin;
                         sheet.Cells[$"{Cosmetic.COL_DETAIL}{row}"].Value = cosmetic.Detail;
@@ -357,11 +355,11 @@ namespace Home.Utils
                 var sheet = workbook.Worksheets[sheetName];
                 if (sheet != null)
                 {
-                    int row = cosmetic.row_in_db;
+                    int row = cosmetic.ID + 1;
                     if (row > 1)
                     {
                         sheet.Cells[$"{Cosmetic.COL_NAME}{row}"].Value = cosmetic.Name;
-                        sheet.Cells[$"{Cosmetic.COL_IMAGE_URL}{row}"].Value = cosmetic.Image_url;
+                        sheet.Cells[$"{Cosmetic.COL_IMAGE_URL}{row}"].Value = cosmetic.Image;
                         sheet.Cells[$"{Cosmetic.COL_PRICE}{row}"].Value = cosmetic.Price;
                         sheet.Cells[$"{Cosmetic.COL_ORIGIN}{row}"].Value = cosmetic.Origin;
                         sheet.Cells[$"{Cosmetic.COL_DETAIL}{row}"].Value = cosmetic.Detail;

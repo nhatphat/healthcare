@@ -22,21 +22,16 @@ namespace Home
     /// </summary>
     public partial class CosmeticScreenOf : UserControl
     {
-        public CosmeticScreenOf(Category category)
+        public CosmeticScreenOf(List<Cosmetic> cosmetics)
         {
             InitializeComponent();
 
             var dbManager = DBManager.getInstance();
 
-            this.DataContext = category;
-
-            if(category.Cosmetics.Count > 0)
-            {
-                listCosmetic.ItemsSource = category.Cosmetics;
-            }
+            listCosmetic.ItemsSource = cosmetics;
 
         }
-       
+
 
         private void Product_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -46,7 +41,7 @@ namespace Home
             this.Content = screen;
         }
 
-        
-        
+
+
     }
 }

@@ -36,7 +36,7 @@
 
         <StackPanel Name="deleteForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" >
             <Label Content="Chọn danh mục" FontSize="20" FontWeight="Bold"/>
-            <ComboBox Name="cbDel" Height="40" Width="400" ItemsSource="{Binding Catogory}" Background="{x:Null}">
+            <ComboBox Name="cbDel" Height="40" Width="400" ItemsSource="{Binding category}" Background="{x:Null}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
@@ -48,12 +48,13 @@
 
         <StackPanel Name="editForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" >
             <Label Content="Chọn danh mục" FontSize="20" FontWeight="Bold"/>
-            <ComboBox Name="cbEdit" Height="40" Width="400" ItemsSource="{Binding Catogory}" Background="{x:Null}">
+            <ComboBox Name="cbEdit" Height="40" Width="400" ItemsSource="{Binding category}" Background="{x:Null}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
+                
             </ComboBox>
             <Button Name="btnEdit" Background="#FFF78787" Width="100" Padding="2" Content="Sửa" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Margin="0 15 0 0" BorderBrush="{x:Null}" Click="BtnEdit_Click"/>
             <StackPanel Name="fillForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" >

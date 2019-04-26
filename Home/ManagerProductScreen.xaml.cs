@@ -115,14 +115,14 @@ namespace Home
         private void AddProductFrmAdd_Click(object sender, RoutedEventArgs e)
         {
 
-            uint price;
+            int price;
             string catogory = ((Category)cbCatogoryFrmAdd.SelectedItem).Name;
 
             if (string.IsNullOrEmpty(txtProductName.Text) || string.IsNullOrEmpty(txtProductPrice.Text) || string.IsNullOrEmpty(txtProductOrgin.Text) || string.IsNullOrEmpty(txtProductDetail.Text))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Lỗi");
             }
-            else if (!uint.TryParse(txtProductPrice.Text, out price))
+            else if (!int.TryParse(txtProductPrice.Text, out price))
             {
                 MessageBox.Show("Giá của sản phẩm không hợp lệ!", "Lỗi");
             }
@@ -134,12 +134,12 @@ namespace Home
                 cosmetic.Price = price;
                 cosmetic.Origin = txtProductOrgin.Text;
                 cosmetic.Detail = txtProductDetail.Text;
-                cosmetic.Image_url = "default.jpg";
+                cosmetic.Image = "default.jpg";
                 int result = dbManager.addNewCosmeticOfSheet(cosmetic, catogory);
 
                 if (result != -1)
                 {
-                    cosmetic.row_in_db = result;
+                    //cosmetic.row_in_db = result;
                     MessageBox.Show("Thêm thành công", "Lỗi");
                 }
                 else

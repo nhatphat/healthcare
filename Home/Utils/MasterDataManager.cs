@@ -1,0 +1,177 @@
+﻿using Home.models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Home.Utils
+{
+    public class MasterDataManager
+    {
+        private static MasterDataManager instance;
+        private static master_dataEntities Master_Data_DB;
+
+        private MasterDataManager() { }
+
+        public static MasterDataManager getInstance()
+        {
+            if (instance == null)
+            {
+                instance = new MasterDataManager();
+                Master_Data_DB = new master_dataEntities();
+            }
+
+            return instance;
+        }
+
+        /// <summary>
+        /// lấy id, name icon của category
+        /// </summary>
+        /// <returns></returns>
+        public List<Category> getAllCategory()
+        {
+            return Master_Data_DB.Categories.ToList();
+        }
+
+        /// <summary>
+        /// add category
+        /// </summary>
+        /// <param name="newCategory"></param>
+        /// <returns></returns>
+        public bool addNewCategory(Category newCategory)
+        {
+            var oldCate = Master_Data_DB.Categories.Where(category =>
+
+                category.Name.Equals(newCategory.Name)
+
+            );
+
+            if (oldCate.Count() == 0)
+            {
+                Master_Data_DB.Categories.Add(newCategory);
+                Master_Data_DB.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Xóa category nếu tồn tại và không còn chứa cosmetic
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool deleteCategory(int id)
+        {
+            var cosOf = Master_Data_DB.Cosmetics.Where(cosmetic =>
+
+                cosmetic.Category == id && cosmetic.Status == 0
+            );
+
+            var cate = Master_Data_DB.Categories.Find(id);
+
+            if (cate != null && cosOf.Count() == 0)
+            {
+                Master_Data_DB.Categories.Remove(cate);
+                Master_Data_DB.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// cập nhật category
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        public bool updateCategory(Category category)
+        {
+            var cate = Master_Data_DB.Categories.Find(category.ID);
+            if (cate != null)
+            {
+                cate.Name = category.Name;
+                cate.Icon = category.Icon;
+                Master_Data_DB.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// lấy ra cosmetic theo từng category
+        /// </summary>
+        /// <param name="idCategory"></param>
+        /// <returns></returns>
+        public List<Cosmetic> getAllCosmeticOfCategory(int idCategory)
+        {
+            return Master_Data_DB.Cosmetics.Where(cosmetic =>
+
+                cosmetic.Category == idCategory && cosmetic.Status == 0
+
+            ).ToList();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cosmetic"></param>
+        /// <returns></returns>
+        public bool addNewCosmetic(Cosmetic cosmetic)
+        {
+            if (Master_Data_DB.Cosmetics.Add(cosmetic) != null)
+            {
+                Master_Data_DB.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool deleteCosmetic(int id)
+        {
+            var cos = Master_Data_DB.Cosmetics.Find(id);
+
+            if (cos != null)
+            {
+                cos.Status = -1;
+                Master_Data_DB.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
+
+
+        public bool updateCosmetic(Cosmetic cosmetic)
+        {
+            var cos = Master_Data_DB.Cosmetics.Find(cosmetic.ID);
+            if (cos != null)
+            {
+                cos.Name = cosmetic.Name;
+                cos.Image = cosmetic.Image;
+                cos.Category = cosmetic.Category;
+                cos.Price = cosmetic.Price;
+                cos.Detail = cosmetic.Detail;
+                cos.Origin = cosmetic.Origin;
+                Master_Data_DB.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
+    }
+}
