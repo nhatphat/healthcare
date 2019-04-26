@@ -95,7 +95,7 @@
         <!--Show sản phẩm muốn xóa sau khi chọn danh mục và sản phẩm-->
 
         <StackPanel Name="productFullDetail" Margin="60" Orientation="Horizontal" Visibility="Collapsed">
-            <Image Height="100" Source="{Binding Image_url, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Image Height="100" Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <StackPanel Margin="50 0 0 0" MaxWidth="200">
 
                 <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  FontSize="20"  FontWeight="Bold" />

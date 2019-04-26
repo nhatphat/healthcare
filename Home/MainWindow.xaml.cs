@@ -24,16 +24,25 @@ namespace Home
     /// </summary>
     public partial class MainWindow : Window
     {
+        //using for excel
         private DBManager dbManager;
+
+        //using for SQL Server
+        private MasterDataManager masterDataManager;
 
         public bool? Form { get; private set; }
 
         public MainWindow()
         {
             InitializeComponent();
-
             dbManager = DBManager.getInstance();
-            listCategory.ItemsSource = dbManager.getAllCategoryName();
+            masterDataManager = MasterDataManager.getInstance();
+
+            //listCategory.ItemsSource = dbManager.getAllCategoryName();
+
+            //demo using MasterDataManager
+            listCategory.ItemsSource = masterDataManager.getAllCategory();
+            
 
             this.Closed += new EventHandler(closed);
         }
@@ -67,9 +76,13 @@ namespace Home
             var category_selected = data_context as Category;
             currentCatogoryName.Text = category_selected.Name;
 
-            category_selected.Cosmetics = dbManager.getAllCosmeticBySheetName(category_selected.Name);
+            //old code using excel
+            //category_selected.Cosmetics = dbManager.getAllCosmeticBySheetName(category_selected.Name);
 
-            addChildForm(new CosmeticScreenOf(category_selected));
+            //using MasterDataManager
+            var allCosmeticOfCategorySelected = masterDataManager.getAllCosmeticOfCategory(category_selected.ID);
+
+            addChildForm(new CosmeticScreenOf(allCosmeticOfCategorySelected));
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -23,20 +23,22 @@ namespace Home
     /// </summary>
     public partial class ManagerCatogoryScreen : UserControl
     {
+        private MasterDataManager masterDataManager;
+
         public ManagerCatogoryScreen()
         {
             InitializeComponent();
-
+            masterDataManager = MasterDataManager.getInstance();
 
         }
 
         private void updateCB()
         {
-            var Catogory = getAllCategoryName();
+            var category = masterDataManager.getAllCategory();
 
             this.DataContext = new
             {
-                Catogory = Catogory
+                category = category
             };
         }
 
@@ -111,19 +113,6 @@ namespace Home
             {
                 MessageBox.Show($"Không thể sửa. {name} đã tồn tại");
             }
-        }
-
-        private BindingList<Category> getAllCategoryName()
-        {
-            var categoryName = new BindingList<Category>();
-
-            var sheets = DBManager.getInstance().getAllSheet();
-            foreach (var sheet in sheets)
-            {
-                categoryName.Add(new Category { Name = sheet.Name });
-            }
-
-            return categoryName;
         }
 
         private void btnAddCategory_Click(object sender, RoutedEventArgs e)

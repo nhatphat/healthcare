@@ -14,7 +14,7 @@
     
     <Grid>
         <StackPanel Name="productFullDetail" Margin="60" Orientation="Horizontal">
-            <Image Height="300" Source="{Binding Image_url, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Image Height="300" Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <StackPanel Margin="50 0 0 0" MaxWidth="600">
                 
                 <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  FontSize="30"  FontWeight="Bold" />

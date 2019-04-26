@@ -24,7 +24,7 @@
                 <DataTemplate>
                     <Border CornerRadius="6" BorderBrush="LightPink" BorderThickness="2">
                         <StackPanel Name="product" MouseLeftButtonDown="Product_MouseLeftButtonDown"  Height="260" Width="180">
-                            <Image Height="100" Width="100"  Source="{Binding Image_url, Converter={StaticResource convertImageCosmetic}}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+                            <Image Height="100" Width="100"  Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
                             <TextBlock MinHeight="80" MaxHeight="80" TextWrapping="Wrap" Text="{Binding Name}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Margin="5 0 5 0"/>
                             <Separator/>
                             <Label Content="{Binding Price}" Margin="5 0 5 0 " FontWeight="Bold"/>
