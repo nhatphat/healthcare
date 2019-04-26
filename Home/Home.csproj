@@ -224,5 +224,6 @@
     <Resource Include="Images\app\back-icon.ico" />
     <Content Include="libs\Aspose.Cells.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
