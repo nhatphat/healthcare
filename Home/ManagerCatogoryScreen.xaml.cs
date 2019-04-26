@@ -51,7 +51,7 @@ namespace Home
         {
             functionForm.Visibility = Visibility.Collapsed;
             btnBack.Visibility = Visibility.Visible;
-            deleteForm.Visibility = Visibility.Visible;
+            editForm.Visibility = Visibility.Visible;
 
             updateCB();
         }
@@ -60,7 +60,7 @@ namespace Home
         {
             functionForm.Visibility = Visibility.Collapsed;
             btnBack.Visibility = Visibility.Visible;
-            editForm.Visibility = Visibility.Visible;
+            deleteForm.Visibility = Visibility.Visible;
 
             updateCB();
         }
