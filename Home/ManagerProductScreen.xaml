@@ -17,10 +17,10 @@
                 <Button ToolTip="Thêm" Background="#FFF78787" Name="addProduct" Height="150" Width="150" Margin="10" BorderBrush="{x:Null}" Click="AddProduct_Click">
                     <Image Source="/Images/app/add-btn.png"></Image>
                 </Button>
-                <Button ToolTip="Xóa" Background="#FFF78787" Name="editProduct" Height="150" Width="150" Margin="10" BorderBrush="{x:Null}" Click="EditProduct_Click">
+                <Button ToolTip="Xóa" Background="#FFF78787" Name="deleteProduct" Height="150" Width="150" Margin="10" BorderBrush="{x:Null}" Click="DeleteProduct_Click">
                     <Image Source="/Images/app/delete-btn.png"></Image>
                 </Button>
-                <Button ToolTip="Sửa" Background="#FFF78787" Name="deleteProduct"  Height="150" Width="150" Margin="10" BorderBrush="{x:Null}" Click="DeleteProduct_Click">
+                <Button ToolTip="Sửa" Background="#FFF78787" Name="editProduct"  Height="150" Width="150" Margin="10" BorderBrush="{x:Null}" Click="EditProduct_Click">
                     <Image Source="/Images/app/edit-btn.png"></Image>
                 </Button>
             </StackPanel>
@@ -54,7 +54,7 @@
 
         <StackPanel Name="deleteForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" >
             <Label Content="Chọn danh mục" FontSize="20" FontWeight="Bold"/>
-            <ComboBox Height="40" Width="400" ItemsSource="{Binding Catogory}" Background="{x:Null}">
+            <ComboBox Name="cbDel" Height="40" Width="400" ItemsSource="{Binding category}" Background="{x:Null}" SelectionChanged="item_del_changed">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
@@ -62,7 +62,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Label Content="Chọn sản phẩm" FontSize="20" FontWeight="Bold"/>
-            <ComboBox Height="40" Width="400" ItemsSource="{Binding Cosmetic}" Background="{x:Null}">
+            <ComboBox Height="40" Width="400" ItemsSource="{Binding cosmetic}" Background="{x:Null}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
@@ -74,7 +74,7 @@
 
         <StackPanel Name="editForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" >
             <Label Content="Chọn danh mục" FontSize="20" FontWeight="Bold"/>
-            <ComboBox Height="40" Width="400" ItemsSource="{Binding Catogory}" Background="{x:Null}">
+            <ComboBox Name="cbEdit" Height="40" Width="400" ItemsSource="{Binding category}" Background="{x:Null}" SelectionChanged="item_edit_changed">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
@@ -82,7 +82,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Label Content="Chọn sản phẩm" FontSize="20" FontWeight="Bold"/>
-            <ComboBox Height="40" Width="400" ItemsSource="{Binding Cosmetic}" Background="{x:Null}">
+            <ComboBox Height="40" Width="400" ItemsSource="{Binding cosmetic}" Background="{x:Null}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>

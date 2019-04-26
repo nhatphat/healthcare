@@ -25,10 +25,31 @@ namespace Home
     {
         private DBManager dbManager = DBManager.getInstance();
 
+        private BindingList<Category> category;
+        private BindingList<Cosmetic> cosmetic;
+
         public ManagerProductScreen()
         {
             InitializeComponent();
-            
+
+
+        }
+
+        private void updateDataContext(string categoryName)
+        {
+            if (categoryName == null)
+            {
+                category = dbManager.getAllCategoryName();
+            }
+            else
+            {
+                cosmetic = dbManager.getAllCosmeticBySheetName(categoryName);
+            }
+            this.DataContext = new
+            {
+                category = category,
+                cosmetic = cosmetic
+            };
         }
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
@@ -36,24 +57,28 @@ namespace Home
             functionForm.Visibility = Visibility.Collapsed;
             btnBack.Visibility = Visibility.Visible;
             addForm.Visibility = Visibility.Visible;
-            BindingList<Category> catogory = new BindingList<Category>();
-            catogory = dbManager.getAllCategoryName();
-            cbCatogoryFrmAdd.ItemsSource = catogory;
- 
+            BindingList<Category> catogorys = new BindingList<Category>();
+            catogorys = dbManager.getAllCategoryName();
+            cbCatogoryFrmAdd.ItemsSource = catogorys;
+
         }
 
         private void EditProduct_Click(object sender, RoutedEventArgs e)
         {
             functionForm.Visibility = Visibility.Collapsed;
             btnBack.Visibility = Visibility.Visible;
-            deleteForm.Visibility = Visibility.Visible;
+            editForm.Visibility = Visibility.Visible;
+
+            updateDataContext(null);
         }
 
         private void DeleteProduct_Click(object sender, RoutedEventArgs e)
         {
             functionForm.Visibility = Visibility.Collapsed;
             btnBack.Visibility = Visibility.Visible;
-            editForm.Visibility = Visibility.Visible;
+            deleteForm.Visibility = Visibility.Visible;
+
+            updateDataContext(null);
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -74,12 +99,12 @@ namespace Home
             }
         }
 
-        
+
 
 
         private void SelectProductDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            productFullDetail.Visibility = Visibility.Visible;
         }
 
         private void DeleteProductSelected_Click(object sender, RoutedEventArgs e)
@@ -89,7 +114,7 @@ namespace Home
 
         private void AddProductFrmAdd_Click(object sender, RoutedEventArgs e)
         {
-          
+
             uint price;
             string catogory = ((Category)cbCatogoryFrmAdd.SelectedItem).Name;
 
@@ -104,7 +129,7 @@ namespace Home
             else
             {
                 Cosmetic cosmetic = new Cosmetic();
-             
+
                 cosmetic.Name = txtProductName.Text;
                 cosmetic.Price = price;
                 cosmetic.Origin = txtProductOrgin.Text;
@@ -123,6 +148,26 @@ namespace Home
                 }
             }
 
+        }
+
+        private void item_edit_changed(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbEdit.SelectedItem != null)
+            {
+                var category = ((Category)cbEdit.SelectedItem).Name;
+
+                updateDataContext(category);
+            }
+        }
+
+        private void item_del_changed(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbDel.SelectedItem != null)
+            {
+                var category = ((Category)cbDel.SelectedItem).Name;
+
+                updateDataContext(category);
+            }
         }
     }
 }
