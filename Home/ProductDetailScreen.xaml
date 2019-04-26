@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="Home.ProductDetailScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Home"
+             xmlns:converter="clr-namespace:Home.converter"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="760" d:DesignWidth="1020">
+    <UserControl.Resources>
+        <converter:CosmeticConvertImageRelativePathToAbsolutePath x:Key="convertImageCosmetic"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <StackPanel Name="productFullDetail" Margin="60" Orientation="Horizontal">
+            <Image Height="300" Source="{Binding Image_url, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <StackPanel Margin="50 0 0 0" MaxWidth="600">
+                
+                <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  FontSize="30"  FontWeight="Bold" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="2.5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row ="0" Content="Giá bán:" FontSize="17" FontWeight="Bold" VerticalAlignment="Center" />
+                    <Label Grid.Column="0" Grid.Row ="1" Content="Xuất xứ:" FontSize="17" FontWeight="Bold" VerticalAlignment="Center" />
+                    <Label Grid.Column="1" Grid.Row ="0" Content="{Binding Price}" FontSize="22" FontWeight="Bold" HorizontalContentAlignment="Left" Foreground="DarkRed" />
+                    <Label Grid.Column="1" Grid.Row ="1" Content="{Binding Origin}" FontSize="17" FontWeight="Bold" HorizontalContentAlignment="Left"/>
+                </Grid>
+                <Label Content="Thông tin chi tiết:" FontSize="17" FontWeight="Bold"  />
+                <TextBlock Text="{Binding Detail}" TextWrapping="Wrap" FontSize="17"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

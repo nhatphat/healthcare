@@ -106,6 +106,7 @@ namespace Home
 
         private void BtnCloseWindow_Click(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
             if(
                 MessageBox.Show("Bạn muốn đóng chương trình?", "Xác nhận thoát", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                  == MessageBoxResult.Yes)
@@ -118,5 +119,31 @@ namespace Home
         {
             this.WindowState = WindowState.Minimized;
         }
+=======
+            this.Close();
+        }
+
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+      
+        private void CatogoryManager_Click(object sender, RoutedEventArgs e)
+        {
+            currentCatogoryName.Text = "Quản lý danh mục";
+            addChildForm(new ManagerCatogoryScreen());
+        }
+
+        private void ProductManager_Click(object sender, RoutedEventArgs e)
+        {
+            currentCatogoryName.Text = "Quản lý sản phẩm";
+            addChildForm(new ManagerProductScreen());
+        }
+
+        
+
+        
+>>>>>>> KhanhNhat
     }
 }

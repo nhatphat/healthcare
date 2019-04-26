@@ -94,12 +94,26 @@
                     <!--Hai nut này commit tạm vậy đã - t đi ăn cơm đã nha!-->
                     <!--Đã giải quyết-->
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+<<<<<<< HEAD
                         <Button ToolTip="Thu nhỏ" Name="btnMinimize" Click="btnMinimize_click" Width="60"  Height="40"  >
                             Mini
                         </Button>
                         <Button ToolTip="Thoát" Name="btnCloseWindow" Click="BtnCloseWindow_Click" Width="80"  Height="40"   HorizontalAlignment="Center">
                             Close
+=======
+                        <Button ToolTip="Thu nhỏ" Name="btnMinimize" Width="50"  Height="40" Click="BtnMinimize_Click" Background="{x:Null}" BorderBrush="{x:Null}" >
+                            <Image Source="/Images/app/minimize-btn.png" /> 
                         </Button>
+                        <Button ToolTip="Thoát" Name="btnCloseWindow" Width="50"  Height="40" HorizontalAlignment="Center" Click="BtnCloseWindow_Click"  Background="{x:Null}" BorderBrush="{x:Null}">
+                            <Image Source="/Images/app/close-btn.png" />
+>>>>>>> KhanhNhat
+                        </Button>
+                        <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges"  StaysOpen="False" Foreground="White">
+                            <StackPanel Width="160">
+                                <Button HorizontalContentAlignment="Center" Name="catogoryManager"  Content="Quản lý danh mục" Click="CatogoryManager_Click"/>
+                                <Button HorizontalContentAlignment="Center" Name="productManager" Content="Quản lý sản phẩm" Click="ProductManager_Click"/>
+                            </StackPanel>
+                        </materialDesign:PopupBox>
                     </StackPanel>
                 </Grid>
                 <!--show detail cosmetic of category-->

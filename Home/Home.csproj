@@ -71,10 +71,16 @@
     <Compile Include="HomeScreen.xaml.cs">
       <DependentUpon>HomeScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManagerCatogoryScreen.xaml.cs">
+      <DependentUpon>ManagerCatogoryScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManagerProductScreen.xaml.cs">
       <DependentUpon>ManagerProductScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="models\Category.cs" />
+    <Compile Include="ProductDetailScreen.xaml.cs">
+      <DependentUpon>ProductDetailScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\DBManager.cs" />
     <Compile Include="Utils\Global.cs" />
     <Page Include="CosmeticScreenOf.xaml">
@@ -97,7 +103,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ManagerCatogoryScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManagerProductScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProductDetailScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,6 +213,15 @@
     <Resource Include="Images\category\face-icon.ico" />
     <Resource Include="Images\category\makeuptools-icon.ico" />
     <Resource Include="Images\category\Perfume-icon.ico" />
+    <Resource Include="Images\app\panel-home.jpg" />
+    <Resource Include="Images\app\panel-home-2.jpg" />
+    <Resource Include="Images\app\panel-home-3.jpg" />
+    <Resource Include="Images\app\add-btn.png" />
+    <Resource Include="Images\app\close-btn.png" />
+    <Resource Include="Images\app\delete-btn.png" />
+    <Resource Include="Images\app\edit-btn.png" />
+    <Resource Include="Images\app\minimize-btn.png" />
+    <Resource Include="Images\app\back-icon.ico" />
     <Content Include="libs\Aspose.Cells.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
