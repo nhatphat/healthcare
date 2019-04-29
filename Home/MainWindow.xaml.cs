@@ -25,7 +25,7 @@ namespace Home
     public partial class MainWindow : Window
     {
         //using for excel
-        private DBManager dbManager;
+        //private DBManager dbManager;
 
         //using for SQL Server
         private MasterDataManager masterDataManager;
@@ -35,7 +35,7 @@ namespace Home
         public MainWindow()
         {
             InitializeComponent();
-            dbManager = DBManager.getInstance();
+            //dbManager = DBManager.getInstance();
             masterDataManager = MasterDataManager.getInstance();
 
             //listCategory.ItemsSource = dbManager.getAllCategoryName();
@@ -50,7 +50,7 @@ namespace Home
         private void closed(object sender, EventArgs e)
         {
             // save all changed again
-            dbManager.saveChanged();
+            masterDataManager.saveChanged();
         }
 
         private void BtnOpenMenu_Click(object sender, RoutedEventArgs e)

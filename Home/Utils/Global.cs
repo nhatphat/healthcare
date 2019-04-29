@@ -38,6 +38,7 @@ namespace Home.Utils
         public static OpenFileDialog getFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "jpg files(*.jpg)|*.jpg|PNG files(*.png)|*.png|ico files(*.ico)|*.ico";
             openFileDialog.InitialDirectory = @"C:\";
             openFileDialog.Title = "Choose file";
             openFileDialog.CheckFileExists = true;
