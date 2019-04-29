@@ -22,11 +22,14 @@ namespace Home
     /// </summary>
     public partial class CosmeticScreenOf : UserControl
     {
+        private MasterDataManager masterDataManager;
         public CosmeticScreenOf(List<Cosmetic> cosmetics)
         {
             InitializeComponent();
 
-            var dbManager = DBManager.getInstance();
+            //var dbManager = DBManager.getInstance();
+            
+            masterDataManager = MasterDataManager.getInstance();
 
             listCosmetic.ItemsSource = cosmetics;
 

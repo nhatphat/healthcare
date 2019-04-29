@@ -1,9 +1,11 @@
 ﻿using Home.models;
 using Home.Utils;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Cache;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +17,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
+
+
 
 namespace Home
 {
@@ -63,7 +68,6 @@ namespace Home
             functionForm.Visibility = Visibility.Collapsed;
             btnBack.Visibility = Visibility.Visible;
             deleteForm.Visibility = Visibility.Visible;
-
             updateCB();
         }
 
@@ -89,14 +93,12 @@ namespace Home
         {
             btnEdit.Visibility = Visibility.Collapsed;
             fillForm.Visibility = Visibility.Visible;
-
-            txtCatogoryNameEdit.Text = ((Category)cbEdit.SelectedItem).Name;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             //Lưu lại danh mục được chỉnh sửa
-
+            var icon= ((Category)cbEdit.SelectedItem).Icon;
             var name = txtCatogoryNameEdit.Text;
 
             if (string.IsNullOrEmpty(name))
@@ -104,48 +106,85 @@ namespace Home
                 MessageBox.Show("Vui lòng nhập tên danh mục");
                 return;
             }
-
-            if (DBManager.getInstance().editNameCategory(((Category)cbEdit.SelectedItem).Name, name))
-            {
-                MessageBox.Show($"Sửa {name} thành công");
-            }
-            else
-            {
-                MessageBox.Show($"Không thể sửa. {name} đã tồn tại");
+            else {
+                var oldCategoryName = ((Category)cbEdit.SelectedItem).Name;
+                Category oldCategory = (Category)cbEdit.SelectedItem;
+                Category newCategory = new Category()
+                {
+                    Name = name,
+                    Icon = icon
+                };
+                if (MasterDataManager.getInstance().updateCategory(oldCategory,newCategory))
+                {
+                        MessageBox.Show($"Cập nhật {oldCategoryName} thành {newCategory.Name} thành công");
+                        updateCB();
+                }
+                else
+                {
+                        MessageBox.Show($"Không thể sửa. {name} đã tồn tại");
+                }
             }
         }
 
         private void btnAddCategory_Click(object sender, RoutedEventArgs e)
         {
             var name = txtCatogoryName.Text;
+            Category newCategory = new Category(){
+                Name = name,
+                Icon = "default-catogory-icon.ico"
+            };
             if (string.IsNullOrEmpty(name))
             {
                 MessageBox.Show("Vui lòng nhập tên danh mục");
                 return;
             }
 
-            if (DBManager.getInstance().addNewCategory(name))
+            if (MasterDataManager.getInstance().addNewCategory(newCategory))
             {
-                MessageBox.Show($"Thêm {name} thành công");
+                MessageBox.Show($"Thêm {newCategory.Name} thành công");
+                updateCB();
             }
             else
             {
-                MessageBox.Show($"Không thể thêm. {name} đã tồn tại");
+                MessageBox.Show($"Không thể thêm. {newCategory.Name} đã tồn tại");
             }
         }
 
         private void btnDelCategory_Click(object sender, RoutedEventArgs e)
         {
-            var category = ((Category)cbDel.SelectedItem).Name;
+            var categoryId = ((Category)cbDel.SelectedItem).ID;
+            var categoryName = ((Category)cbDel.SelectedItem).Name;
 
-            if (DBManager.getInstance().deleteCategoryWithName(category))
+            if (MasterDataManager.getInstance().deleteCategory(categoryId))
             {
-                MessageBox.Show($"Xóa {category} thành công");
+                MessageBox.Show($"Xóa {categoryName} thành công");
+                updateCB();
             }
             else
             {
-                MessageBox.Show($"Xóa {category} thất bại. Còn sản phẩm thuộc loại này");
+                MessageBox.Show($"Xóa {categoryName} thất bại. Còn sản phẩm thuộc loại này");
             }
+        }
+
+        private void ChooseIcon_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "jpg files(*.jpg)|*.jpg|PNG files(*.png)|*.png|ico files(*.ico)|*.ico";
+            if(fileDialog.ShowDialog() == true)
+            {
+                var imagePath = fileDialog.FileName;
+
+                BitmapImage imageBitmap = new BitmapImage();
+                imageBitmap.BeginInit();
+                imageBitmap.CacheOption = BitmapCacheOption.None;
+                imageBitmap.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+                imageBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                imageBitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                imageBitmap.UriSource = new Uri(imagePath, UriKind.RelativeOrAbsolute);
+                imageBitmap.EndInit();             
+                reviewIcon.Source = imageBitmap;
+            }
+            
         }
     }
 }

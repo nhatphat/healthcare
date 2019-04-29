@@ -44,7 +44,6 @@ namespace Home.Utils
             var oldCate = Master_Data_DB.Categories.Where(category =>
 
                 category.Name.Equals(newCategory.Name)
-
             );
 
             if (oldCate.Count() == 0)
@@ -88,13 +87,13 @@ namespace Home.Utils
         /// </summary>
         /// <param name="category"></param>
         /// <returns></returns>
-        public bool updateCategory(Category category)
+        public bool updateCategory(Category oldCategory, Category NewCategory)
         {
-            var cate = Master_Data_DB.Categories.Find(category.ID);
+            var cate = Master_Data_DB.Categories.Find(oldCategory.ID);
             if (cate != null)
             {
-                cate.Name = category.Name;
-                cate.Icon = category.Icon;
+                cate.Name = NewCategory.Name;
+                cate.Icon = NewCategory.Icon;
                 Master_Data_DB.SaveChanges();
 
                 return true;
@@ -173,5 +172,11 @@ namespace Home.Utils
 
             return false;
         }
+           
+        public void saveChanged()
+        {
+            Master_Data_DB.SaveChanges();
+        }
+   
     }
 }

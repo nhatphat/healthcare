@@ -195,7 +195,7 @@ namespace Home.Utils
                     sheet.Cells[$"{Cosmetic.COL_ORIGIN}{1}"].Value = "Origin";
                     sheet.Cells[$"{Cosmetic.COL_DETAIL}{1}"].Value = "Detail";
                     sheet.Cells[$"{Category.COL_ICON}{1}"].Value = "Icon Category";
-
+                    sheet.Cells[$"{Category.COL_ICON}{2}"].Value = "default-catogory-icon.ico";
                     saveChanged();
                     return true;
                 }

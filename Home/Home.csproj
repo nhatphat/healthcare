@@ -80,8 +80,8 @@
     <Compile Include="HomeScreen.xaml.cs">
       <DependentUpon>HomeScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ManagerCatogoryScreen.xaml.cs">
-      <DependentUpon>ManagerCatogoryScreen.xaml</DependentUpon>
+    <Compile Include="ManagerCategoryScreen.xaml.cs">
+      <DependentUpon>ManagerCategoryScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagerProductScreen.xaml.cs">
       <DependentUpon>ManagerProductScreen.xaml</DependentUpon>
@@ -130,7 +130,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ManagerCatogoryScreen.xaml">
+    <Page Include="ManagerCategoryScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,6 +243,7 @@
     <Resource Include="Images\cosmetic\default.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\category\default-catogory-icon.ico" />
     <Content Include="models\master_data.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>master_data.edmx</DependentUpon>
@@ -272,6 +273,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="System\Windows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

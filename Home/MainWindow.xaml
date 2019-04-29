@@ -66,7 +66,7 @@
                         </Button>
                     </Grid>
 
-                    <ListView Height="500" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="listCategory" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <ListView Height="598" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="listCategory" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel ToolTip="{Binding Name}" Orientation="Horizontal" MouseLeftButtonDown="Category_click">
