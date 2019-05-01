@@ -25,8 +25,8 @@ namespace Home.models
 
         private int id;
         private string name;
-        private string icon = "default_category_icon.ico";
-
+        private string icon = "default-category-icon.ico";
+        private int status = 0;
         public int ID
         {
             get => id;
@@ -57,6 +57,16 @@ namespace Home.models
             }
         }
 
+        public int Status
+        {
+            get => status;
+            set
+            {
+                status = value;
+                notifyPropertyChanged("Status");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void notifyPropertyChanged(string name)
@@ -66,5 +76,6 @@ namespace Home.models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cosmetic> Cosmetics { get; set; }
+
     }
 }

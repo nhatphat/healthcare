@@ -23,7 +23,8 @@ namespace Home
     /// </summary>
     public partial class ManagerProductScreen : UserControl
     {
-        private DBManager dbManager = DBManager.getInstance();
+
+        MasterDataManager masterDataManager = MasterDataManager.getInstance();
 
         private BindingList<Category> category;
         private BindingList<Cosmetic> cosmetic;
@@ -35,15 +36,15 @@ namespace Home
 
         }
 
-        private void updateDataContext(string categoryName)
+        private void updateDataContext(int categoryId)
         {
-            if (categoryName == null)
+            if (categoryId == -1)
             {
-                category = dbManager.getAllCategoryName();
+                category  = new BindingList<Category>(masterDataManager.getAllCategory());
             }
             else
             {
-                cosmetic = dbManager.getAllCosmeticBySheetName(categoryName);
+                cosmetic = new BindingList<Cosmetic>(masterDataManager.getAllCosmeticOfCategory(categoryId));
             }
             this.DataContext = new
             {
@@ -57,8 +58,8 @@ namespace Home
             functionForm.Visibility = Visibility.Collapsed;
             btnBack.Visibility = Visibility.Visible;
             addForm.Visibility = Visibility.Visible;
-            BindingList<Category> catogorys = new BindingList<Category>();
-            catogorys = dbManager.getAllCategoryName();
+
+            BindingList<Category> catogorys = new BindingList<Category>(masterDataManager.getAllCategory());
             cbCatogoryFrmAdd.ItemsSource = catogorys;
 
         }
@@ -69,7 +70,7 @@ namespace Home
             btnBack.Visibility = Visibility.Visible;
             editForm.Visibility = Visibility.Visible;
 
-            updateDataContext(null);
+            updateDataContext(-1);
         }
 
         private void DeleteProduct_Click(object sender, RoutedEventArgs e)
@@ -78,7 +79,7 @@ namespace Home
             btnBack.Visibility = Visibility.Visible;
             deleteForm.Visibility = Visibility.Visible;
 
-            updateDataContext(null);
+            updateDataContext(-1);
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -89,13 +90,17 @@ namespace Home
             {
                 editForm.Visibility = Visibility.Collapsed;
             }
-            else if (deleteForm.Visibility == Visibility.Visible)
+            if (deleteForm.Visibility == Visibility.Visible)
             {
                 deleteForm.Visibility = Visibility.Collapsed;
             }
-            else if (addForm.Visibility == Visibility.Visible)
+            if (addForm.Visibility == Visibility.Visible)
             {
                 addForm.Visibility = Visibility.Collapsed;
+            }
+            if(productFullDetail.Visibility == Visibility.Visible)
+            {
+                productFullDetail.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -105,11 +110,26 @@ namespace Home
         private void SelectProductDelete_Click(object sender, RoutedEventArgs e)
         {
             productFullDetail.Visibility = Visibility.Visible;
+            deleteForm.Visibility = Visibility.Collapsed;
+            Cosmetic cosmetic = (Cosmetic)cbCosmeticDel.SelectedItem;
+            productFullDetail.DataContext = cosmetic;
         }
 
         private void DeleteProductSelected_Click(object sender, RoutedEventArgs e)
         {
-
+            
+        
+            Cosmetic cosmetic = productFullDetail.DataContext as Cosmetic;
+            bool result = MasterDataManager.getInstance().deleteCosmetic(cosmetic.ID);
+            if(result)
+            {
+                MessageBox.Show($"Đã xóa {cosmetic.Name}", "Thành công");
+            }
+            else
+            {
+                MessageBox.Show($"Xóa {cosmetic.Name} không thành công","Lỗi");
+            }
+            
         }
 
         private void AddProductFrmAdd_Click(object sender, RoutedEventArgs e)
@@ -128,23 +148,24 @@ namespace Home
             }
             else
             {
+                int categoryId = ((Category)cbCatogoryFrmAdd.SelectedItem).ID;
                 Cosmetic cosmetic = new Cosmetic();
-
+                cosmetic.Category = categoryId;
                 cosmetic.Name = txtProductName.Text;
                 cosmetic.Price = price;
                 cosmetic.Origin = txtProductOrgin.Text;
                 cosmetic.Detail = txtProductDetail.Text;
                 cosmetic.Image = "default.jpg";
-                int result = dbManager.addNewCosmeticOfSheet(cosmetic, catogory);
+                bool result = masterDataManager.addNewCosmetic(cosmetic);
 
-                if (result != -1)
+                if (result)
                 {
                     //cosmetic.row_in_db = result;
-                    MessageBox.Show("Thêm thành công", "Lỗi");
+                    MessageBox.Show("Thêm thành công", "Thành công");
                 }
                 else
                 {
-                    MessageBox.Show("Thêm không thành công", "Lỗi!");
+                    MessageBox.Show("Thêm không thành công", "Lỗi");
                 }
             }
 
@@ -154,9 +175,9 @@ namespace Home
         {
             if (cbEdit.SelectedItem != null)
             {
-                var category = ((Category)cbEdit.SelectedItem).Name;
+                var categoryId = ((Category)cbEdit.SelectedItem).ID;
 
-                updateDataContext(category);
+                updateDataContext(categoryId);
             }
         }
 
@@ -164,10 +185,16 @@ namespace Home
         {
             if (cbDel.SelectedItem != null)
             {
-                var category = ((Category)cbDel.SelectedItem).Name;
+                var categoryId = ((Category)cbDel.SelectedItem).ID;
 
-                updateDataContext(category);
+                updateDataContext(categoryId);
             }
+        }
+
+        private void BtnEditProductSelected_Click(object sender, RoutedEventArgs e)
+        {
+            editForm.Visibility = Visibility.Collapsed;
+            //EditProductSelectedForm.Visibility = Visibility.Visible;
         }
     }
 }

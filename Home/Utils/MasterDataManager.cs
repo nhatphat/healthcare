@@ -31,7 +31,11 @@ namespace Home.Utils
         /// <returns></returns>
         public List<Category> getAllCategory()
         {
-            return Master_Data_DB.Categories.ToList();
+            return Master_Data_DB.Categories.Where(categories =>
+
+              categories.Status == 0
+
+          ).ToList();
         }
 
         /// <summary>
@@ -73,7 +77,7 @@ namespace Home.Utils
 
             if (cate != null && cosOf.Count() == 0)
             {
-                Master_Data_DB.Categories.Remove(cate);
+                cate.Status = -1; 
                 Master_Data_DB.SaveChanges();
 
                 return true;
@@ -116,6 +120,7 @@ namespace Home.Utils
             ).ToList();
         }
 
+        
         /// <summary>
         /// 
         /// </summary>
