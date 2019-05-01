@@ -107,10 +107,35 @@ namespace Home
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             //Lưu lại danh mục được chỉnh sửa
-            var icon= ((Category)cbEdit.SelectedItem).Icon;
-            var name = txtCatogoryNameEdit.Text;
 
-            if (string.IsNullOrEmpty(name))
+            string oldIcon= ((Category)cbEdit.SelectedItem).Icon;
+            var newName = txtCatogoryNameEdit.Text;
+
+            //string categoryName = txtCatogoryName.Text;
+
+            string iconFullName;
+            string sourcePath = "";
+
+            //Nếu xử dụng default icon
+            if (Global.isUsingtheOldFile(iconCategorySelected.Source.ToString(), oldIcon))
+            {
+                iconFullName = oldIcon;
+            }
+            else
+            {
+                //Tạo tên mới cho icon 
+                string iconExtension = Global.getExtensionOfFile(iconCategorySelected.Source.ToString());
+                string iconName = Global.makeFileNameBy(newName);
+                iconFullName = iconName + iconExtension;
+
+                //Xử lí path của icon về chuẩn hàm File.Copy
+                sourcePath = iconCategorySelected.Source.ToString().Remove(0, 8).Replace("/", @"\");
+            }
+            //Lấy thư mục chứa file icon của app
+            string baseFolder = Global.getBaseFolder();
+            string iconFolder = baseFolder + @"\Images\category\";
+
+            if (string.IsNullOrEmpty(newName))
             {
                 MessageBox.Show("Vui lòng nhập tên danh mục");
                 return;
@@ -120,17 +145,21 @@ namespace Home
                 Category oldCategory = (Category)cbEdit.SelectedItem;
                 Category newCategory = new Category()
                 {
-                    Name = name,
-                    Icon = icon
+                    Name = newName,
+                    Icon = iconFullName
                 };
                 if (masterDataManager.updateCategory(oldCategory,newCategory))
                 {
-                        MessageBox.Show($"Cập nhật {oldCategoryName} thành {newCategory.Name} thành công");
-                        updateCB();
+                    MessageBox.Show($"Cập nhật {oldCategoryName} thành {newCategory.Name} thành công");
+                    if (!Global.isUsingtheOldFile(iconCategorySelected.Source.ToString(), oldIcon))
+                    {
+                        Global.copyFileTo(sourcePath, iconFolder + iconFullName);
+                    }
+                    updateCB();
                 }
                 else
                 {
-                        MessageBox.Show($"Không thể sửa. {name} đã tồn tại");
+                        MessageBox.Show($"Không thể sửa. {newCategory.Name} đã tồn tại");
                 }
             }
         }
@@ -142,7 +171,7 @@ namespace Home
             string sourcePath= "";
            
             //Nếu xử dụng default icon
-            if (Global.isDefault(reviewIcon.Source.ToString()))
+            if (Global.isUsingtheOldFile(reviewIcon.Source.ToString(), "default-category-icon.ico"))
             {
                 iconFullName = "default-category-icon.ico";
             }
@@ -160,12 +189,11 @@ namespace Home
             string baseFolder = Global.getBaseFolder();
             string iconFolder = baseFolder + @"\Images\category\";
 
-            
-
             Category newCategory = new Category(){
                 Name = categoryName,
                 Icon = iconFullName
             };
+
             if (string.IsNullOrEmpty(categoryName))
             {
                 MessageBox.Show("Vui lòng nhập tên danh mục");
@@ -175,7 +203,7 @@ namespace Home
             if (masterDataManager.addNewCategory(newCategory))
             {
                 MessageBox.Show($"Thêm {newCategory.Name} thành công");
-                if(!Global.isDefault(reviewIcon.Source.ToString()))
+                if(!Global.isUsingtheOldFile(reviewIcon.Source.ToString(), "default-category-icon.ico"))
                 { 
                     Global.copyFileTo(sourcePath, iconFolder + iconFullName);
                 }
@@ -211,14 +239,33 @@ namespace Home
             }
         }
 
+        /// <summary>
+        /// Chọn icon khi thêm category
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChooseIcon_Click(object sender, RoutedEventArgs e)
         {
             BitmapImage icon = Global.getImage();
             if(icon != null)
             {
                 reviewIcon.Source = icon;
-               
             } 
+        }
+
+
+        /// <summary>
+        /// Chọn icon khi sửa category
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChangeIcon_Click(object sender, RoutedEventArgs e)
+        {
+            BitmapImage icon = Global.getImage();
+            if (icon != null)
+            {
+                iconCategorySelected.Source = icon;
+            }
         }
     }
 }

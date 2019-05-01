@@ -45,18 +45,35 @@ namespace Home.Utils
         /// <returns></returns>
         public bool addNewCategory(Category newCategory)
         {
-            var oldCate = Master_Data_DB.Categories.Where(category =>
+            var categoryInDB = Master_Data_DB.Categories.Where(category =>
+                category.Name.Equals(newCategory.Name) 
+            ).ToList();
 
-                category.Name.Equals(newCategory.Name)
-            );
-
-            if (oldCate.Count() == 0)
+            if(categoryInDB.Count() == 0)
             {
                 Master_Data_DB.Categories.Add(newCategory);
                 Master_Data_DB.SaveChanges();
-
+                return true;
+            }  
+            else if (categoryInDB[0].Status == -1)
+            {
+                categoryInDB[0].Status = 0;
+                categoryInDB[0].Icon = newCategory.Icon;
+                Master_Data_DB.SaveChanges();
                 return true;
             }
+            //var oldCate = Master_Data_DB.Categories.Where(category =>
+
+            //    category.Name.Equals(newCategory.Name) && category.Status == 0
+            //);
+
+            //if (oldCate.Count() == 0)
+            //{
+            //    Master_Data_DB.Categories.Add(newCategory);
+            //    Master_Data_DB.SaveChanges();
+
+            //    return true;
+            //}
 
             return false;
         }
