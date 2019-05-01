@@ -106,8 +106,9 @@ namespace Home.Utils
         /// <returns>đuôi file(ex: .ico|.jpg|.png)</returns>
         public static string getExtensionOfFile(string path)
         {
-            string[] fullname = path.Split('/'); 
-            string extension = "." + fullname[fullname.Length - 1].Split('.')[1];
+            string[] pathSplit = path.Split('/'); 
+            string[] fullname = pathSplit[pathSplit.Length - 1].Split('.');
+            string extension = "." + fullname[fullname.Length - 1];
             return extension;
         }
 
@@ -162,26 +163,24 @@ namespace Home.Utils
         }
 
 
-        // - pack://application:,,,/Images/category/default-category-icon.ico
-
         /// <summary>
-        /// Check xem có phải người dùng sử dụng icon hay ảnh mặc định không
+        /// Check xem có phải người dùng sử dụng icon hay ảnh mặc định | cũ đối với sửa danh mục hoặc sản phẩm không
         /// </summary>
         /// <param name="sourceFile"></param>
+        /// <param name="oldFileName"></param>
         /// <returns>
-        /// True = default 
+        /// True = default | old
         /// False = another image
         /// </returns>
-        public static bool isDefault(string sourceFile)
+        public static bool isUsingtheOldFile(string sourceFile, string oldFileName)
         {
-            if(sourceFile == "pack://application:,,,/Images/category/default-category-icon.ico" || sourceFile == "pack://application:,,,/Images/cosmetic/default.jpg")
+            if(sourceFile == "pack://application:,,,/Images/category/"+oldFileName || sourceFile == "pack://application:,,,/Images/cosmetic/"+oldFileName)
             {
                 return true;
             }
             return false;
         }
+
     }
 
-
-   
 }
