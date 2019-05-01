@@ -89,6 +89,9 @@
     <Compile Include="models\Category.cs">
       <DependentUpon>master_data.tt</DependentUpon>
     </Compile>
+    <Compile Include="models\Cosmetic.cs">
+      <DependentUpon>master_data.tt</DependentUpon>
+    </Compile>
     <Compile Include="models\master_data.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -107,7 +110,6 @@
     <Compile Include="ProductDetailScreen.xaml.cs">
       <DependentUpon>ProductDetailScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\DBManager.cs" />
     <Compile Include="Utils\Global.cs" />
     <Compile Include="Utils\MasterDataManager.cs" />
     <Page Include="CosmeticScreenOf.xaml">
@@ -144,9 +146,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="models\Cosmetic.cs">
-      <DependentUpon>master_data.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -243,7 +242,6 @@
     <Resource Include="Images\cosmetic\default.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\category\default-catogory-icon.ico" />
     <Content Include="models\master_data.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>master_data.edmx</DependentUpon>
@@ -254,6 +252,7 @@
       <DependentUpon>master_data.edmx</DependentUpon>
       <LastGenOutput>master_data.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\category\default-category-icon.ico" />
     <Resource Include="Images\category\body-icon.ico" />
     <Resource Include="Images\category\Drug-icon.ico" />
     <Resource Include="Images\category\eyes-icon.ico" />

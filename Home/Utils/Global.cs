@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Cache;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace Home.Utils
 {
@@ -53,6 +55,29 @@ namespace Home.Utils
             return null;
         }
 
+        public static BitmapImage getImage()
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+
+            fileDialog.Filter = "ICO files(*.ico)|*.ico|PNG files(*.png)|*.png|JPG files(*.jpg)|*.jpg";
+
+            if (fileDialog.ShowDialog() == true)
+            {
+                var imagePath = fileDialog.FileName;
+
+                BitmapImage imageBitmap = new BitmapImage();
+                imageBitmap.BeginInit();
+                imageBitmap.CacheOption = BitmapCacheOption.None;
+                imageBitmap.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+                imageBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                imageBitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                imageBitmap.UriSource = new Uri(imagePath, UriKind.RelativeOrAbsolute);
+                imageBitmap.EndInit();
+                return imageBitmap;
+            }
+            return null;
+        }
+
         /// <summary>
         /// copy file đến thư mục khác
         /// </summary>
@@ -70,7 +95,75 @@ namespace Home.Utils
         /// </param>
         public static void copyFileTo(string filePath, string desFolder)
         {
-            File.Copy(filePath, desFolder);
+            File.Copy(filePath, desFolder,true);
+       
         }
+
+        /// <summary>
+        /// Lấy đuôi file của hình ảnh upload lên
+        /// </summary>
+        /// <param name="path">path của hình ảnh muốn lấy đuôi file</param>
+        /// <returns>đuôi file(ex: .ico|.jpg|.png)</returns>
+        public static string getExtensionOfFile(string path)
+        {
+            string[] fullname = path.Split('/');
+            string extension = "." + fullname[fullname.Length - 1].Split('.')[1];
+            return extension;
+        }
+
+
+        /// <summary>
+        /// Bỏ dấu tiếng việt
+        /// </summary>
+        /// <param name="text"> Chuỗi Cần Bỏ Dấu</param>
+        /// <returns>chuoi can bo dau</returns>
+        public static string NonUnicode(string text)
+        {
+            string[] arr1 = new string[] { "á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ", "ẩ", "ẫ", "ậ", "ă", "ắ", "ằ", "ẳ", "ẵ", "ặ",
+            "đ",
+            "é","è","ẻ","ẽ","ẹ","ê","ế","ề","ể","ễ","ệ",
+            "í","ì","ỉ","ĩ","ị",
+            "ó","ò","ỏ","õ","ọ","ô","ố","ồ","ổ","ỗ","ộ","ơ","ớ","ờ","ở","ỡ","ợ",
+            "ú","ù","ủ","ũ","ụ","ư","ứ","ừ","ử","ữ","ự",
+            "ý","ỳ","ỷ","ỹ","ỵ",};
+            string[] arr2 = new string[] { "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a",
+            "d",
+            "e","e","e","e","e","e","e","e","e","e","e",
+            "i","i","i","i","i",
+            "o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o",
+            "u","u","u","u","u","u","u","u","u","u","u",
+            "y","y","y","y","y",};
+
+            text = text.ToLower();
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                text = text.Replace(arr1[i], arr2[i]);
+            }
+            return text;
+        }
+
+
+        /// <summary>
+        /// Tạo tên file ảnh từ tên của category hoặc cosmetic
+        /// </summary>
+        /// <param name="ownerName">tên của caregory hoặc cosmetic</param>
+        /// <returns>ten-file-co-dang-nhu-the-nay</returns>
+        public static string makeFileNameBy(string ownerName)
+        {
+            string nonUnicode = NonUnicode(ownerName);
+            string standard = nonUnicode.Trim();
+            while(standard.Contains("  "))
+            {
+                standard = standard.Replace("  ", " ");
+
+            }
+            string finalName = standard.Replace(' ', '-');
+            return finalName;
+        }
+
+
     }
+
+
+   
 }

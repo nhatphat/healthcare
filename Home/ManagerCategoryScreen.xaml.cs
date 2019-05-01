@@ -28,13 +28,11 @@ namespace Home
     /// </summary>
     public partial class ManagerCatogoryScreen : UserControl
     {
-        private MasterDataManager masterDataManager;
+        private MasterDataManager masterDataManager = MasterDataManager.getInstance();
 
         public ManagerCatogoryScreen()
         {
             InitializeComponent();
-            masterDataManager = MasterDataManager.getInstance();
-
         }
 
         private void updateCB()
@@ -91,8 +89,19 @@ namespace Home
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            btnEdit.Visibility = Visibility.Collapsed;
-            fillForm.Visibility = Visibility.Visible;
+            if(((Category)cbEdit.SelectedItem) == null)
+            {
+                MessageBox.Show("Vui lòng chọn danh mục cần chỉnh sửa");
+            }
+            else
+	        {
+                btnEdit.Visibility = Visibility.Collapsed;
+
+                Category category = ((Category)cbEdit.SelectedItem);
+               //Chưa xử lý icon.
+                fillForm.Visibility = Visibility.Visible;
+                fillForm.DataContext = category;
+            }
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -114,7 +123,7 @@ namespace Home
                     Name = name,
                     Icon = icon
                 };
-                if (MasterDataManager.getInstance().updateCategory(oldCategory,newCategory))
+                if (masterDataManager.updateCategory(oldCategory,newCategory))
                 {
                         MessageBox.Show($"Cập nhật {oldCategoryName} thành {newCategory.Name} thành công");
                         updateCB();
@@ -128,20 +137,35 @@ namespace Home
 
         private void btnAddCategory_Click(object sender, RoutedEventArgs e)
         {
-            var name = txtCatogoryName.Text;
+            string categoryName = txtCatogoryName.Text;
+            //Chưa xử lý khi dùng default-icon
+            //Tạo tên mới cho icon 
+            string iconExtension = Global.getExtensionOfFile(reviewIcon.Source.ToString());
+            string iconName = Global.makeFileNameBy(categoryName);
+            string iconFullName = iconName + iconExtension;
+
+            //Lấy thư mục chứa file icon của app
+            string baseFolder = Global.getBaseFolder();
+            string iconFolder = baseFolder + @"\Images\category\";
+
+            //Xử lí path của icon về chuẩn hàm File.Copy
+            string sourcePath = reviewIcon.Source.ToString().Remove(0, 8).Replace("/", @"\");
+
             Category newCategory = new Category(){
-                Name = name,
-                Icon = "default-catogory-icon.ico"
+                Name = categoryName,
+                Icon = iconFullName
             };
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(categoryName))
             {
                 MessageBox.Show("Vui lòng nhập tên danh mục");
                 return;
             }
 
-            if (MasterDataManager.getInstance().addNewCategory(newCategory))
+            if (masterDataManager.addNewCategory(newCategory))
             {
                 MessageBox.Show($"Thêm {newCategory.Name} thành công");
+               
+                Global.copyFileTo(sourcePath, iconFolder + iconFullName);
                 updateCB();
             }
             else
@@ -152,39 +176,36 @@ namespace Home
 
         private void btnDelCategory_Click(object sender, RoutedEventArgs e)
         {
-            var categoryId = ((Category)cbDel.SelectedItem).ID;
-            var categoryName = ((Category)cbDel.SelectedItem).Name;
-
-            if (MasterDataManager.getInstance().deleteCategory(categoryId))
+            if (((Category)cbDel.SelectedItem) == null)
             {
-                MessageBox.Show($"Xóa {categoryName} thành công");
-                updateCB();
+                MessageBox.Show("Vui lòng chọn danh mục cần xóa","Lỗi");
             }
             else
             {
-                MessageBox.Show($"Xóa {categoryName} thất bại. Còn sản phẩm thuộc loại này");
+                var categoryId = ((Category)cbDel.SelectedItem).ID;
+                var categoryName = ((Category)cbDel.SelectedItem).Name;
+
+                if (masterDataManager.deleteCategory(categoryId))
+                {
+                    //Chưa xử lý(xóa) icon
+                    MessageBox.Show($"Xóa {categoryName} thành công");
+                    updateCB();
+                }
+                else
+                {
+                    MessageBox.Show($"Xóa {categoryName} thất bại. Còn sản phẩm thuộc loại này");
+                } 
             }
         }
 
         private void ChooseIcon_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "jpg files(*.jpg)|*.jpg|PNG files(*.png)|*.png|ico files(*.ico)|*.ico";
-            if(fileDialog.ShowDialog() == true)
+            BitmapImage icon = Global.getImage();
+            if(icon != null)
             {
-                var imagePath = fileDialog.FileName;
-
-                BitmapImage imageBitmap = new BitmapImage();
-                imageBitmap.BeginInit();
-                imageBitmap.CacheOption = BitmapCacheOption.None;
-                imageBitmap.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-                imageBitmap.CacheOption = BitmapCacheOption.OnLoad;
-                imageBitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                imageBitmap.UriSource = new Uri(imagePath, UriKind.RelativeOrAbsolute);
-                imageBitmap.EndInit();             
-                reviewIcon.Source = imageBitmap;
-            }
-            
+                reviewIcon.Source = icon;
+               
+            } 
         }
     }
 }

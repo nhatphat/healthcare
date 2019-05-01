@@ -10,9 +10,9 @@
         <StackPanel Margin="30">
             <Image Source="/Images/app/panel-home.jpg" ></Image>
             <!--<Separator/>-->
-            <StackPanel Margin="0 30 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Image Source="/Images/app/panel-home-2.jpg" Width="500"></Image>
-                <Image Source="/Images/app/panel-home-3.jpg" Width="500" ></Image>
+            <StackPanel Margin="0 30 0 0" Orientation="Horizontal">
+                <Image Source="/Images/app/panel-home-2.jpg" MaxWidth="500"></Image>
+                <Image Source="/Images/app/panel-home-3.jpg" MaxWidth="500" ></Image>
             </StackPanel>
         </StackPanel>
     </Grid>

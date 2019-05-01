@@ -12,6 +12,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Icon" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="Cosmetic">
           <Key>
@@ -58,6 +59,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
           <NavigationProperty Name="Cosmetics" Relationship="Self.Cosmetic_Category_FK" FromRole="Category" ToRole="Cosmetic" />
         </EntityType>
         <EntityType Name="Cosmetic">
@@ -86,7 +88,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="master_dataEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="master_dataEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Cosmetics" EntityType="Self.Cosmetic" />
           <AssociationSet Name="Cosmetic_Category_FK" Association="Self.Cosmetic_Category_FK">
@@ -99,13 +101,14 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="master_dataModelStoreContainer" CdmEntityContainer="master_dataEntities">
+        <EntityContainerMapping StorageEntityContainer="master_dataModelStoreContainer" CdmEntityContainer="master_dataEntities1">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="master_dataModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

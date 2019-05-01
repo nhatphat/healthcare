@@ -4,8 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Home"
+             xmlns:converter="clr-namespace:Home.converter"
              mc:Ignorable="d" 
              d:DesignHeight="760" d:DesignWidth="1020">
+    <UserControl.Resources>
+        <converter:CategoryConvertImageRelativePathToAbsolutePath x:Key="convertImageCategory"/>
+    </UserControl.Resources>
+
     <Grid Background="White">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Name="functionForm" Visibility="Visible">
             <Label Content="Chọn chức năng" FontWeight="Bold" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -31,13 +36,11 @@
         <StackPanel Name="addForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Width="400">
             <Label Content="Nhập tên danh mục" FontSize="20" FontWeight="Bold"/>
             <TextBox Name="txtCatogoryName" FontSize="20" Padding="1" Width="400" Margin="0 10 0 0" CaretBrush="#FFF78787"/>
-            <Label Content="Chọn Icon cho danh mục" FontSize="20" FontWeight="Bold"/>
-           
-                <StackPanel Orientation="Horizontal" Height="100" Width="400">
-                    <Image Name="reviewIcon" Source="/Images/category/default-catogory-icon.ico" Height="50" Width="50" VerticalAlignment="Center" Margin="175 0 0 0" Stretch="Fill"></Image>
-                    <Button x:Name="chooseIcon" Content="Chọn Icon"  FontSize="18" FontWeight="Bold"  BorderBrush="{x:Null}" Background="#FF6A6A6A" Width="117" Height="40" Margin="55 0 0 0" Click="ChooseIcon_Click"/>
-                </StackPanel>
- 
+            <Label Content="Chọn Icon cho danh mục" FontSize="20" FontWeight="Bold" Margin="0 10 0 0"/>
+            <StackPanel Orientation="Horizontal" Height="100" Width="400">
+                <Image Name="reviewIcon" Source="/Images/category/default-category-icon.ico" Height="50" Width="50" VerticalAlignment="Center" Margin="175 0 0 0" Stretch="Fill"></Image>
+                <Button x:Name="chooseIcon" Content="Chọn Icon"  FontSize="18" FontWeight="Bold"  BorderBrush="{x:Null}" Background="#FF6A6A6A" Width="117" Height="40" Margin="55 0 0 0" Click="ChooseIcon_Click"/>
+            </StackPanel>
             <Button Click="btnAddCategory_Click" Background="#FFF78787" Width="100" Height="40" Content="Thêm" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 30 0 0" BorderBrush="{x:Null}"/>
         </StackPanel>
 
@@ -46,27 +49,30 @@
             <ComboBox Name="cbDel" Height="40" Width="400" ItemsSource="{Binding category}" Background="{x:Null}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text="{Binding Name}" FontSize="20"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Button Click="btnDelCategory_Click" Background="#FFF78787" Width="100" Padding="2" Content="Xóa" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Margin="0 15 0 0" BorderBrush="{x:Null}"/>
         </StackPanel>
 
-        <StackPanel Name="editForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" >
+        <StackPanel Name="editForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
             <Label Content="Chọn danh mục" FontSize="20" FontWeight="Bold"/>
             <ComboBox Name="cbEdit" Height="40" Width="400" ItemsSource="{Binding category}" Background="{x:Null}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text="{Binding Name}" FontSize="20"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
-
             </ComboBox>
             <Button Name="btnEdit" Background="#FFF78787" Width="100" Padding="2" Content="Sửa" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Margin="0 15 0 0" BorderBrush="{x:Null}" Click="BtnEdit_Click"/>
             <StackPanel Name="fillForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" >
                 <Label Content="Danh mục được chọn" FontSize="20" FontWeight="Bold"/>
-                <TextBox Name="txtCatogoryNameEdit" FontSize="20" Padding="1" Width="400" Margin="0 10 0 0" CaretBrush="#FFF78787"/>
+                <TextBox Name="txtCatogoryNameEdit" Text="{Binding Name}" FontSize="20" Padding="1" Width="400" Margin="0 10 0 0" CaretBrush="#FFF78787"/>
+                <StackPanel Orientation="Horizontal" Height="100" Width="400">
+                    <Image Name="iconCategorySelected" Source="{Binding Icon, Converter={StaticResource convertImageCategory}}" Height="50" Width="50" VerticalAlignment="Center" Margin="175 0 0 0" Stretch="Fill"></Image>
+                    <Button x:Name="chooseNewIcon" Content="Chọn Icon"  FontSize="18" FontWeight="Bold"  BorderBrush="{x:Null}" Background="#FF6A6A6A" Width="117" Height="40" Margin="55 0 0 0" Click="ChooseIcon_Click"/>
+                </StackPanel>
                 <Button Name="btnSave" Background="#FFF78787" Width="100" Padding="2" Content="Lưu" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Margin="0 15 0 0" BorderBrush="{x:Null}" Click="BtnSave_Click"/>
             </StackPanel>
         </StackPanel>
