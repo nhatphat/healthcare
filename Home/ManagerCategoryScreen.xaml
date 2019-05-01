@@ -26,13 +26,14 @@
                 </Button>
             </StackPanel>
         </StackPanel>
-
+      
         <Button Name="btnBack" Background="#FFF78787" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20" Height="40" Width="120" Visibility="Collapsed" Click="BtnBack_Click">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Images/app/back-icon.ico" Height="20"/>
                 <Label Content="Trở về" Foreground="White" FontSize="15" FontWeight="Bold"/>
             </StackPanel>
         </Button>
+
         <StackPanel Name="addForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Width="400">
             <Label Content="Nhập tên danh mục" FontSize="20" FontWeight="Bold"/>
             <TextBox Name="txtCatogoryName" FontSize="20" Padding="1" Width="400" Margin="0 10 0 0" CaretBrush="#FFF78787"/>

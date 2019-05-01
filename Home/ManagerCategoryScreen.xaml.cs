@@ -138,18 +138,29 @@ namespace Home
         private void btnAddCategory_Click(object sender, RoutedEventArgs e)
         {
             string categoryName = txtCatogoryName.Text;
-            //Chưa xử lý khi dùng default-icon
-            //Tạo tên mới cho icon 
-            string iconExtension = Global.getExtensionOfFile(reviewIcon.Source.ToString());
-            string iconName = Global.makeFileNameBy(categoryName);
-            string iconFullName = iconName + iconExtension;
+            string iconFullName;
+            string sourcePath= "";
+           
+            //Nếu xử dụng default icon
+            if (Global.isDefault(reviewIcon.Source.ToString()))
+            {
+                iconFullName = "default-category-icon.ico";
+            }
+            else
+            { 
+                //Tạo tên mới cho icon 
+                string iconExtension = Global.getExtensionOfFile(reviewIcon.Source.ToString());
+                string iconName = Global.makeFileNameBy(categoryName);
+                iconFullName = iconName + iconExtension;
 
+                //Xử lí path của icon về chuẩn hàm File.Copy
+                sourcePath = reviewIcon.Source.ToString().Remove(0, 8).Replace("/", @"\");
+            }
             //Lấy thư mục chứa file icon của app
             string baseFolder = Global.getBaseFolder();
             string iconFolder = baseFolder + @"\Images\category\";
 
-            //Xử lí path của icon về chuẩn hàm File.Copy
-            string sourcePath = reviewIcon.Source.ToString().Remove(0, 8).Replace("/", @"\");
+            
 
             Category newCategory = new Category(){
                 Name = categoryName,
@@ -164,8 +175,10 @@ namespace Home
             if (masterDataManager.addNewCategory(newCategory))
             {
                 MessageBox.Show($"Thêm {newCategory.Name} thành công");
-               
-                Global.copyFileTo(sourcePath, iconFolder + iconFullName);
+                if(!Global.isDefault(reviewIcon.Source.ToString()))
+                { 
+                    Global.copyFileTo(sourcePath, iconFolder + iconFullName);
+                }
                 updateCB();
             }
             else
