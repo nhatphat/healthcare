@@ -146,11 +146,21 @@ namespace Home.Utils
         /// <returns></returns>
         public bool addNewCosmetic(Cosmetic cosmetic)
         {
-            if (Master_Data_DB.Cosmetics.Add(cosmetic) != null)
-            {
-                Master_Data_DB.SaveChanges();
+            var checkExists = Master_Data_DB.Cosmetics.Where(cos =>
 
-                return true;
+                cos.Name == cosmetic.Name && cos.Category == cosmetic.Category
+
+            ).ToList();
+
+
+            if (checkExists.Count() == 0)
+            {
+                if (Master_Data_DB.Cosmetics.Add(cosmetic) != null)
+                {
+                    Master_Data_DB.SaveChanges();
+
+                    return true;
+                }
             }
 
             return false;
@@ -180,7 +190,14 @@ namespace Home.Utils
         public bool updateCosmetic(Cosmetic cosmetic)
         {
             var cos = Master_Data_DB.Cosmetics.Find(cosmetic.ID);
-            if (cos != null)
+
+            var checkExists = Master_Data_DB.Cosmetics.Where(cosm =>
+
+                cosm.Name == cosmetic.Name && cosm.Category == cosmetic.Category
+
+            ).ToList();
+
+            if (cos != null && checkExists.Count() == 0)
             {
                 cos.Name = cosmetic.Name;
                 cos.Image = cosmetic.Image;
