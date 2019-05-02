@@ -208,9 +208,8 @@ namespace Home.Utils
         public static bool isUsingtheOldFile(string sourceFile, string oldFileName)
         {
             var root = "file:///" + $"{getBaseFolder().Replace("\\", "/")}";
-
-            //if (sourceFile == $"{root}/Images/category/" + oldFileName || sourceFile == $"{root}/Images/cosmetic/" + oldFileName)
-            if (sourceFile == "pack://application:,,,/Images/category/" + oldFileName || sourceFile == "pack://application:,,,/Images/cosmetic/" + oldFileName || sourceFile == $"{root}/Images/category/" + oldFileName || sourceFile == $"{root}/Images/cosmetic/" + oldFileName)
+            if (sourceFile == "pack://application:,,,/Images/category/" + oldFileName || sourceFile == "pack://application:,,,/Images/cosmetic/" + oldFileName 
+                || sourceFile == $"{root}/Images/category/" + oldFileName || sourceFile == $"{root}/Images/cosmetic/" + oldFileName)
             {
                 return true;
             }
