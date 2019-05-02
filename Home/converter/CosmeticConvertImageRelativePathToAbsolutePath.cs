@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 namespace Home.converter
 {
@@ -13,7 +14,16 @@ namespace Home.converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return $"{Global.getBaseFolder()}\\Images\\cosmetic\\{value.ToString()}";
+            var imagePath = $"{Global.getBaseFolder()}\\Images\\cosmetic\\{value.ToString()}";
+
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.UriSource = new Uri(imagePath);
+            image.EndInit();
+
+            return image;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -26,7 +36,15 @@ namespace Home.converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return $"{Global.getBaseFolder()}\\Images\\category\\{value.ToString()}";
+            var imagePath = $"{Global.getBaseFolder()}\\Images\\category\\{value.ToString()}";
+
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.UriSource = new Uri(imagePath);
+            image.EndInit();
+            return image;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

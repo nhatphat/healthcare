@@ -28,6 +28,12 @@ namespace Home
         //private DBManager dbManager;
 
         //using for SQL Server
+        public delegate void categoryChanged();
+
+        public interface ICategoryChangeListenter{
+            event categoryChanged OnCategoryChangeListener;
+        }
+
         private MasterDataManager masterDataManager;
 
         public bool? Form { get; private set; }
@@ -39,12 +45,16 @@ namespace Home
             masterDataManager = MasterDataManager.getInstance();
 
             //listCategory.ItemsSource = dbManager.getAllCategoryName();
-
-            //demo using MasterDataManager
-            listCategory.ItemsSource = masterDataManager.getAllCategory();
+            loadAllCategory();
+            
             
 
             this.Closed += new EventHandler(closed);
+        }
+
+        private void loadAllCategory()
+        {
+            listCategory.ItemsSource = masterDataManager.getAllCategory();
         }
 
         private void closed(object sender, EventArgs e)
@@ -136,7 +146,12 @@ namespace Home
         private void CatogoryManager_Click(object sender, RoutedEventArgs e)
         {
             currentCatogoryName.Text = "Quản lý danh mục";
-            addChildForm(new ManagerCatogoryScreen());
+            var managerCategoryScreen = new ManagerCatogoryScreen();
+            managerCategoryScreen.OnCategoryChangeListener += () =>
+            {
+                loadAllCategory();
+            };
+            addChildForm(managerCategoryScreen);
         }
 
         private void ProductManager_Click(object sender, RoutedEventArgs e)

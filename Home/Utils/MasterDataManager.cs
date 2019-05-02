@@ -31,11 +31,12 @@ namespace Home.Utils
         /// <returns></returns>
         public List<Category> getAllCategory()
         {
+
             return Master_Data_DB.Categories.Where(categories =>
 
-              categories.Status == 0
+                categories.Status == 0
 
-          ).ToList();
+            ).ToList();
         }
 
         /// <summary>
@@ -46,15 +47,15 @@ namespace Home.Utils
         public bool addNewCategory(Category newCategory)
         {
             var categoryInDB = Master_Data_DB.Categories.Where(category =>
-                category.Name.Equals(newCategory.Name) 
+                category.Name.Equals(newCategory.Name)
             ).ToList();
 
-            if(categoryInDB.Count() == 0)
+            if (categoryInDB.Count() == 0)
             {
                 Master_Data_DB.Categories.Add(newCategory);
                 Master_Data_DB.SaveChanges();
                 return true;
-            }  
+            }
             else if (categoryInDB[0].Status == -1)
             {
                 categoryInDB[0].Status = 0;
@@ -94,7 +95,7 @@ namespace Home.Utils
 
             if (cate != null && cosOf.Count() == 0)
             {
-                cate.Status = -1; 
+                cate.Status = -1;
                 Master_Data_DB.SaveChanges();
 
                 return true;
@@ -137,7 +138,7 @@ namespace Home.Utils
             ).ToList();
         }
 
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -194,11 +195,11 @@ namespace Home.Utils
 
             return false;
         }
-           
+
         public void saveChanged()
         {
             Master_Data_DB.SaveChanges();
         }
-   
+
     }
 }

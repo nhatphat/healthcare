@@ -55,6 +55,40 @@ namespace Home.Utils
             return null;
         }
 
+        /// <summary>
+        /// Xóa file
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static bool deleteFile(string filePath)
+        {
+            try
+            {
+                File.Delete(filePath);
+                return true;
+            }
+            catch { }
+
+            return false;
+        }
+
+        public static BitmapImage loadBitmapImageFrom(string path)
+        {
+            try
+            {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = new Uri(path);
+                image.EndInit();
+                return image;
+            }
+            catch { }
+
+            return null;
+        }
+
         public static BitmapImage getImage()
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -95,8 +129,7 @@ namespace Home.Utils
         /// </param>
         public static void copyFileTo(string filePath, string desFolder)
         {
-            File.Copy(filePath, desFolder,true);
-       
+            File.Copy(filePath, desFolder, true);
         }
 
         /// <summary>
@@ -106,7 +139,7 @@ namespace Home.Utils
         /// <returns>đuôi file(ex: .ico|.jpg|.png)</returns>
         public static string getExtensionOfFile(string path)
         {
-            string[] pathSplit = path.Split('/'); 
+            string[] pathSplit = path.Split('/');
             string[] fullname = pathSplit[pathSplit.Length - 1].Split('.');
             string extension = "." + fullname[fullname.Length - 1];
             return extension;
@@ -153,7 +186,7 @@ namespace Home.Utils
         {
             string nonUnicode = NonUnicode(ownerName);
             string standard = nonUnicode.Trim();
-            while(standard.Contains("  "))
+            while (standard.Contains("  "))
             {
                 standard = standard.Replace("  ", " ");
 
@@ -174,7 +207,9 @@ namespace Home.Utils
         /// </returns>
         public static bool isUsingtheOldFile(string sourceFile, string oldFileName)
         {
-            if(sourceFile == "pack://application:,,,/Images/category/"+oldFileName || sourceFile == "pack://application:,,,/Images/cosmetic/"+oldFileName)
+            var root = "file:///" + $"{getBaseFolder().Replace("\\", "/")}";
+
+            if (sourceFile == $"{root}/Images/category/" + oldFileName || sourceFile == $"{root}/Images/cosmetic/" + oldFileName)
             {
                 return true;
             }
