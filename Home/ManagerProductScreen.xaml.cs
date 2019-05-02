@@ -308,7 +308,7 @@ namespace Home
                 MessageBox.Show("Giá của sản phẩm không hợp lệ!", "Lỗi");
                 return;
             }
-            MessageBox.Show(imgEditImageProduct.Source.ToString());
+
             Cosmetic oldcosmetic = ((Cosmetic)cbCosmeticEdit.SelectedItem);
             Cosmetic newCosmetic = new Cosmetic
             {
@@ -344,7 +344,6 @@ namespace Home
                 MessageBox.Show($"Sửa {newCosmetic.Name} thành công", "Thành công");
                 if (!isUsingOldIcon)
                 {
-                    MessageBox.Show("vao copy image: " + sourcePath + "-----" + iconFolder + iconFullName);
                     Global.copyFileTo(sourcePath, iconFolder + iconFullName);
                 }
             }

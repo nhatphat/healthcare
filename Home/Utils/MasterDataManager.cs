@@ -112,7 +112,14 @@ namespace Home.Utils
         public bool updateCategory(Category oldCategory, Category NewCategory)
         {
             var cate = Master_Data_DB.Categories.Find(oldCategory.ID);
-            if (cate != null)
+
+            var checkExist = Master_Data_DB.Categories.Where(cte =>
+
+                cte.Name == NewCategory.Name && cte.ID != NewCategory.ID
+
+            ).ToList();
+
+            if (cate != null && checkExist.Count() == 0)
             {
                 cate.Name = NewCategory.Name;
                 cate.Icon = NewCategory.Icon;
@@ -193,7 +200,7 @@ namespace Home.Utils
 
             var checkExists = Master_Data_DB.Cosmetics.Where(cosm =>
 
-                cosm.Name == cosmetic.Name && cosm.Category == cosmetic.Category
+                cosm.Name == cosmetic.Name && cosm.Category == cosmetic.Category && cosm.ID != cosmetic.ID
 
             ).ToList();
 
