@@ -13,14 +13,19 @@
     </UserControl.Resources>
     
     <Grid>
-
-        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" Name="listCosmetic" Margin="10">
+        <!-- paging --> 
+        <!--<StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Button Width="30" Content="&lt;" Name="previousButton"/>
+            <Label Name="pagingInfoLabel" Foreground="Black" Content="Page 1 of 1"/>
+            <Button Width="30" Content="&gt;" Name="nextButton"/>
+        </StackPanel>-->
+        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" Name="listCosmetic" Margin="10 10 10 30">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
+            <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border CornerRadius="6" BorderBrush="LightPink" BorderThickness="2">
                         <StackPanel Name="product" MouseLeftButtonDown="Product_MouseLeftButtonDown"  Height="260" Width="180">
@@ -28,13 +33,11 @@
                             <TextBlock MinHeight="80" MaxHeight="80" TextWrapping="Wrap" Text="{Binding Name}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Margin="5 0 5 0"/>
                             <Separator/>
                             <Label Content="{Binding Price}" Margin="5 0 5 0 " FontWeight="Bold"/>
-                            <Button Name="ProductSelected" Content="Chọn" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"/> 
+                            <Button Name="ProductSelected" Content="Chọn" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            
         </ListView>
-
     </Grid>
 </UserControl>

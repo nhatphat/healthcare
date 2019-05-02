@@ -83,20 +83,22 @@ namespace Home
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            functionForm.Visibility = Visibility.Visible;
-            btnBack.Visibility = Visibility.Collapsed;
-            if (editForm.Visibility == Visibility.Visible)
-            {
-                editForm.Visibility = Visibility.Collapsed;
-            }
-            else if (deleteForm.Visibility == Visibility.Visible)
-            {
-                deleteForm.Visibility = Visibility.Collapsed;
-            }
-            else if (addForm.Visibility == Visibility.Visible)
-            {
-                addForm.Visibility = Visibility.Collapsed;
-            }
+            //functionForm.Visibility = Visibility.Visible;
+            //btnBack.Visibility = Visibility.Collapsed;
+            //if (editForm.Visibility == Visibility.Visible)
+            //{
+            //    editForm.Visibility = Visibility.Collapsed;
+            //}
+            //else if (deleteForm.Visibility == Visibility.Visible)
+            //{
+            //    deleteForm.Visibility = Visibility.Collapsed;
+            //}
+            //else if (addForm.Visibility == Visibility.Visible)
+            //{
+            //    addForm.Visibility = Visibility.Collapsed;
+
+            //}
+            this.Content = new ManagerCatogoryScreen();
         }
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)

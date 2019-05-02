@@ -209,13 +209,14 @@ namespace Home.Utils
         {
             var root = "file:///" + $"{getBaseFolder().Replace("\\", "/")}";
 
-            if (sourceFile == $"{root}/Images/category/" + oldFileName || sourceFile == $"{root}/Images/cosmetic/" + oldFileName)
+            //if (sourceFile == $"{root}/Images/category/" + oldFileName || sourceFile == $"{root}/Images/cosmetic/" + oldFileName)
+            if (sourceFile == "pack://application:,,,/Images/category/" + oldFileName || sourceFile == "pack://application:,,,/Images/cosmetic/" + oldFileName || sourceFile == $"{root}/Images/category/" + oldFileName || sourceFile == $"{root}/Images/cosmetic/" + oldFileName)
             {
                 return true;
             }
             return false;
         }
-
+                    
     }
 
 }

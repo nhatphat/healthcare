@@ -70,7 +70,12 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel ToolTip="{Binding Name}" Orientation="Horizontal" MouseLeftButtonDown="Category_click">
-                                    <Image Height="50" Width="50" Source="{Binding Icon, Converter={StaticResource convertImageCategory}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Ellipse Height="50" Width="50">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding Icon, Converter={StaticResource convertImageCategory}}" AlignmentX="Center" AlignmentY="Center" Stretch="Fill" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <!--<Image Height="50" Width="50" Source="{Binding Icon, Converter={StaticResource convertImageCategory}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
                                     <Label Content="{Binding Name}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="17" FontWeight="Bold" Foreground="White" />
                                 </StackPanel>
                             </DataTemplate>
