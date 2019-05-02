@@ -31,6 +31,13 @@ namespace Home
             masterDataManager = MasterDataManager.getInstance();
             cosmetics = masterDataManager.getAllCosmeticOfCategory(categoryId);
 
+            if(cosmetics.Count == 0)
+            {
+                emptyCategory.Visibility = Visibility.Visible;
+                paging.Visibility = Visibility.Collapsed;
+                listCosmetic.Visibility = Visibility.Collapsed;
+            }
+
             itemsPerPage = 10;
             double dbPage = cosmetics.Count / (itemsPerPage * 1.0);
             totalPages = dbPage < 1 ? 1 : dbPage == 1 ? 1 : (int)dbPage + 1;
@@ -80,14 +87,5 @@ namespace Home
             }
         }
 
-        private void PreviousButton_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void NextButton_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

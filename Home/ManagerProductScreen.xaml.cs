@@ -34,9 +34,9 @@ namespace Home
         public ManagerProductScreen()
         {
             InitializeComponent();
-
-
         }
+
+       
 
         private void updateDataContext(int categoryId)
         {
@@ -86,28 +86,7 @@ namespace Home
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            functionForm.Visibility = Visibility.Visible;
-            btnBack.Visibility = Visibility.Collapsed;
-            if (editForm.Visibility == Visibility.Visible)
-            {
-                editForm.Visibility = Visibility.Collapsed;
-            }
-            if (deleteForm.Visibility == Visibility.Visible)
-            {
-                deleteForm.Visibility = Visibility.Collapsed;
-            }
-            if (addForm.Visibility == Visibility.Visible)
-            {
-                addForm.Visibility = Visibility.Collapsed;
-            }
-            if (productFullDetail.Visibility == Visibility.Visible)
-            {
-                productFullDetail.Visibility = Visibility.Collapsed;
-            }
-            if (EditProductSelectedForm.Visibility == Visibility.Visible)
-            {
-                EditProductSelectedForm.Visibility = Visibility.Collapsed;
-            }
+            this.Content = new ManagerProductScreen();
         }
 
 

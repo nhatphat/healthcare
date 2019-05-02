@@ -92,10 +92,13 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Label Content="Chọn sản phẩm" FontSize="20" FontWeight="Bold"/>
-            <ComboBox Name="cbCosmeticDel" Height="40" Width="400" ItemsSource="{Binding cosmetic}" Background="{x:Null}">
+            <ComboBox Name="cbCosmeticDel" Height="40" Width="400" ItemsSource="{Binding cosmetic}" Background="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}" FontSize="20"/>
+                        <StackPanel ToolTip="{Binding Name}" Orientation="Horizontal" Width="400">
+                            <Image Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}" Height="30" Width="30" Stretch="Uniform"/>
+                            <TextBlock Text="{Binding Name}" FontSize="20" Margin="20 0 0 0"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -119,10 +122,13 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Label Content="Chọn sản phẩm" FontSize="20" FontWeight="Bold"/>
-            <ComboBox Name="cbCosmeticEdit" Height="40" Width="400" ItemsSource="{Binding cosmetic}" Background="{x:Null}">
+            <ComboBox Name="cbCosmeticEdit" Height="40" Width="400" ItemsSource="{Binding cosmetic}" Background="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}" FontSize="20"/>
+                        <StackPanel ToolTip="{Binding Name}" Orientation="Horizontal" Width="400">
+                            <Image Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}" Height="30" Width="30" Stretch="Uniform"/>
+                            <TextBlock Text="{Binding Name}" FontSize="20" Margin="20 0 0 0"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -132,7 +138,9 @@
         <!--Show sản phẩm muốn xóa sau khi chọn danh mục và sản phẩm-->
 
         <StackPanel Name="productFullDetail" Margin="60 100 60 0" Orientation="Horizontal" Visibility="Collapsed">
-            <Image Height="300" Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Grid Width="300">
+                <Image Height="300" Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </Grid>
             <StackPanel Margin="50 0 0 0" MaxWidth="600">
                 <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  FontSize="30"  FontWeight="Bold" />
                 <Grid>
