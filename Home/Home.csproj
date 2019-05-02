@@ -239,9 +239,9 @@
     <Resource Include="Images\cosmetic\vien-uong-giam-nam-chuyen-sau-sakura-hcl-white-blossoms-ex.png" />
     <Resource Include="Images\cosmetic\vien-uong-trang-da-cao-cap-heliocare-purewhite-radiance-max-240-1.jpg" />
     <Resource Include="Images\cosmetic\vien-uong-trang-da-giam-nam-nep-nhan-va-suc-khoe-tong-the-murad-firm-and-tone-dietary-supplement.png" />
-    <Resource Include="Images\cosmetic\default.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\cosmetic\default_cosmetic_icon.ico" />
     <Content Include="models\master_data.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>master_data.edmx</DependentUpon>

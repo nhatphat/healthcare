@@ -53,7 +53,7 @@ namespace Home.models
             set
             {
                 icon = value;
-                notifyPropertyChanged("Icon");
+                //notifyPropertyChanged("Icon");
             }
         }
 

@@ -1,8 +1,10 @@
 ﻿using Home.models;
 using Home.Utils;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,14 +35,14 @@ namespace Home
         {
             InitializeComponent();
 
-
+            
         }
 
         private void updateDataContext(int categoryId)
         {
             if (categoryId == -1)
             {
-                category  = new BindingList<Category>(masterDataManager.getAllCategory());
+                category = new BindingList<Category>(masterDataManager.getAllCategory());
             }
             else
             {
@@ -98,9 +100,13 @@ namespace Home
             {
                 addForm.Visibility = Visibility.Collapsed;
             }
-            if(productFullDetail.Visibility == Visibility.Visible)
+            if (productFullDetail.Visibility == Visibility.Visible)
             {
                 productFullDetail.Visibility = Visibility.Collapsed;
+            }
+            if(EditProductSelectedForm.Visibility == Visibility.Visible)
+            {
+                EditProductSelectedForm.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -117,58 +123,87 @@ namespace Home
 
         private void DeleteProductSelected_Click(object sender, RoutedEventArgs e)
         {
-            
-        
+
+
             Cosmetic cosmetic = productFullDetail.DataContext as Cosmetic;
             bool result = MasterDataManager.getInstance().deleteCosmetic(cosmetic.ID);
-            if(result)
+            if (result)
             {
                 MessageBox.Show($"Đã xóa {cosmetic.Name}", "Thành công");
             }
             else
             {
-                MessageBox.Show($"Xóa {cosmetic.Name} không thành công","Lỗi");
+                MessageBox.Show($"Xóa {cosmetic.Name} không thành công", "Lỗi");
             }
-            
+
         }
 
         private void AddProductFrmAdd_Click(object sender, RoutedEventArgs e)
         {
-
             int price;
-            string catogory = ((Category)cbCatogoryFrmAdd.SelectedItem).Name;
+            //string category = ((Category)cbCatogoryFrmAdd.SelectedItem).Name;
 
             if (string.IsNullOrEmpty(txtProductName.Text) || string.IsNullOrEmpty(txtProductPrice.Text) || string.IsNullOrEmpty(txtProductOrgin.Text) || string.IsNullOrEmpty(txtProductDetail.Text))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Lỗi");
+                return;
             }
-            else if (!int.TryParse(txtProductPrice.Text, out price))
+
+            if (!int.TryParse(txtProductPrice.Text, out price))
             {
                 MessageBox.Show("Giá của sản phẩm không hợp lệ!", "Lỗi");
+                return;
+            }
+
+            int categoryId = ((Category)cbCatogoryFrmAdd.SelectedItem).ID;
+            Cosmetic cosmetic = new Cosmetic
+            {
+                Category = categoryId,
+                Name = txtProductName.Text,
+                Price = price,
+                Origin = txtProductOrgin.Text,
+                Detail = txtProductDetail.Text
+            };
+
+
+
+            string iconFullName;
+            string sourcePath = "";
+
+            if (Global.isUsingtheOldFile(reviewIcon.Source.ToString(), cosmetic.Image))
+            {
+                iconFullName = cosmetic.Image;//default image
             }
             else
             {
-                int categoryId = ((Category)cbCatogoryFrmAdd.SelectedItem).ID;
-                Cosmetic cosmetic = new Cosmetic();
-                cosmetic.Category = categoryId;
-                cosmetic.Name = txtProductName.Text;
-                cosmetic.Price = price;
-                cosmetic.Origin = txtProductOrgin.Text;
-                cosmetic.Detail = txtProductDetail.Text;
-                cosmetic.Image = "default.jpg";
-                bool result = masterDataManager.addNewCosmetic(cosmetic);
+                //Tạo tên mới cho icon 
+                string iconExtension = Global.getExtensionOfFile(reviewIcon.Source.ToString());
+                string iconName = Global.makeFileNameBy(cosmetic.Name);
+                iconFullName = iconName + iconExtension;
+                cosmetic.Image = iconFullName;//update new image
 
-                if (result)
+                //Xử lí path của icon về chuẩn hàm File.Copy
+                sourcePath = reviewIcon.Source.ToString().Remove(0, 8).Replace("/", @"\");
+            }
+            //Lấy thư mục chứa file icon của app
+            string baseFolder = Global.getBaseFolder();
+            string iconFolder = baseFolder + @"\Images\cosmetic\";
+
+            bool result = masterDataManager.addNewCosmetic(cosmetic);
+
+            if (result)
+            {
+                //cosmetic.row_in_db = result;
+                MessageBox.Show($"Thêm {cosmetic.Name} thành công", "Thành công");
+                if (!cosmetic.Image.Equals("default_cosmetic_icon.ico"))
                 {
-                    //cosmetic.row_in_db = result;
-                    MessageBox.Show("Thêm thành công", "Thành công");
+                    Global.copyFileTo(sourcePath, iconFolder + iconFullName);
                 }
                 else
                 {
-                    MessageBox.Show("Thêm không thành công", "Lỗi");
+                    MessageBox.Show($"Không thể thêm {cosmetic.Name}. Vui lòng thử lại", "Lỗi");
                 }
             }
-
         }
 
         private void item_edit_changed(object sender, SelectionChangedEventArgs e)
@@ -194,7 +229,50 @@ namespace Home
         private void BtnEditProductSelected_Click(object sender, RoutedEventArgs e)
         {
             editForm.Visibility = Visibility.Collapsed;
-            //EditProductSelectedForm.Visibility = Visibility.Visible;
+            EditProductSelectedForm.Visibility = Visibility.Visible;
+            var cosmetic = ((Cosmetic)cbCosmeticEdit.SelectedItem);
+
+            //
+            imgEditImageProduct.Source = new BitmapImage(
+                new Uri(
+                    $"{Global.getBaseFolder()}\\Images\\cosmetic\\{cosmetic.Image}"
+                )
+            );
+            tbEditNameProduct.Text = cosmetic.Name;
+            tbEditPriceProduct.Text = cosmetic.Price.ToString();
+            tbEditOriginProduct.Text = cosmetic.Origin;
+            tbEditDetailProduct.Text = cosmetic.Detail;
+        }
+
+        private void ChooseIconProduct_Click(object sender, RoutedEventArgs e)
+        {
+            //// có thể thay thế getImage()
+            //OpenFileDialog icon = Global.getFile();
+            //if (icon != null)
+            //{
+            //    reviewIcon.Source = new BitmapImage(
+            //        new Uri(
+            //            icon.FileName,
+            //            UriKind.Absolute
+            //        )
+            //    );
+            //}
+
+            BitmapImage icon = Global.getImage();
+            if (icon != null)
+            {
+                reviewIcon.Source = icon;
+            }
+        }
+
+        private void EditProductSelected_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ChooseEditIconProduct_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
