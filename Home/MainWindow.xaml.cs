@@ -86,13 +86,7 @@ namespace Home
             var category_selected = data_context as Category;
             currentCatogoryName.Text = category_selected.Name;
 
-            //old code using excel
-            //category_selected.Cosmetics = dbManager.getAllCosmeticBySheetName(category_selected.Name);
-
-            //using MasterDataManager
-            var allCosmeticOfCategorySelected = masterDataManager.getAllCosmeticOfCategory(category_selected.ID);
-
-            addChildForm(new CosmeticScreenOf(allCosmeticOfCategorySelected));
+            addChildForm(new CosmeticScreenOf(category_selected.ID));
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
