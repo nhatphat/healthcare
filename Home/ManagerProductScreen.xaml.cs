@@ -61,8 +61,8 @@ namespace Home
             btnBack.Visibility = Visibility.Visible;
             addForm.Visibility = Visibility.Visible;
 
-            BindingList<Category> catogorys = new BindingList<Category>(masterDataManager.getAllCategory());
-            cbCatogoryFrmAdd.ItemsSource = catogorys;
+            BindingList<Category> categorys = new BindingList<Category>(masterDataManager.getAllCategory());
+            cbCatogoryFrmAdd.ItemsSource = categorys;
 
         }
 
