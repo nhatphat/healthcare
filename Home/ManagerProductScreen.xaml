@@ -170,6 +170,7 @@
 
             <StackPanel Margin="50 0 0 0" MaxWidth="600">
                 <TextBox Name="tbEditNameProduct" TextWrapping="Wrap"  FontSize="30"  FontWeight="Bold" />
+
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Loại sản phẩm: " FontSize="17" FontWeight="Bold"  VerticalAlignment="Center"/>
                     <ComboBox Name="cbEditCategoryOfProduct" Height="40" Width="400" ItemsSource="{Binding category}" Background="{x:Null}" SelectionChanged="item_del_changed">

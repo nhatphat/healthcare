@@ -78,7 +78,7 @@ namespace Home.models
             set
             {
                 image = value;
-                notifyPropertyChanged("Image");
+                //notifyPropertyChanged("Image");
             }
         }
 
