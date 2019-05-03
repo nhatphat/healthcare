@@ -271,7 +271,7 @@ namespace Home
                 reviewIcon.Source = icon;
             }
         }
-
+        
         private void EditProductSelected_Click(object sender, RoutedEventArgs e)
         {
             int price;
@@ -288,10 +288,11 @@ namespace Home
                 return;
             }
 
-            Cosmetic oldcosmetic = ((Cosmetic)cbCosmeticEdit.SelectedItem);
+            var currentCosmeticEdit = ((Cosmetic)cbCosmeticEdit.SelectedItem);
+            
             Cosmetic newCosmetic = new Cosmetic
             {
-                ID = oldcosmetic.ID,
+                ID = currentCosmeticEdit.ID,
                 Category = ((Category)cbEditCategoryOfProduct.SelectedItem).ID,
                 Name = tbEditNameProduct.Text,
                 Price = price,
@@ -302,17 +303,18 @@ namespace Home
             string iconFullName = "";
             string sourcePath = "";
 
-            bool isUsingOldIcon = Global.isUsingtheOldFile(imgEditImageProduct.Source.ToString(), oldcosmetic.Image);
+            bool isUsingOldIcon = Global.isUsingtheOldFile(imgEditImageProduct.Source.ToString(), currentCosmeticEdit.Image);
 
             if (isUsingOldIcon)
             {
-                iconFullName = oldcosmetic.Image;
+                iconFullName = currentCosmeticEdit.Image;
             }
             else
             {
                 initNewImageProduct(imgEditImageProduct.Source.ToString(), newCosmetic.Name, out sourcePath, out iconFullName);
-                newCosmetic.Image = iconFullName;//update new image
             }
+            //update new image
+            newCosmetic.Image = iconFullName;
             //Lấy thư mục chứa file icon của app
             string iconFolder = Global.getBaseFolder() + @"\Images\cosmetic\";
 
@@ -328,7 +330,7 @@ namespace Home
             }
             else
             {
-                MessageBox.Show($"Không thể sửa {oldcosmetic.Name}. Vui lòng thử lại", "Lỗi");
+                MessageBox.Show($"Không thể sửa {currentCosmeticEdit.Name}. Vui lòng thử lại", "Lỗi");
             }
         }
 
