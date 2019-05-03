@@ -7,6 +7,7 @@
         xmlns:converter="clr-namespace:Home.converter"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        
         Title="MainWindow" Height="800" Width="1090" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Window.Resources>
         <converter:CategoryConvertImageRelativePathToAbsolutePath x:Key="convertImageCategory"/>
