@@ -127,9 +127,18 @@ namespace Home.Utils
         ///     copyFileTo(fileCopy, desFolder)
         ///     
         /// </param>
-        public static void copyFileTo(string filePath, string desFolder)
+        public static string copyFileTo(string filePath, string desFolder)
         {
-            File.Copy(filePath, desFolder, true);
+            try
+            {
+                File.Copy(filePath, desFolder, true);
+            }
+            catch (Exception ex)
+            {
+
+                return ex.ToString();
+            }
+            return "done";
         }
 
         /// <summary>

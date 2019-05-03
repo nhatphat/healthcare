@@ -14,8 +14,12 @@
     </UserControl.Resources>
 
     <Grid>
+
+        <!--Empty category-->
+        <Label Name="emptyCategory" Content="Chưa có sản phẩm nào ở danh mục này" FontSize="30" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+       
         <!-- paging -->
-        <StackPanel Orientation="Horizontal" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 10">
+        <StackPanel Name="paging" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 10">
             <Button Width="50" Background="#FFF78787" x:Name="previousButton" BorderBrush="{x:Null}" Click="PreviousButton_Click">
                 <materialDesign:PackIcon Kind="NavigateBefore" Foreground="White" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Button>
