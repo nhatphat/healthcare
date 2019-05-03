@@ -174,7 +174,15 @@ namespace Home
 
             if (masterDataManager.updateCategory(oldCategory, newCategory))
             {
-                MessageBox.Show($"Cập nhật {oldCategoryName} thành {newCategory.Name} thành công");
+                if(oldCategoryName != newCategory.Name)
+                {
+                    MessageBox.Show($"Cập nhật {oldCategoryName} thành {newCategory.Name} thành công");
+
+                }
+                else
+                {
+                    MessageBox.Show($"Cập nhật {newCategory.Name} thành công");
+                }
                 if (!isUsingOldIcon)
                 {
                     Global.copyFileTo(sourcePath, iconFolder + iconFullName);

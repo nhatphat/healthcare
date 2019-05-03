@@ -18,7 +18,7 @@
             <Image Height="300" Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
             </Grid>
             <StackPanel Margin="50 0 0 0" MaxWidth="600">
-                <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontSize="30" MaxWidth="548" FontWeight="Bold" Margin="0"/>
+                <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontSize="27" MaxWidth="548" FontWeight="Bold" Margin="0"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.5*"/>

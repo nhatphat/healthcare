@@ -142,7 +142,7 @@
                 <Image Height="300" Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
             </Grid>
             <StackPanel Margin="50 0 0 0" MaxWidth="600">
-                <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  FontSize="30"  FontWeight="Bold" />
+                <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontSize="27" MaxWidth="548" FontWeight="Bold" Margin="0"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.5*"/>
@@ -158,7 +158,7 @@
                     <Label Grid.Column="1" Grid.Row ="1" Content="{Binding Origin}" FontSize="17" FontWeight="Bold" HorizontalContentAlignment="Left"/>
                 </Grid>
                 <Label Content="Thông tin chi tiết:" FontSize="17" FontWeight="Bold"  />
-                <TextBlock Text="{Binding Detail}" TextWrapping="Wrap" FontSize="17"/>
+                <TextBlock Text="{Binding Detail}" TextWrapping="Wrap" FontSize="17" MaxWidth="540" Margin="7 0 0 0"/>
 
                 <Button Name="deleteProductSelected" Background="#FFF78787" BorderBrush="{x:Null}" HorizontalAlignment="Center" Height="40" Width="120" Margin="0 50 0 0"  Click="DeleteProductSelected_Click">
                     <StackPanel Orientation="Horizontal">

@@ -115,7 +115,7 @@ namespace Home.Utils
 
             var checkExist = Master_Data_DB.Categories.Where(cte =>
 
-                cte.Name == NewCategory.Name && cte.ID != NewCategory.ID
+                cte.Name == NewCategory.Name && cte.ID != oldCategory.ID
 
             ).ToList();
 
@@ -165,7 +165,15 @@ namespace Home.Utils
                 if (Master_Data_DB.Cosmetics.Add(cosmetic) != null)
                 {
                     Master_Data_DB.SaveChanges();
-
+                    return true;
+                }
+            }
+            // if exists but deleted, create new product too 
+            else if (checkExists[0].Status == -1)
+            {
+                if (Master_Data_DB.Cosmetics.Add(cosmetic) != null)
+                {
+                    Master_Data_DB.SaveChanges();
                     return true;
                 }
             }
