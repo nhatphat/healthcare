@@ -10,10 +10,14 @@
         <StackPanel Margin="30">
             <Image Source="/Images/app/panel-home.jpg" ></Image>
             <!--<Separator/>-->
-            <StackPanel Margin="0 30 0 0" Orientation="Horizontal">
-                <Image Source="/Images/app/panel-home-2.jpg" MaxWidth="500"></Image>
-                <Image Source="/Images/app/panel-home-3.jpg" MaxWidth="500" ></Image>
-            </StackPanel>
+            <Grid Margin="0 30 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="/Images/app/panel-home-2.jpg" HorizontalAlignment="Left" />
+                <Image Grid.Column="1" Source="/Images/app/panel-home-3.jpg" HorizontalAlignment="Right"/>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>
