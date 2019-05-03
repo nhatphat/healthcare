@@ -36,7 +36,7 @@ namespace Home
             InitializeComponent();
         }
 
-       
+
 
         private void updateDataContext(int categoryId)
         {
@@ -86,7 +86,29 @@ namespace Home
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            this.Content = new ManagerProductScreen();
+            //this.Content = new ManagerProductScreen();
+            functionForm.Visibility = Visibility.Visible;
+            if (addForm.Visibility == Visibility.Visible)
+            {
+                addForm.Visibility = Visibility.Collapsed;
+            }
+            else if(deleteForm.Visibility == Visibility.Visible) {
+                deleteForm.Visibility = Visibility.Collapsed;
+            }else if(productFullDetail.Visibility == Visibility.Visible)
+            {
+                productFullDetail.Visibility = Visibility.Collapsed;
+                functionForm.Visibility = Visibility.Collapsed;
+                deleteForm.Visibility = Visibility.Visible;
+            }else if(editForm.Visibility == Visibility.Visible)
+            {
+                editForm.Visibility = Visibility.Collapsed;
+            }else if (EditProductSelectedForm.Visibility == Visibility.Visible)
+            {
+                EditProductSelectedForm.Visibility = Visibility.Collapsed;
+                functionForm.Visibility = Visibility.Collapsed;
+                editForm.Visibility = Visibility.Visible;
+            }
+
         }
 
 
@@ -110,7 +132,6 @@ namespace Home
                     Global.deleteFile($"{Global.getBaseFolder()}\\Images\\cosmetic\\{cosmetic.Image}");
                 }
                 BtnBack_Click(null, null);
-                DeleteProduct_Click(null, null);
             }
             else
             {
@@ -195,6 +216,9 @@ namespace Home
             txtProductPrice.Text = "";
             txtProductOrgin.Text = "";
             txtProductDetail.Text = "";
+            reviewIcon.Source = Global.loadBitmapImageFrom(
+                        $"{Global.getBaseFolder()}\\Images\\cosmetic\\default_cosmetic_icon.ico"
+            );
         }
 
         private void item_edit_changed(object sender, SelectionChangedEventArgs e)
@@ -271,7 +295,7 @@ namespace Home
                 reviewIcon.Source = icon;
             }
         }
-        
+
         private void EditProductSelected_Click(object sender, RoutedEventArgs e)
         {
             int price;
@@ -289,7 +313,7 @@ namespace Home
             }
 
             var currentCosmeticEdit = ((Cosmetic)cbCosmeticEdit.SelectedItem);
-            
+
             Cosmetic newCosmetic = new Cosmetic
             {
                 ID = currentCosmeticEdit.ID,
@@ -299,7 +323,7 @@ namespace Home
                 Origin = tbEditOriginProduct.Text,
                 Detail = tbEditDetailProduct.Text,
             };
-            
+
             string iconFullName = "";
             string sourcePath = "";
 

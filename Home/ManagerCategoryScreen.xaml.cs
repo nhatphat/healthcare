@@ -83,22 +83,32 @@ namespace Home
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            //functionForm.Visibility = Visibility.Visible;
-            //btnBack.Visibility = Visibility.Collapsed;
-            //if (editForm.Visibility == Visibility.Visible)
-            //{
-            //    editForm.Visibility = Visibility.Collapsed;
-            //}
-            //else if (deleteForm.Visibility == Visibility.Visible)
-            //{
-            //    deleteForm.Visibility = Visibility.Collapsed;
-            //}
-            //else if (addForm.Visibility == Visibility.Visible)
-            //{
-            //    addForm.Visibility = Visibility.Collapsed;
+            functionForm.Visibility = Visibility.Visible;
+            btnBack.Visibility = Visibility.Collapsed;
+            if (editForm.Visibility == Visibility.Visible)
+            {
+                //quay lại form chọn category để chỉnh sửa
+                if (fillForm.Visibility == Visibility.Visible)
+                {
+                    functionForm.Visibility = Visibility.Collapsed;
+                    btnEdit.Visibility = Visibility.Visible;
+                    fillForm.Visibility = Visibility.Collapsed;
+                    updateCB();
+                    return;
+                }
+                
+                editForm.Visibility = Visibility.Collapsed;
+            }
+            else if (deleteForm.Visibility == Visibility.Visible)
+            {
+                deleteForm.Visibility = Visibility.Collapsed;
+            }
+            else if (addForm.Visibility == Visibility.Visible)
+            {
+                addForm.Visibility = Visibility.Collapsed;
 
-            //}
-            this.Content = new ManagerCatogoryScreen();
+            }
+            //this.Content = new ManagerCatogoryScreen();
         }
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
@@ -110,13 +120,7 @@ namespace Home
             else
             {
                 btnEdit.Visibility = Visibility.Collapsed;
-
-                //Category category = ((Category)cbEdit.SelectedItem);
-                //Chưa xử lý icon.
                 fillForm.Visibility = Visibility.Visible;
-                //fillForm.DataContext = category;
-                //txtCatogoryNameEdit.Text = category.Name;
-
             }
         }
 
@@ -133,7 +137,7 @@ namespace Home
             }
             string newName = txtCatogoryNameEdit.Text;
             string newIcon = iconCategorySelected.Source.ToString();
-            
+
             bool isUsingOldIcon = Global.isUsingtheOldFile(newIcon, oldIcon);
 
             if (newName.Equals(oldCategory.Name) && isUsingOldIcon)
@@ -162,7 +166,7 @@ namespace Home
             //Lấy thư mục chứa file icon của app
             string iconFolder = Global.getBaseFolder() + @"\Images\category\";
 
-            
+
             var oldCategoryName = oldCategory.Name;
 
             Category newCategory = new Category()
@@ -174,7 +178,7 @@ namespace Home
 
             if (masterDataManager.updateCategory(oldCategory, newCategory))
             {
-                if(oldCategoryName != newCategory.Name)
+                if (oldCategoryName != newCategory.Name)
                 {
                     MessageBox.Show($"Cập nhật {oldCategoryName} thành {newCategory.Name} thành công");
 
@@ -243,6 +247,9 @@ namespace Home
                     Global.copyFileTo(sourcePath, iconFolder + iconFullName);
                 }
                 updateCB();
+                //refresh name and icon
+                txtCatogoryName.Text = "";
+                reviewIcon.Source = Global.loadBitmapImageFrom($"{Global.getBaseFolder()}\\Images\\category\\default-category-icon.ico");
             }
             else
             {
@@ -264,8 +271,11 @@ namespace Home
                 if (masterDataManager.deleteCategory(category.ID))
                 {
                     //Đã xử lý(xóa) icon
-
-                    Global.deleteFile($"{Global.getBaseFolder()}\\Images\\category\\{category.Icon}");
+                    //khác icon default thì xóa
+                    if (!category.Icon.Equals("default-category-icon.ico"))
+                    {
+                        Global.deleteFile($"{Global.getBaseFolder()}\\Images\\category\\{category.Icon}");
+                    }
                     MessageBox.Show($"Xóa {category.Name} thành công");
                     updateCB();
 

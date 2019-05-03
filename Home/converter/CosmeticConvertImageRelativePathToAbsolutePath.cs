@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net.Cache;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
@@ -16,13 +18,18 @@ namespace Home.converter
         {
             var imagePath = $"{Global.getBaseFolder()}\\Images\\cosmetic\\{value.ToString()}";
 
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            image.CacheOption = BitmapCacheOption.OnLoad;
-            image.UriSource = new Uri(imagePath);
-            image.EndInit();
-
+            BitmapImage image = null;
+            if (File.Exists(imagePath))
+            {
+                image = new BitmapImage();
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                //image.CacheOption = BitmapCacheOption.None;
+                //image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = new Uri(imagePath);
+                image.EndInit();
+            }
             return image;
         }
 
@@ -38,12 +45,18 @@ namespace Home.converter
         {
             var imagePath = $"{Global.getBaseFolder()}\\Images\\category\\{value.ToString()}";
 
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            image.CacheOption = BitmapCacheOption.OnLoad;
-            image.UriSource = new Uri(imagePath);
-            image.EndInit();
+            BitmapImage image = null;
+            if (File.Exists(imagePath))
+            {
+                image = new BitmapImage();
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                //image.CacheOption = BitmapCacheOption.None;
+                //image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = new Uri(imagePath);
+                image.EndInit();
+            }
             return image;
         }
 
