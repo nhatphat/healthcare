@@ -93,6 +93,7 @@ namespace Home
                     functionForm.Visibility = Visibility.Collapsed;
                     btnEdit.Visibility = Visibility.Visible;
                     fillForm.Visibility = Visibility.Collapsed;
+                    btnBack.Visibility = Visibility.Visible;
                     updateCB();
                     return;
                 }
