@@ -27,6 +27,19 @@
           <Property Name="Origin" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Detail" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Products" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TotalPrice" Type="int" Nullable="false" />
+          <Property Name="CreateAt" Type="datetime" Nullable="false" />
+          <Property Name="CustomerTel" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerAddr" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <Association Name="Cosmetic_Category_FK">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Cosmetic" Type="Self.Cosmetic" Multiplicity="*" />
@@ -42,6 +55,7 @@
         <EntityContainer Name="master_dataModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cosmetic" EntityType="Self.Cosmetic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="Cosmetic_Category_FK" Association="Self.Cosmetic_Category_FK">
             <End Role="Category" EntitySet="Category" />
             <End Role="Cosmetic" EntitySet="Cosmetic" />
@@ -76,6 +90,19 @@
           <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Category1" Relationship="Self.Cosmetic_Category_FK" FromRole="Cosmetic" ToRole="Category" />
         </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Products" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TotalPrice" Type="Int32" Nullable="false" />
+          <Property Name="CreateAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CustomerTel" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerAddr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <Association Name="Cosmetic_Category_FK">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Cosmetic" Type="Self.Cosmetic" Multiplicity="*" />
@@ -88,9 +115,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="master_dataEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="master_dataEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Cosmetics" EntityType="Self.Cosmetic" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
           <AssociationSet Name="Cosmetic_Category_FK" Association="Self.Cosmetic_Category_FK">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Cosmetic" EntitySet="Cosmetics" />
@@ -101,7 +129,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="master_dataModelStoreContainer" CdmEntityContainer="master_dataEntities1">
+        <EntityContainerMapping StorageEntityContainer="master_dataModelStoreContainer" CdmEntityContainer="master_dataEntities">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="master_dataModel.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -123,6 +151,20 @@
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Origin" ColumnName="Origin" />
                 <ScalarProperty Name="Detail" ColumnName="Detail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="master_dataModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Products" ColumnName="Products" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
+                <ScalarProperty Name="CustomerTel" ColumnName="CustomerTel" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerAddr" ColumnName="CustomerAddr" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

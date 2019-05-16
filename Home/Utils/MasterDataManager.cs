@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Home.Utils
 {
@@ -222,6 +223,80 @@ namespace Home.Utils
                 cos.Origin = cosmetic.Origin;
                 Master_Data_DB.SaveChanges();
 
+                return true;
+            }
+
+            return false;
+        }
+
+        public Cosmetic getCosmeticById(int id)
+        {
+            var cos = Master_Data_DB.Cosmetics.Find(id);
+
+            return cos != null ? cos : null;
+        }
+
+        public bool addNewOrder(Order order)
+        {
+            var ord = Master_Data_DB.Orders.Add(order);
+            if (ord != null)
+            {
+                Master_Data_DB.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// load tất cả các đơn hàng
+        /// </summary>
+        /// <returns>
+        ///     trả về danh sách các đơn hàng, bao gồm chi tiết các sản phẩm trong đơn hàng đó
+        /// </returns>
+        public List<Order> LoadAllOrder()
+        {
+            var jsonManager = new JavaScriptSerializer();
+            var listOrder = Master_Data_DB.Orders.Where(odr => odr.Status != Order.C_DELETED).ToList();
+            for (int i = 0; i < listOrder.Count; i++)
+            {
+                listOrder[i].ListProducts = jsonManager.Deserialize<List<ProductOfOrder>>(listOrder[i].Products);
+            }
+
+            return listOrder;
+        }
+
+        public Order getOrderById(int id)
+        {
+            var odr = Master_Data_DB.Orders.Find(id);
+            return odr != null ? odr : null;
+        }
+
+        /// <summary>
+        /// cập nhật trạng thái đơn hàng
+        /// </summary>
+        public bool updateOrder(int id, string newStatus)
+        {
+            var odr = getOrderById(id);
+
+            if (odr != null)
+            {
+                odr.Status = Order.getStatusCodeByName(newStatus);
+                Master_Data_DB.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool deleteOrder(int id)
+        {
+            var ord = Master_Data_DB.Orders.Find(id);
+            if (ord != null)
+            {
+                ord.Status = Order.C_DELETED;
+                Master_Data_DB.SaveChanges();
                 return true;
             }
 

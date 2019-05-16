@@ -58,6 +58,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -110,6 +111,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>master_data.edmx</DependentUpon>
     </Compile>
+    <Compile Include="models\Order.cs">
+      <DependentUpon>master_data.tt</DependentUpon>
+    </Compile>
+    <Compile Include="models\ProductOfOrder.cs" />
     <Compile Include="ProductDetailScreen.xaml.cs">
       <DependentUpon>ProductDetailScreen.xaml</DependentUpon>
     </Compile>
@@ -194,7 +199,6 @@
     <Resource Include="Images\cosmetic\kem-tai-tao-te-bao-tre-hoa-da-cho-doi-tay-cell-shock-age-cellular-recovery-3d-hand-cream-1.png" />
     <Resource Include="Images\cosmetic\kemduongco.jpg" />
     <Resource Include="Images\cosmetic\serum-nang-nguc-dr-spiller-neck-and-decollete-cream.jpg" />
-    <Resource Include="Images\cosmetic\Bộ_sản_phẩm_mụn_is_clinical.png" />
     <Resource Include="Images\cosmetic\duong-am-dieu-tri-lao-hoa-da-tensage-cream-endocare.png" />
     <Resource Include="Images\cosmetic\gel-chong-nang-heliocare-gel-spf50-cho-da-nhon-mun.png" />
     <Resource Include="Images\cosmetic\iS_Clinical_Tri-Active_Exfoliant1.png" />
@@ -244,9 +248,7 @@
     <Resource Include="Images\cosmetic\vien-uong-trang-da-giam-nam-nep-nhan-va-suc-khoe-tong-the-murad-firm-and-tone-dietary-supplement.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\cosmetic\default_cosmetic_icon.ico" />
-    <Resource Include="Images\app\appication-icon.ico" />
-    <Resource Include="appication-icon.ico" />
+    <Resource Include="Images\cosmetic\Bo-san-pham-mun-is-clinical.png" />
     <Content Include="models\master_data.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>master_data.edmx</DependentUpon>
@@ -257,6 +259,9 @@
       <DependentUpon>master_data.edmx</DependentUpon>
       <LastGenOutput>master_data.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\cosmetic\default_cosmetic_icon.ico" />
+    <Resource Include="Images\app\appication-icon.ico" />
+    <Resource Include="appication-icon.ico" />
     <Resource Include="Images\category\default-category-icon.ico" />
     <Resource Include="Images\category\body-icon.ico" />
     <Resource Include="Images\category\Drug-icon.ico" />
