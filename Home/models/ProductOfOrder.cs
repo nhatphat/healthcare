@@ -10,6 +10,11 @@ namespace Home.models
 {
     public class ProductOfOrder : INotifyPropertyChanged
     {
+        public static string createJsonOfCosmeticWith(Cosmetic cosmetic, int quantity)
+        {
+            return $"{"{"}\"ID\":{cosmetic.ID},\"Name\":\"{cosmetic.Name}\", \"Price\":{cosmetic.Price}, \"Quantity\": {quantity}, \"Total\": {cosmetic.Price * quantity}{"}"}";
+        }
+
         private int id;
         private string name;
         private int price;
