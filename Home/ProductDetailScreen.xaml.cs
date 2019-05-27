@@ -28,7 +28,6 @@ namespace Home
             Cosmetic product = data;
             productFullDetail.DataContext = data;
 
-
         }
     }
        

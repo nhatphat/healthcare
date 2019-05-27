@@ -27,5 +27,6 @@ namespace Home.models
     
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Cosmetic> Cosmetics { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
     }
 }

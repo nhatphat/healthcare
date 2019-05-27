@@ -13,11 +13,12 @@
     </UserControl.Resources>
     
     <Grid>
-        <StackPanel Name="productFullDetail" Margin="60" Orientation="Horizontal">
+        <StackPanel Name="productFullDetail" Margin="0 100 0 0" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Grid Width="300">
             <Image Height="300" Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <StackPanel Margin="50 0 0 0" MaxWidth="600">
-                
-                <TextBlock Text="{Binding Name}" TextWrapping="Wrap"  FontSize="30"  FontWeight="Bold" />
+            </Grid>
+            <StackPanel Margin="30 0 0 0" MaxWidth="500">
+                <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontSize="27" MaxWidth="490" FontWeight="Bold" Margin="0"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.5*"/>
@@ -33,7 +34,7 @@
                     <Label Grid.Column="1" Grid.Row ="1" Content="{Binding Origin}" FontSize="17" FontWeight="Bold" HorizontalContentAlignment="Left"/>
                 </Grid>
                 <Label Content="Thông tin chi tiết:" FontSize="17" FontWeight="Bold"  />
-                <TextBlock Text="{Binding Detail}" TextWrapping="Wrap" FontSize="17"/>
+                <TextBlock Text="{Binding Detail}" TextWrapping="Wrap" FontSize="17" MaxWidth="480" Margin="7 0 0 0"/>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -7,6 +7,7 @@
         xmlns:converter="clr-namespace:Home.converter"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        
         Title="MainWindow" Height="800" Width="1090" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Window.Resources>
         <converter:CategoryConvertImageRelativePathToAbsolutePath x:Key="convertImageCategory"/>
@@ -70,7 +71,12 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel ToolTip="{Binding Name}" Orientation="Horizontal" MouseLeftButtonDown="Category_click">
-                                    <Image Height="50" Width="50" Source="{Binding Icon, Converter={StaticResource convertImageCategory}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Ellipse Height="50" Width="50">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding Icon, Converter={StaticResource convertImageCategory}}" AlignmentX="Center" AlignmentY="Center" Stretch="Fill" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <!--<Image Height="50" Width="50" Source="{Binding Icon, Converter={StaticResource convertImageCategory}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
                                     <Label Content="{Binding Name}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="17" FontWeight="Bold" Foreground="White" />
                                 </StackPanel>
                             </DataTemplate>

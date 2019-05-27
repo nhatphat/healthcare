@@ -23,18 +23,35 @@ namespace Home
     public partial class CosmeticScreenOf : UserControl
     {
         private MasterDataManager masterDataManager;
-        public CosmeticScreenOf(List<Cosmetic> cosmetics)
+        List<Cosmetic> cosmetics;
+        public CosmeticScreenOf(int categoryId)
         {
             InitializeComponent();
 
-            //var dbManager = DBManager.getInstance();
-            
             masterDataManager = MasterDataManager.getInstance();
+            cosmetics = masterDataManager.getAllCosmeticOfCategory(categoryId);
 
-            listCosmetic.ItemsSource = cosmetics;
+            if(cosmetics.Count == 0)
+            {
+                emptyCategory.Visibility = Visibility.Visible;
+                paging.Visibility = Visibility.Collapsed;
+                listCosmetic.Visibility = Visibility.Collapsed;
+            }
 
+            itemsPerPage = 10;
+            double dbPage = cosmetics.Count / (itemsPerPage * 1.0);
+            totalPages = dbPage < 1 ? 1 : dbPage == 1 ? 1 : (int)dbPage + 1;
+
+
+
+            listCosmetic.ItemsSource = cosmetics.Skip((0) * 10)
+                .Take(10); ;
+            pagingInfoLabel.Content = $"Page {currentPage} of {totalPages}";
         }
 
+        int currentPage = 1;
+        int itemsPerPage = 10;
+        int totalPages = 0;
 
         private void Product_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -44,7 +61,31 @@ namespace Home
             this.Content = screen;
         }
 
+        private void PreviousButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                listCosmetic.ItemsSource = cosmetics
+                    .Skip((currentPage - 1) * itemsPerPage)
+                    .Take(itemsPerPage);
+                pagingInfoLabel.Content = $"Page {currentPage} of {totalPages}";
 
+            }
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                listCosmetic.ItemsSource = cosmetics
+                    .Skip((currentPage - 1) * itemsPerPage)
+                    .Take(itemsPerPage);
+                pagingInfoLabel.Content = $"Page {currentPage} of {totalPages}";
+
+            }
+        }
 
     }
 }

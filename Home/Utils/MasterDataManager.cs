@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Home.Utils
 {
@@ -31,7 +32,12 @@ namespace Home.Utils
         /// <returns></returns>
         public List<Category> getAllCategory()
         {
-            return Master_Data_DB.Categories.ToList();
+
+            return Master_Data_DB.Categories.Where(categories =>
+
+                categories.Status == 0
+
+            ).ToList();
         }
 
         /// <summary>
@@ -41,18 +47,35 @@ namespace Home.Utils
         /// <returns></returns>
         public bool addNewCategory(Category newCategory)
         {
-            var oldCate = Master_Data_DB.Categories.Where(category =>
-
+            var categoryInDB = Master_Data_DB.Categories.Where(category =>
                 category.Name.Equals(newCategory.Name)
-            );
+            ).ToList();
 
-            if (oldCate.Count() == 0)
+            if (categoryInDB.Count() == 0)
             {
                 Master_Data_DB.Categories.Add(newCategory);
                 Master_Data_DB.SaveChanges();
-
                 return true;
             }
+            else if (categoryInDB[0].Status == -1)
+            {
+                categoryInDB[0].Status = 0;
+                categoryInDB[0].Icon = newCategory.Icon;
+                Master_Data_DB.SaveChanges();
+                return true;
+            }
+            //var oldCate = Master_Data_DB.Categories.Where(category =>
+
+            //    category.Name.Equals(newCategory.Name) && category.Status == 0
+            //);
+
+            //if (oldCate.Count() == 0)
+            //{
+            //    Master_Data_DB.Categories.Add(newCategory);
+            //    Master_Data_DB.SaveChanges();
+
+            //    return true;
+            //}
 
             return false;
         }
@@ -73,7 +96,7 @@ namespace Home.Utils
 
             if (cate != null && cosOf.Count() == 0)
             {
-                Master_Data_DB.Categories.Remove(cate);
+                cate.Status = -1;
                 Master_Data_DB.SaveChanges();
 
                 return true;
@@ -90,7 +113,14 @@ namespace Home.Utils
         public bool updateCategory(Category oldCategory, Category NewCategory)
         {
             var cate = Master_Data_DB.Categories.Find(oldCategory.ID);
-            if (cate != null)
+
+            var checkExist = Master_Data_DB.Categories.Where(cte =>
+
+                cte.Name == NewCategory.Name && cte.ID != oldCategory.ID
+
+            ).ToList();
+
+            if (cate != null && checkExist.Count() == 0)
             {
                 cate.Name = NewCategory.Name;
                 cate.Icon = NewCategory.Icon;
@@ -116,6 +146,7 @@ namespace Home.Utils
             ).ToList();
         }
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -123,11 +154,29 @@ namespace Home.Utils
         /// <returns></returns>
         public bool addNewCosmetic(Cosmetic cosmetic)
         {
-            if (Master_Data_DB.Cosmetics.Add(cosmetic) != null)
-            {
-                Master_Data_DB.SaveChanges();
+            var checkExists = Master_Data_DB.Cosmetics.Where(cos =>
 
-                return true;
+                cos.Name == cosmetic.Name && cos.Category == cosmetic.Category
+
+            ).ToList();
+
+
+            if (checkExists.Count() == 0)
+            {
+                if (Master_Data_DB.Cosmetics.Add(cosmetic) != null)
+                {
+                    Master_Data_DB.SaveChanges();
+                    return true;
+                }
+            }
+            // if exists but deleted, create new product too 
+            else if (checkExists[0].Status == -1)
+            {
+                if (Master_Data_DB.Cosmetics.Add(cosmetic) != null)
+                {
+                    Master_Data_DB.SaveChanges();
+                    return true;
+                }
             }
 
             return false;
@@ -157,7 +206,14 @@ namespace Home.Utils
         public bool updateCosmetic(Cosmetic cosmetic)
         {
             var cos = Master_Data_DB.Cosmetics.Find(cosmetic.ID);
-            if (cos != null)
+
+            var checkExists = Master_Data_DB.Cosmetics.Where(cosm =>
+
+                cosm.Name == cosmetic.Name && cosm.Category == cosmetic.Category && cosm.ID != cosmetic.ID
+
+            ).ToList();
+
+            if (cos != null && checkExists.Count() == 0)
             {
                 cos.Name = cosmetic.Name;
                 cos.Image = cosmetic.Image;
@@ -172,11 +228,85 @@ namespace Home.Utils
 
             return false;
         }
-           
+
+        public Cosmetic getCosmeticById(int id)
+        {
+            var cos = Master_Data_DB.Cosmetics.Find(id);
+
+            return cos != null ? cos : null;
+        }
+
+        public bool addNewOrder(Order order)
+        {
+            var ord = Master_Data_DB.Orders.Add(order);
+            if (ord != null)
+            {
+                Master_Data_DB.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// load tất cả các đơn hàng
+        /// </summary>
+        /// <returns>
+        ///     trả về danh sách các đơn hàng, bao gồm chi tiết các sản phẩm trong đơn hàng đó
+        /// </returns>
+        public List<Order> LoadAllOrder()
+        {
+            var jsonManager = new JavaScriptSerializer();
+            var listOrder = Master_Data_DB.Orders.Where(odr => odr.Status != Order.C_DELETED).ToList();
+            for (int i = 0; i < listOrder.Count; i++)
+            {
+                listOrder[i].ListProducts = jsonManager.Deserialize<List<ProductOfOrder>>(listOrder[i].Products);
+            }
+
+            return listOrder;
+        }
+
+        public Order getOrderById(int id)
+        {
+            var odr = Master_Data_DB.Orders.Find(id);
+            return odr != null ? odr : null;
+        }
+
+        /// <summary>
+        /// cập nhật trạng thái đơn hàng
+        /// </summary>
+        public bool updateOrder(int id, string newStatus)
+        {
+            var odr = getOrderById(id);
+
+            if (odr != null)
+            {
+                odr.Status = Order.getStatusCodeByName(newStatus);
+                Master_Data_DB.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool deleteOrder(int id)
+        {
+            var ord = Master_Data_DB.Orders.Find(id);
+            if (ord != null)
+            {
+                ord.Status = Order.C_DELETED;
+                Master_Data_DB.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
         public void saveChanged()
         {
             Master_Data_DB.SaveChanges();
         }
-   
+
     }
 }

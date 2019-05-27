@@ -28,6 +28,12 @@ namespace Home
         //private DBManager dbManager;
 
         //using for SQL Server
+        public delegate void categoryChanged();
+
+        public interface ICategoryChangeListenter{
+            event categoryChanged OnCategoryChangeListener;
+        }
+
         private MasterDataManager masterDataManager;
 
         public bool? Form { get; private set; }
@@ -39,12 +45,16 @@ namespace Home
             masterDataManager = MasterDataManager.getInstance();
 
             //listCategory.ItemsSource = dbManager.getAllCategoryName();
-
-            //demo using MasterDataManager
-            listCategory.ItemsSource = masterDataManager.getAllCategory();
+            loadAllCategory();
+            
             
 
             this.Closed += new EventHandler(closed);
+        }
+
+        private void loadAllCategory()
+        {
+            listCategory.ItemsSource = masterDataManager.getAllCategory();
         }
 
         private void closed(object sender, EventArgs e)
@@ -76,13 +86,7 @@ namespace Home
             var category_selected = data_context as Category;
             currentCatogoryName.Text = category_selected.Name;
 
-            //old code using excel
-            //category_selected.Cosmetics = dbManager.getAllCosmeticBySheetName(category_selected.Name);
-
-            //using MasterDataManager
-            var allCosmeticOfCategorySelected = masterDataManager.getAllCosmeticOfCategory(category_selected.ID);
-
-            addChildForm(new CosmeticScreenOf(allCosmeticOfCategorySelected));
+            addChildForm(new CosmeticScreenOf(category_selected.ID));
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -136,7 +140,12 @@ namespace Home
         private void CatogoryManager_Click(object sender, RoutedEventArgs e)
         {
             currentCatogoryName.Text = "Quản lý danh mục";
-            addChildForm(new ManagerCatogoryScreen());
+            var managerCategoryScreen = new ManagerCatogoryScreen();
+            managerCategoryScreen.OnCategoryChangeListener += () =>
+            {
+                loadAllCategory();
+            };
+            addChildForm(managerCategoryScreen);
         }
 
         private void ProductManager_Click(object sender, RoutedEventArgs e)
