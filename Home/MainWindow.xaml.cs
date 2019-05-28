@@ -153,6 +153,11 @@ namespace Home
             currentCatogoryName.Text = "Quản lý sản phẩm";
             addChildForm(new ManagerProductScreen());
         }
-        
+
+        private void OrderManager_Click(object sender, RoutedEventArgs e)
+        {
+            currentCatogoryName.Text = "Quản lý đơn hàng";
+            addChildForm(new ManagerOrderScreen());
+        }
     }
 }

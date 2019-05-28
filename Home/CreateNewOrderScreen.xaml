@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="Home.CreateNewOrderScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Home"
+             xmlns:converter="clr-namespace:Home.converter"
+             mc:Ignorable="d" 
+             d:DesignHeight="760" d:DesignWidth="1020">
+    <UserControl.Resources>
+        <converter:CosmeticConvertImageRelativePathToAbsolutePath x:Key="convertImageCosmetic"/>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <StackPanel Name="customerInfoForm" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="Nhập thông tin đơn hàng" FontSize="25" FontWeight="Bold"/>
+            <Label Content="Tên khách hàng" FontSize="20" FontWeight="Bold" Margin="0 30 0 0"/>
+            <Border BorderThickness="1 1 1 1" CornerRadius="3.2" BorderBrush="#FFF78787">
+                <TextBox Name="txtCustomerName"  FontSize="20" Padding="2" CaretBrush="{x:Null}"/>
+            </Border>
+            <Label Content="Số điện thoại" FontSize="20" FontWeight="Bold"/>
+            <Border BorderThickness="1 1 1 1" CornerRadius="3.2" BorderBrush="#FFF78787">
+                <TextBox Name="txtCustomerPhone" FontSize="20" Padding="2" CaretBrush="{x:Null}"/>
+            </Border>
+            <Label Content="Địa chỉ" FontSize="20" FontWeight="Bold"/>
+            <Border BorderThickness="1 1 1 1" CornerRadius="3.2" BorderBrush="#FFF78787">
+                <TextBox Name="txtCustomerAddress" FontSize="20" Padding="2" CaretBrush="{x:Null}"/>
+            </Border>
+            <Button Name="createOrderbtn" Content="Tạo đơn hàng" FontSize="17" FontWeight="Bold" Height="40" Width="200" Margin="30" HorizontalAlignment="Center" Background="#FFF78787" BorderBrush="{x:Null}" Click="CreateOrderbtn_Click"/>
+        </StackPanel>
+
+        <!--Left Panel-->
+        <!--Thêm sản phẩm cho đơn hàng-->
+        <Grid Name="addProductIntoOrder" Visibility="Collapsed" Margin="0 30 0 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Name="productZone">
+
+                <Grid Margin="0 30 0 10" Height="40" Width="430" HorizontalAlignment="Center" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Name="placeholdertext" Grid.Row="0" Foreground="Gray" VerticalContentAlignment="Center" Content="Tìm kiếm bằng tên sản phẩm..." Width="430" FontSize="22" Padding="5 0 0 0" Height="40" />
+                    <Border CornerRadius="6"  BorderBrush="#FFF78787" BorderThickness="2">
+                        <TextBox Name="searchingtxt" Grid.Row="0" Width="430" Height="40" VerticalContentAlignment="Center" Background="Transparent" CaretBrush="{x:Null}" Padding="5 0 0 1"  FontSize="22" GotFocus="Searchingtxt_GotFocus" LostFocus="Searchingtxt_LostFocus" ></TextBox>
+                    </Border>
+                </Grid>
+
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"  Name="listCosmetic" Width="480" MaxHeight="740" HorizontalAlignment="Center">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="6" BorderBrush="LightPink" BorderThickness="2">
+                                <StackPanel Name="product" MouseLeftButtonDown="Product_MouseLeftButtonDown"  Height="160" Width="100">
+                                    <Image Height="70" Width="70"  Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock MinHeight="50" MaxHeight="50" TextWrapping="Wrap" Text="{Binding Name}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontWeight="Bold" FontSize="11" Margin="2 0 2 0"/>
+                                    <Separator/>
+                                    <Label Content="{Binding Price}" Margin="5 0 5 0 " HorizontalAlignment="Center" FontWeight="Bold"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+            
+            
+            <!--Right panel-->
+            <StackPanel Grid.Column="1" Name="orderZone" Background="White">
+                <Border BorderBrush="#FFF78787" BorderThickness="2" MaxWidth="464" Height="720">
+                    <StackPanel>
+                        <Grid Name="customerInfo" Height="120" MaxWidth="464" Background="Gray">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Margin="0 0 5 0"  VerticalContentAlignment="Center" HorizontalContentAlignment="right" Foreground="White" FontSize="15" FontWeight="bold" Content ="Khách hàng:"/>
+                            <Label Grid.Row="1" Grid.Column="0" Margin="0 0 5 0"  VerticalContentAlignment="Center" HorizontalContentAlignment="right" Foreground="White" FontSize="15" FontWeight="bold" Content="Số điện thoại:"/>
+                            <Label Grid.Row="1" Grid.Column="0" Margin="0,35,5,15" Height="30"  VerticalContentAlignment="Top" HorizontalContentAlignment="right" Foreground="White" FontSize="15" FontWeight="bold" Content="Địa chỉ:" Grid.RowSpan="2"/>
+
+                            <Label Name="lbCustomerName" Grid.Row="0" Grid.Column="1" Foreground="White" FontSize="20" FontWeight="bold" Content ="Châu Văn Khánh Nhật"/>
+                            <Label Name="lbCustomerPhone" Grid.Row="1" Grid.Column="1" Foreground="White" FontSize="15" FontWeight="bold" VerticalContentAlignment="Center" Content="032321717"/>
+                            <TextBlock Name="lbCustomerAdd" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Foreground="White" FontSize="15" Margin="5 0 0 0" FontWeight="bold" Text="65B, đường 185, phường Phước Long B, Quận 9, Tp.HCM"/>
+
+                        </Grid>
+                        <Label Content="Sản phẩm đã chọn:" FontWeight="Bold" FontSize="17" Margin="5 5 0 0"/>
+                        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"  Name="listCosmeticSelected" MaxWidth="464" Height="430" Margin="5 10 5 15" HorizontalAlignment="Center">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="6" BorderBrush="LightPink" BorderThickness="2">
+                                        <Grid Name="product" MouseLeftButtonDown="Product_MouseLeftButtonDown"  Height="60" Width="450" MaxWidth="450">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width="1*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" Height="60" Width="60"  Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+                                            <StackPanel Grid.Column="1" MaxWidth="270">
+                                                <TextBlock  MinHeight="30" MaxHeight="30" TextWrapping="Wrap" Text="{Binding Name}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontWeight="Bold" FontSize="11" Margin="2 0 2 0"/>
+                                                <Label Content="{Binding Price}" Foreground="DarkRed" HorizontalAlignment="Left" FontWeight="Bold"/>
+                                            </StackPanel>
+                                            <Label Name="numberOfProduct" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Foreground="DarkBlue">2</Label>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Tổng đơn hàng" VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <Label Name="totalAmount" Content="200000" VerticalContentAlignment="Center" FontSize="25" Foreground="Red" FontWeight="Bold"/>
+                            <Label Content="VNĐ" VerticalContentAlignment="Center" FontSize="25" Foreground="Red" FontWeight="Bold"/>
+                        </StackPanel>
+                        <Button Name="saveOrder" Content="Lưu đơn hàng" FontSize="17" FontWeight="Bold" Height="40" Width="200" Margin="0 10 0 0 " HorizontalAlignment="Center" Background="#FFF78787" BorderBrush="{x:Null}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

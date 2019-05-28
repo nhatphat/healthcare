@@ -60,10 +60,10 @@
                             <ImageBrush ImageSource="/Images/app/cosmetic.png" Stretch="Uniform"/>
                         </Grid.Background>
                         <Button ToolTip="Hiện menu" Name="btnOpenMenu" Width="70"  Height="50" VerticalAlignment="Top" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="BtnOpenMenu_Click">
-                            <materialDesign:PackIcon Kind="Menu" Foreground="White" Width="25" Height="25"/>
+                            <Image Source="/Images/app/menu.png" Width="25" Height="25"/>
                         </Button>
                         <Button ToolTip="Ẩn menu" Name="btnCloseMenu" Width="50"  Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Collapsed" Click="BtnCloseMenu_Click">
-                            <materialDesign:PackIcon Kind="ArrowLeft" Foreground="White" Width="25" Height="25"/>
+                            <Image Source="/Images/app/arrow-left.png" Width="25" Height="25"/>
                         </Button>
                     </Grid>
 
@@ -105,6 +105,7 @@
                             <StackPanel Width="160">
                                 <Button HorizontalContentAlignment="Center" Name="catogoryManager"  Content="Quản lý danh mục" Click="CatogoryManager_Click"/>
                                 <Button HorizontalContentAlignment="Center" Name="productManager" Content="Quản lý sản phẩm" Click="ProductManager_Click"/>
+                                <Button HorizontalContentAlignment="Center" Name="OrderManager" Content="Quản lý đơn hàng" Click="OrderManager_Click"/>
                             </StackPanel>
                         </materialDesign:PopupBox>
                     </StackPanel>
@@ -113,7 +114,5 @@
                 <ContentControl Name="parentForm" VerticalAlignment="Bottom" Height="760" Width="1020"/>
             </StackPanel>
         </StackPanel>
-
-
     </Grid>
 </Window>
