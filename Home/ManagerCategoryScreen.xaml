@@ -67,6 +67,7 @@
         <StackPanel Name="editForm" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
             <Label Content="Chọn danh mục" FontSize="20" FontWeight="Bold"/>
             <ComboBox Name="cbEdit" Height="40" Width="400" ItemsSource="{Binding category}" Background="{x:Null}" SelectionChanged="cbEdit_selectionChanged">
+               
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">

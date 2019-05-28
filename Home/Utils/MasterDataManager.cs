@@ -133,6 +133,19 @@ namespace Home.Utils
         }
 
         /// <summary>
+        /// Get all cosmetic 
+        /// </summary>
+        /// <returns></returns>
+        public List<Cosmetic> getAllCosmetic()
+        {
+            return Master_Data_DB.Cosmetics.Where(cosmetic =>
+                1 == 1 
+            ).ToList();
+        }
+
+
+
+        /// <summary>
         /// lấy ra cosmetic theo từng category
         /// </summary>
         /// <param name="idCategory"></param>
