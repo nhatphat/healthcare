@@ -1,8 +1,10 @@
 ﻿using Home.models;
+using Home.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,10 +23,17 @@ namespace Home
     /// </summary>
     public partial class ManagerOrderScreen : UserControl
     {
+        private MasterDataManager masterDataManager;
+
         public ManagerOrderScreen()
         {
             InitializeComponent();
+            masterDataManager = MasterDataManager.getInstance();
+
+            updateOrderList();
         }
+
+        
 
         #region Paging - Bỏ không dùng nữa 
         //int currentPage = 1;
@@ -62,6 +71,10 @@ namespace Home
             this.Content = new CreateNewOrderScreen();
         }
 
+        private void updateOrderList()
+        {
+            listOrder.ItemsSource = masterDataManager.LoadAllOrder();
+        }
 
         private void Searchingtxt_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -95,5 +108,17 @@ namespace Home
             addtooltip.Visibility = Visibility.Hidden;
         }
 
+        private void searchingtxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var keySearch = searchingtxt.Text;
+            // check key search not empty
+            if (Regex.IsMatch(keySearch, "^\\s+") || keySearch.Equals(""))
+            {
+                updateOrderList();
+                return;
+            }
+            var result = masterDataManager.searchOrdersByPhoneOrName(keySearch);
+            listOrder.ItemsSource = result;
+        }
     }
 }

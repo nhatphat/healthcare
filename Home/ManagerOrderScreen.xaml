@@ -5,8 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Home"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converter="clr-namespace:Home.converter"
              mc:Ignorable="d" 
              d:DesignHeight="760" d:DesignWidth="1020">
+    <UserControl.Resources>
+        <converter:OrderConvertStatusCodeToStatusName x:Key="orderStatusConverter"/>
+    </UserControl.Resources>
+
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.2*"/>
@@ -22,7 +27,7 @@
 
                 <Label Name="placeholdertext" Grid.Row="0" Foreground="Gray" VerticalContentAlignment="Center" Content="Tìm kiếm bằng tên hoặc số điện thoại..." Width="450" FontSize="22" Padding="5 0 0 0" Height="40" />
                 <Border CornerRadius="6"  BorderBrush="#FFF78787" BorderThickness="2">
-                    <TextBox Name="searchingtxt" Grid.Row="0" Width="455" Height="40" VerticalContentAlignment="Center" Background="Transparent" CaretBrush="{x:Null}" Padding="5 0 0 1"  FontSize="22" GotFocus="Searchingtxt_GotFocus" LostFocus="Searchingtxt_LostFocus" ></TextBox>
+                    <TextBox TextChanged="searchingtxt_TextChanged" Name="searchingtxt" Grid.Row="0" Width="455" Height="40" VerticalContentAlignment="Center" Background="Transparent" CaretBrush="{x:Null}" Padding="5 0 0 1"  FontSize="22" GotFocus="Searchingtxt_GotFocus" LostFocus="Searchingtxt_LostFocus" ></TextBox>
                 </Border>
             </Grid>
 
@@ -33,31 +38,40 @@
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>-->
                 <!--Binding thì đổi thành <ListView.ItemTemplate><DataTemplate>-->
-                <ListViewItem MouseLeftButtonDown="ListViewItem_MouseLeftButtonDown">
-                    <Border CornerRadius="6"  BorderBrush="#FFF78787" BorderThickness="2">
-                        <StackPanel Name="order" Height="80" Width="450">
-                            <Border Background="Gray" CornerRadius="4,4,0,0">
-                                <Label Name="customerName" Foreground="White" FontWeight="bold" Content ="Châu Văn Khánh Nhật"/>
-                            </Border>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2.8*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel>
-                                    <Label Grid.Column="0" FontSize="12" Content="032321717"/>
-                                    <Label Grid.Column="0" FontSize="12" Content="65B, đường 185, phường Phước Long B, Quận 9, Tp.HCM"/>
-                                </StackPanel>
-                                <ComboBox FontWeight="Bold" Grid.Column="1" Width="80" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" Background="Gray">
-                                    <!--Binding status-->
-                                    <ComboBoxItem HorizontalAlignment="Left" Margin="8,0,0,0"  IsSelected="True">Mới tạo</ComboBoxItem>
-                                    <ComboBoxItem HorizontalAlignment="Left" Margin="8,0,0,0">Hoàn tất</ComboBoxItem>
-                                    <ComboBoxItem HorizontalAlignment="Left" Margin="8 0 0 0">Đã hủy</ComboBoxItem>
-                                </ComboBox>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
-                </ListViewItem>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border CornerRadius="6"  BorderBrush="#FFF78787" BorderThickness="2">
+                            <StackPanel MouseLeftButtonDown="ListViewItem_MouseLeftButtonDown" Name="order" Height="80" Width="450">
+                                <Border Background="Gray" CornerRadius="4,4,0,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Name="customerName" Foreground="White" FontWeight="bold" Content ="{Binding CustomerName}"/>
+                                        <Label Name="time" Foreground="White" FontWeight="bold" Content ="{Binding CreateAt}"/>
+                                    </StackPanel>
+                                </Border>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2.8*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <Label Grid.Column="0" FontSize="12" Content="{Binding CustomerTel}"/>
+                                        <Label Grid.Column="0" FontSize="12" Content="{Binding CustomerAddr}"/>
+                                    </StackPanel>
+                                    <ComboBox FontWeight="Bold" Grid.Column="1" Width="80" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" Background="Gray">
+                                        <!--Binding status-->
+
+                                        <!--chỉnh sửa trong order detail, ở đây không cần combobox-->
+                                        <ComboBoxItem HorizontalAlignment="Left" Margin="8,0,0,0" IsSelected="True" Content="{Binding Status, Converter={StaticResource orderStatusConverter}}"/>
+
+                                        <!--<ComboBoxItem HorizontalAlignment="Left" Margin="8,0,0,0">Mới tạo</ComboBoxItem>
+                                        <ComboBoxItem HorizontalAlignment="Left" Margin="8,0,0,0">Hoàn tất</ComboBoxItem>
+                                        <ComboBoxItem HorizontalAlignment="Left" Margin="8 0 0 0">Đã hủy</ComboBoxItem>-->
+                                    </ComboBox>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
         <StackPanel Name="orderDetailview" Grid.Column="1" Background="White" >
@@ -71,20 +85,20 @@
                 <Label Width="130" Content="Tạo đơn hàng" FontSize="15" FontWeight="Bold" Foreground="#FFF78787"  HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
             </Border>
             <Button  Name="addNewOrder" Click="AddNewOrder_Click" Width="50" Height="50" Content="Add" ToolTip="Tạo đơn hàng"  Background="#FFF78787" Margin="10 0 0 0" HorizontalAlignment="Right" BorderBrush="#FFF78787" MouseEnter="AddNewOrder_MouseEnter" MouseLeave="AddNewOrder_MouseLeave">
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid>
-                        <Ellipse Fill="#FFF78787"/>
-                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Ellipse Fill="#FFF78787"/>
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
             </Button>
         </StackPanel>
 
         <!--Customer information form-->
 
-       
+
         <!--Drag and drop-->
 
         <!-- paging -->

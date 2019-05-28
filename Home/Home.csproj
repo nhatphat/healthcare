@@ -78,6 +78,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="converter\CosmeticConvertImageRelativePathToAbsolutePath.cs" />
+    <Compile Include="converter\OrderConvertStatusCodeToStatusName.cs" />
     <Compile Include="CosmeticScreenOf.xaml.cs">
       <DependentUpon>CosmeticScreenOf.xaml</DependentUpon>
     </Compile>

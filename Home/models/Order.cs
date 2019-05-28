@@ -15,10 +15,10 @@ namespace Home.models
 
     public partial class Order : INotifyPropertyChanged
     {
-        public static int C_NEW = 0;
-        public static int C_COMPLETED = 1;
-        public static int C_CANCELED = 2;
-        public static int C_DELETED = 3;
+        public const int C_NEW = 0;
+        public const int C_COMPLETED = 1;
+        public const int C_CANCELED = 2;
+        public const int C_DELETED = 3;
 
         public const string N_NEW = "Mới tạo";
         public const string N_COMPLETED = "Hoàn tất";
@@ -32,6 +32,17 @@ namespace Home.models
                 case N_COMPLETED: return C_COMPLETED;
                 case N_CANCELED: return C_CANCELED;
                 default: return C_NEW;
+            }
+        }
+
+        public static string getStatusNameByCode(int code)
+        {
+            switch (code)
+            {
+                case C_NEW: return N_NEW;
+                case C_COMPLETED: return N_COMPLETED;
+                case C_CANCELED: return N_CANCELED;
+                default: return N_NEW;
             }
         }
 
@@ -69,7 +80,14 @@ namespace Home.models
                 notifyPropertyChanged("TotalPrice");
             }
         }
-        public DateTime CreateAt { get => createAt; set { } }
+        public DateTime CreateAt
+        {
+            get => createAt;
+            set
+            {
+                createAt = value;
+            }
+        }
         public string CustomerTel { get => customerTel;
             set
             {

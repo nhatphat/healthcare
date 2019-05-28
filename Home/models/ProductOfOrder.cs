@@ -12,17 +12,19 @@ namespace Home.models
     {
         public static string createJsonOfCosmeticWith(Cosmetic cosmetic, int quantity)
         {
-            return $"{"{"}\"ID\":{cosmetic.ID},\"Name\":\"{cosmetic.Name}\", \"Price\":{cosmetic.Price}, \"Quantity\": {quantity}, \"Total\": {cosmetic.Price * quantity}{"}"}";
+            return $"{"{"}\"ID\":{cosmetic.ID},\"Name\":\"{cosmetic.Name}\", \"Image\":\"{cosmetic.Image}\", \"Price\":{cosmetic.Price}, \"Quantity\": {quantity}, \"Total\": {cosmetic.Price * quantity}{"}"}";
         }
 
         private int id;
         private string name;
+        private string image;
         private int price;
         private int quantity;
         private int total;
 
         public int ID { get => id; set { id = value; } }
         public string Name { get => name; set { name = value; } }
+        public string Image { get => image; set { image = value; } }
         public int Price { get => price; set { price = value; } }
         public int Quantity { get => quantity;
             set {
