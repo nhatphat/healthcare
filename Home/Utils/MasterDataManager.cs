@@ -138,9 +138,7 @@ namespace Home.Utils
         /// <returns></returns>
         public List<Cosmetic> getAllCosmetic()
         {
-            return Master_Data_DB.Cosmetics.Where(cosmetic =>
-                1 == 1 
-            ).ToList();
+            return Master_Data_DB.Cosmetics.ToList();
         }
 
 
@@ -282,7 +280,15 @@ namespace Home.Utils
         public Order getOrderById(int id)
         {
             var odr = Master_Data_DB.Orders.Find(id);
-            return odr != null ? odr : null;
+            if(odr != null)
+            {
+                var jsonManager = new JavaScriptSerializer();
+                odr.ListProducts = jsonManager.Deserialize<List<ProductOfOrder>>(odr.Products);
+
+                return odr;
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -314,6 +320,20 @@ namespace Home.Utils
             }
 
             return false;
+        }
+
+        public List<Cosmetic> searchCosmeticsByName(string name)
+        {
+            return Master_Data_DB.Cosmetics.Where(cos =>
+                   cos.Name.ToLower().Contains(name.ToLower())
+            ).ToList();
+        }
+
+        public List<Order> searchOrdersByPhoneOrName(string key)
+        {
+            return Master_Data_DB.Orders.Where(odr =>
+                   odr.CustomerTel.ToLower().Contains(key.ToLower()) || odr.CustomerName.ToLower().Contains(key.ToLower())
+            ).ToList();
         }
 
         public void saveChanged()
