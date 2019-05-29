@@ -19,7 +19,6 @@
         </Grid.ColumnDefinitions>
         <!-- show all order -->
         <StackPanel Name="listOrderView">
-
             <Grid Margin="0 30 0 10" Height="40" Width="455" HorizontalAlignment="Center" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -65,8 +64,8 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
-        <StackPanel Name="orderDetailview" Grid.Column="1" Background="White" VerticalAlignment="Top" Height="670" >
-            <ContentControl Name="oderDetail" VerticalAlignment="Bottom"/>
+        <StackPanel Name="orderDetailview" Grid.Column="1" Background="White" VerticalAlignment="Top" Height="690" >
+            <ContentControl Name="oderDetail" VerticalAlignment="Top"/>
         </StackPanel>
 
 
