@@ -192,7 +192,7 @@ namespace Home
             }
             else
             {
-                MessageBox.Show("Thêm đơn hàng thất bại. Vui lòng thử lại hoặc liên hệ kỹ thuật viên để chửi.");
+                MessageBox.Show("Thêm đơn hàng thất bại. Vui lòng thử lại hoặc liên hệ kỹ thuật viên");
             }
         }
 
