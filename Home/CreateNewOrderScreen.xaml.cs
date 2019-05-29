@@ -189,6 +189,7 @@ namespace Home
             if (masterDataManager.addNewOrder(order))
             {
                 MessageBox.Show("Thêm đơn hàng thành công");
+                this.Content = new ManagerOrderScreen();
             }
             else
             {
@@ -225,18 +226,44 @@ namespace Home
 
         private void Decrease_Click(object sender, RoutedEventArgs e)
         {
-
+            var context = (((sender as Button).Parent as StackPanel).Parent as StackPanel).Parent as Grid;
+            var data = context.DataContext as ProductOfOrder;
+            int index = getIndexProductInCosmeticsSelectedById(data.ID);
+            if (index != -1)
+            {
+                if (cosmeticsSelected[index].Quantity > 1)
+                {
+                    cosmeticsSelected[index].Quantity -= 1;
+                    updateTotalPriceOfOrder();
+                }
+            }
         }
 
         private void Increase_Click(object sender, RoutedEventArgs e)
         {
-            //var numberChosen = numberOfProduct.text;
-       
+            var context = (((sender as Button).Parent as StackPanel).Parent as StackPanel).Parent as Grid;
+            var data = context.DataContext as ProductOfOrder;
+
+            int index = getIndexProductInCosmeticsSelectedById(data.ID);
+            if (index != -1)
+            {
+                cosmeticsSelected[index].Quantity += 1;
+                updateTotalPriceOfOrder();
+            }
+
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            var context = ((sender as Button).Parent as StackPanel).Parent as Grid;
+            var data = context.DataContext as ProductOfOrder;
 
+            int index = getIndexProductInCosmeticsSelectedById(data.ID);
+            if (index != -1)
+            {
+                cosmeticsSelected.RemoveAt(index);
+                updateTotalPriceOfOrder();
+            }
         }
     }
 }
