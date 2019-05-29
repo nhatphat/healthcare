@@ -92,10 +92,10 @@ namespace Home
         private void ListViewItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //Click vào đơn hàng
-            //var item = sender as ListViewItem;
-            //var data = item.DataContext as Order;
-            //OderDetailScreen screen = new OderDetailScreen(data);
-            //oderDetail.Content = screen;
+            var item = sender as StackPanel;
+            var data = item.DataContext as Order;
+            OrderDetailScreen screen = new OrderDetailScreen(data);
+            oderDetail.Content = screen;
         }
 
         private void AddNewOrder_MouseEnter(object sender, MouseEventArgs e)
@@ -119,6 +119,11 @@ namespace Home
             }
             var result = masterDataManager.searchOrdersByPhoneOrName(keySearch);
             listOrder.ItemsSource = result;
+        }
+
+        private void Order_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

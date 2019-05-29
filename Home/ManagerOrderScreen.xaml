@@ -41,7 +41,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border CornerRadius="6"  BorderBrush="#FFF78787" BorderThickness="2">
-                            <StackPanel MouseLeftButtonDown="ListViewItem_MouseLeftButtonDown" Name="order" Height="80" Width="450">
+                            <StackPanel MouseLeftButtonDown="ListViewItem_MouseLeftButtonDown" Name="order" Height="80" Width="450" >
                                 <Border Background="Gray" CornerRadius="4,4,0,0">
                                     <StackPanel Orientation="Horizontal">
                                         <Label Name="customerName" Foreground="White" FontWeight="bold" Content ="{Binding CustomerName}"/>
@@ -57,16 +57,7 @@
                                         <Label Grid.Column="0" FontSize="12" Content="{Binding CustomerTel}"/>
                                         <Label Grid.Column="0" FontSize="12" Content="{Binding CustomerAddr}"/>
                                     </StackPanel>
-                                    <ComboBox FontWeight="Bold" Grid.Column="1" Width="80" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="White" Background="Gray">
-                                        <!--Binding status-->
-
-                                        <!--chỉnh sửa trong order detail, ở đây không cần combobox-->
-                                        <ComboBoxItem HorizontalAlignment="Left" Margin="8,0,0,0" IsSelected="True" Content="{Binding Status, Converter={StaticResource orderStatusConverter}}"/>
-
-                                        <!--<ComboBoxItem HorizontalAlignment="Left" Margin="8,0,0,0">Mới tạo</ComboBoxItem>
-                                        <ComboBoxItem HorizontalAlignment="Left" Margin="8,0,0,0">Hoàn tất</ComboBoxItem>
-                                        <ComboBoxItem HorizontalAlignment="Left" Margin="8 0 0 0">Đã hủy</ComboBoxItem>-->
-                                    </ComboBox>
+                                    <Label Margin="8,0,0,0" Content="{Binding Status, Converter={StaticResource orderStatusConverter}}" Foreground="DarkRed"  FontWeight="Bold" Grid.Column="1" Width="80" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" />
                                 </Grid>
                             </StackPanel>
                         </Border>
@@ -74,13 +65,13 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
-        <StackPanel Name="orderDetailview" Grid.Column="1" Background="White" >
+        <StackPanel Name="orderDetailview" Grid.Column="1" Background="White" VerticalAlignment="Top" Height="670" >
             <ContentControl Name="oderDetail" VerticalAlignment="Bottom"/>
         </StackPanel>
 
 
         <!--Button Them moi don hang-->
-        <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 30 60" Height="50" Width="200"  Background="Transparent" Orientation="Horizontal">
+        <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 30 30" Height="50" Width="200"  Background="Transparent" Orientation="Horizontal">
             <Border BorderThickness="3" BorderBrush="#FFF78787" CornerRadius="25" Name="addtooltip" Visibility="Hidden">
                 <Label Width="130" Content="Tạo đơn hàng" FontSize="15" FontWeight="Bold" Foreground="#FFF78787"  HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
             </Border>
