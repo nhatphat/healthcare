@@ -294,13 +294,13 @@ namespace Home.Utils
         /// <summary>
         /// cập nhật trạng thái đơn hàng
         /// </summary>
-        public bool updateOrder(int id, string newStatus)
+        public bool updateOrder(int id, int newStatus)
         {
             var odr = getOrderById(id);
 
             if (odr != null)
             {
-                odr.Status = Order.getStatusCodeByName(newStatus);
+                odr.Status = newStatus;
                 Master_Data_DB.SaveChanges();
 
                 return true;
