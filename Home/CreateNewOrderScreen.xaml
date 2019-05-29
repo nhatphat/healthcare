@@ -44,7 +44,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Name="productZone">
 
-                <Grid Margin="0 30 0 10" Height="40" Width="430" HorizontalAlignment="Center" >
+                <Grid Margin="0 50 0 10" Height="40" Width="430" HorizontalAlignment="Center" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
@@ -96,9 +96,9 @@
                             <Label Grid.Row="1" Grid.Column="0" Margin="0 0 5 0"  VerticalContentAlignment="Center" HorizontalContentAlignment="right" Foreground="White" FontSize="15" FontWeight="bold" Content="Số điện thoại:"/>
                             <Label Grid.Row="1" Grid.Column="0" Margin="0,35,5,15" Height="30"  VerticalContentAlignment="Top" HorizontalContentAlignment="right" Foreground="White" FontSize="15" FontWeight="bold" Content="Địa chỉ:" Grid.RowSpan="2"/>
 
-                            <Label Name="lbCustomerName" Grid.Row="0" Grid.Column="1" Foreground="White" FontSize="20" FontWeight="bold" Content ="Châu Văn Khánh Nhật"/>
-                            <Label Name="lbCustomerPhone" Grid.Row="1" Grid.Column="1" Foreground="White" FontSize="15" FontWeight="bold" VerticalContentAlignment="Center" Content="032321717"/>
-                            <TextBlock Name="lbCustomerAdd" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Foreground="White" FontSize="15" Margin="5 0 0 0" FontWeight="bold" Text="65B, đường 185, phường Phước Long B, Quận 9, Tp.HCM"/>
+                            <Label Name="lbCustomerName" Grid.Row="0" Grid.Column="1" Foreground="White" FontSize="20" FontWeight="bold"/>
+                            <Label Name="lbCustomerPhone" Grid.Row="1" Grid.Column="1" Foreground="White" FontSize="15" FontWeight="bold" VerticalContentAlignment="Center" />
+                            <TextBlock Name="lbCustomerAdd" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Foreground="White" FontSize="15" Margin="5 0 0 0" FontWeight="bold"/>
 
                         </Grid>
                         <Label Content="Sản phẩm đã chọn:" FontWeight="Bold" FontSize="17" Margin="5 5 0 0"/>
@@ -111,7 +111,7 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Border CornerRadius="6" BorderBrush="LightPink" BorderThickness="2">
-                                        <Grid Name="product" MouseLeftButtonDown="ProductSelected_MouseLeftButtonDown"  Height="60" Width="450" MaxWidth="450">
+                                        <Grid Name="product" MouseLeftButtonDown="ProductSelected_MouseLeftButtonDown"  Height="80" Width="450" MaxWidth="450">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="1*"/>
                                                 <ColumnDefinition Width="3*"/>
@@ -119,10 +119,31 @@
                                             </Grid.ColumnDefinitions>
                                             <Image Grid.Column="0" Height="60" Width="60"  Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
                                             <StackPanel Grid.Column="1" MaxWidth="270">
-                                                <TextBlock  MinHeight="30" MaxHeight="30" TextWrapping="Wrap" Text="{Binding Name}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontWeight="Bold" FontSize="11" Margin="2 0 2 0"/>
+                                                <TextBlock  MinHeight="30" MaxHeight="30"  TextWrapping="Wrap" Text="{Binding Name}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontWeight="Bold" FontSize="11" Margin="2 10 2 0"/>
                                                 <Label Content="{Binding Price}" Foreground="DarkRed" HorizontalAlignment="Left" FontWeight="Bold"/>
                                             </StackPanel>
-                                            <Label Content="{Binding Quantity}" Name="numberOfProduct" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Foreground="DarkBlue"/>
+                                            <StackPanel  Grid.Column="3" Orientation="Horizontal">
+                                                <StackPanel Margin="7 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                    <Button Name="increase" Height="20" Width="20" BorderBrush="{x:Null}" Click="Increase_Click">
+                                                        <Button.Background>
+                                                            <ImageBrush ImageSource="/Images/app/increase.png" Stretch="Uniform"/>
+                                                        </Button.Background>
+                                                    </Button>
+                                                    <Border CornerRadius="3" BorderBrush="LightPink" BorderThickness="2">
+                                                        <TextBox Height="25" Width="25" Name="numberOfProduct" VerticalAlignment="Center"  HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="13" FontWeight="Bold" Foreground="DarkRed" Text="{Binding Quantity}" PreviewTextInput="NumberValidationTextBox" SelectionBrush="{x:Null}"/>
+                                                    </Border>
+                                                    <Button Name="decrease" Height="20" Width="20" BorderBrush="{x:Null}" Click="Decrease_Click">
+                                                        <Button.Background>
+                                                            <ImageBrush ImageSource="/Images/app/decrease.png" Stretch="Uniform"/>
+                                                        </Button.Background>
+                                                    </Button>
+                                                </StackPanel>
+                                                <Button ToolTip="Bỏ chọn" Name="delete" Height="20" Width="20" Margin="5 0 0 0" BorderBrush="{x:Null}" Click="Delete_Click" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Button.Background>
+                                                        <ImageBrush ImageSource="/Images/app/delete.png" Stretch="Uniform"/>
+                                                    </Button.Background>
+                                                </Button>
+                                            </StackPanel>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>

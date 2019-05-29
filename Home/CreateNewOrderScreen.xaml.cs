@@ -214,6 +214,30 @@ namespace Home
                 customerInfoForm.Visibility = Visibility.Visible;
             }
         }
+
+       
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void Decrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Increase_Click(object sender, RoutedEventArgs e)
+        {
+            //var numberChosen = numberOfProduct.text;
+       
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
 
