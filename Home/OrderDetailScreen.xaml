@@ -6,14 +6,16 @@
              xmlns:local="clr-namespace:Home"
              xmlns:converter="clr-namespace:Home.converter"
              mc:Ignorable="d" 
-             d:DesignHeight="670" d:DesignWidth="464">
+             d:DesignHeight="690" d:DesignWidth="464" Margin="0 30 0 0">
     <UserControl.Resources>
         <converter:CosmeticConvertImageRelativePathToAbsolutePath x:Key="convertImageCosmetic"/>
         <converter:OrderConvertStatusCodeToStatusName x:Key="orderStatusConverter"/>
     </UserControl.Resources>
     <Grid Background="White">
-        <StackPanel Name="orderDetailChosen">
-            <Grid Name="customerInfo" Height="120" MaxWidth="464" Background="Gray" VerticalAlignment="Top" Margin="0 30 0 0">
+        <Border  BorderThickness="1.5" BorderBrush="Gray">
+            
+        <StackPanel Name="orderDetailChosen" MinHeight="630" MaxHeight="630">
+            <Grid Name="customerInfo" Height="120" MaxWidth="464" Background="Gray" VerticalAlignment="Top" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.2*"/>
                     <ColumnDefinition Width="3*"/>
@@ -34,20 +36,25 @@
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.6*"/>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.5*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Height="30" Content="Ngày tạo:" FontWeight="Bold"/>
+                <Label Grid.Column="0" Height="30" Content="Ngày tạo đơn:" FontWeight="Bold"/>
                 <Label Grid.Column="1" Height="30" Content="{Binding CreateAt}" FontWeight="Bold" Foreground="DarkBlue"/>
                       
                 <Label Grid.Column="3" Height="30" Content=" Trạng thái:" FontWeight="Bold"/>
                 <Label Name="statusNow" Grid.Column="4" Height="30" Content="{Binding Status, Converter={StaticResource orderStatusConverter}}" FontWeight="Bold" Foreground="DarkBlue"/>
 
             </Grid>
-            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"  Name="listCosmeticOfOrder" MaxWidth="464" Height="430" Margin="5 10 5 15" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Tổng đơn hàng" VerticalContentAlignment="Center"  FontWeight="Bold"/>
+                <Label Name="totalAmount" Content="0" VerticalContentAlignment="Center" FontSize="15" Foreground="Red" FontWeight="Bold"/>
+                <Label Content="VNĐ" VerticalContentAlignment="Center" FontSize="15" Foreground="Red" FontWeight="Bold"/>
+            </StackPanel>
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"  Name="listCosmeticOfOrder" MaxWidth="464" Height="380" Margin="5 10 5 15" HorizontalAlignment="Center">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>
@@ -59,25 +66,27 @@
                             <Grid Name="product" Height="70" Width="450" MaxWidth="450">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="4*"/>
+                                    <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.Column="0" Height="60" Width="60" Source="{Binding Image, Converter={StaticResource convertImageCosmetic}}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
                                 <StackPanel Grid.Column="1" MaxWidth="270">
                                     <TextBlock  MinHeight="30" MaxHeight="30"  TextWrapping="Wrap" Text="{Binding Name}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontWeight="Bold" FontSize="11" Margin="2 10 2 0"/>
                                     <Label Content="{Binding Price}" Foreground="DarkRed" HorizontalAlignment="Left" FontWeight="Bold"/>
                                 </StackPanel>
-                                
+                                <Label Grid.Column="2" Foreground="DarkRed" FontSize="15" FontWeight="Bold" Content="{Binding Quantity}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Name="changeStatus"  Background="DarkBlue" Foreground="White" BorderBrush="{x:Null}" Width="200" Content="Thay đổi trạng thái" Click="ChangeStatus_Click"/>
-            <StackPanel Name="completedAndCacel" HorizontalAlignment="Center"  Orientation="Horizontal" Visibility="Collapsed">
+            <Button Name="changeStatus"  Background="DarkBlue" Foreground="White" BorderBrush="{x:Null}" Width="200" Content="Thay đổi trạng thái" Click="ChangeStatus_Click" Margin="0 0 0 10"/>
+                <StackPanel Name="completedAndCacel" HorizontalAlignment="Center"  Orientation="Horizontal" Visibility="Collapsed"  Margin="0 0 0 10">
                 <Button Name="completed" HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGreen" Foreground="White" BorderBrush="{x:Null}" Width="150" Content="Hoàn tất" Click="Completed_Click"/>
                 <Button Name="cancel" HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkRed" Foreground="White" BorderBrush="{x:Null}" Margin="5 0 0 0" Width="150" Content="Hủy đơn" Click="Cancel_Click"/>
             </StackPanel>
-            <Label Name="theOrderCanceled" Visibility="Collapsed" Content="Đơn hàng này đã bị hủy" Foreground="DarkRed" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Label Name="theOrderCanceled" Visibility="Collapsed" Content="Đơn hàng này đã bị hủy" Foreground="DarkRed" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 10"/>
         </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

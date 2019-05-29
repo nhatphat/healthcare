@@ -53,6 +53,7 @@ namespace Home
 
             orderDetailChosen.DataContext = order;
             listCosmeticOfOrder.ItemsSource = order.ListProducts;
+            totalAmount.Content = string.Format("{0:0,0}", order.TotalPrice);
             handleDisplayButtonChangedOrderStatus();
         }
 
@@ -84,10 +85,12 @@ namespace Home
         {
             if(masterDataManager.updateOrder(order.ID, Order.C_COMPLETED))
             {
+                statusNow.Foreground = Brushes.DarkGreen;
                 MessageBox.Show("Đã cập nhật trạng thái đơn hàng.");
                 order.Status = Order.C_COMPLETED;
                 orderChanged();
                 handleDisplayButtonChangedOrderStatus();
+               
             }
             else
             {
@@ -99,10 +102,12 @@ namespace Home
         {
             if (masterDataManager.updateOrder(order.ID, Order.C_CANCELED))
             {
+                statusNow.Foreground = Brushes.DarkRed;
                 MessageBox.Show("Đã cập nhật trạng thái đơn hàng.");
                 order.Status = Order.C_CANCELED;
                 orderChanged();
                 handleDisplayButtonChangedOrderStatus();
+               
             }
             else
             {
