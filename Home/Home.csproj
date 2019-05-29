@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>appication-icon.ico</ApplicationIcon>
+    <ApplicationIcon>application-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Aspose.Cells, Version=8.1.1.0, Culture=neutral, PublicKeyToken=00725b1ceb58d0a9, processorArchitecture=MSIL">
@@ -292,6 +292,8 @@
     <Resource Include="Images\app\decrease.png" />
     <Resource Include="Images\app\increase.png" />
     <Resource Include="Images\app\delete.png" />
+    <Resource Include="Images\app\add.png" />
+    <Resource Include="application-icon.ico" />
     <Content Include="models\master_data.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>master_data.edmx</DependentUpon>
@@ -302,7 +304,6 @@
       <DependentUpon>master_data.edmx</DependentUpon>
       <LastGenOutput>master_data.cs</LastGenOutput>
     </Content>
-    <Resource Include="appication-icon.ico" />
     <Content Include="libs\Aspose.Cells.dll" />
   </ItemGroup>
   <ItemGroup>
