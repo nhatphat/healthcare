@@ -23,6 +23,12 @@ namespace Home
     /// </summary>
     public partial class ManagerOrderScreen : UserControl
     {
+        public delegate void orderChanged();
+        public interface OnOrderChangedListner
+        {
+            event orderChanged onOrderChangedListener;
+        }
+
         private MasterDataManager masterDataManager;
 
         public ManagerOrderScreen()
@@ -95,6 +101,10 @@ namespace Home
             var item = sender as StackPanel;
             var data = item.DataContext as Order;
             OrderDetailScreen screen = new OrderDetailScreen(data);
+            screen.onOrderChangedListener += () =>
+            {
+                updateOrderList();
+            };
             oderDetail.Content = screen;
         }
 
