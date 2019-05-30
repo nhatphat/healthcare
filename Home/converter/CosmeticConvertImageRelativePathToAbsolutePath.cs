@@ -16,7 +16,7 @@ namespace Home.converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var imagePath = $"{Global.getBaseFolder()}\\Images\\cosmetic\\{value.ToString()}";
+            var imagePath = $"{Global.getBaseFolder()}Images\\cosmetic\\{value.ToString()}";
 
             BitmapImage image = null;
             if (File.Exists(imagePath))
@@ -43,7 +43,7 @@ namespace Home.converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var imagePath = $"{Global.getBaseFolder()}\\Images\\category\\{value.ToString()}";
+            var imagePath = $"{Global.getBaseFolder()}Images\\category\\{value.ToString()}";
 
             BitmapImage image = null;
             if (File.Exists(imagePath))

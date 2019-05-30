@@ -318,7 +318,7 @@
     <Resource Include="Images\app\add.png" />
     <Resource Include="application-icon.ico" />
     <Resource Include="Images\app\splash.png" />
-    <Resource Include="Images\cosmetic\Bo-san-pham-mun-is-clinical.jpg" />
+    <Resource Include="Images\cosmetic\bo-san-pham-cham-soc-clinical.jpg" />
     <Content Include="models\master_data.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>master_data.edmx</DependentUpon>
