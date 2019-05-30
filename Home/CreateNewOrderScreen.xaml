@@ -26,7 +26,7 @@
             </Border>
             <Label Content="Số điện thoại" FontSize="20" FontWeight="Bold"/>
             <Border BorderThickness="1 1 1 1" CornerRadius="3.2" BorderBrush="#FFF78787">
-                <TextBox Name="txtCustomerPhone" FontSize="20" Padding="2" CaretBrush="{x:Null}"/>
+                <TextBox Name="txtCustomerPhone" FontSize="20" Padding="2" CaretBrush="{x:Null}" PreviewTextInput="NumberValidationTextBox"/>
             </Border>
             <Label Content="Địa chỉ" FontSize="20" FontWeight="Bold"/>
             <Border BorderThickness="1 1 1 1" CornerRadius="3.2" BorderBrush="#FFF78787">
@@ -111,7 +111,7 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Border CornerRadius="6" BorderBrush="LightPink" BorderThickness="2">
-                                        <Grid Name="product" MouseLeftButtonDown="ProductSelected_MouseLeftButtonDown"  Height="80" Width="450" MaxWidth="450">
+                                        <Grid Name="product" Height="80" Width="450" MaxWidth="450">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="1*"/>
                                                 <ColumnDefinition Width="3*"/>

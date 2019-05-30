@@ -94,7 +94,7 @@ namespace Home
                 total += product.Total;
             }
 
-            totalAmount.Content = string.Format("{0:0,0}", total);
+            totalAmount.Content = total == 0 ? "0" : string.Format("{0:0,0}", total);
         }
 
         private void Searchingtxt_GotFocus(object sender, RoutedEventArgs e)
@@ -162,10 +162,7 @@ namespace Home
             listCosmetic.ItemsSource = result;
         }
 
-        private void ProductSelected_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("show me now, please");
-        }
+      
 
         private void saveOrder_click(object sender, RoutedEventArgs e)
         {
