@@ -18,9 +18,13 @@ namespace Home.Utils
         /// <returns></returns>
         public static string getBaseFolder()
         {
-            String current_folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..");
-            string base_folder = Directory.GetParent(current_folder).ToString();
-
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string base_folder = baseDirectory;
+#if DEBUG
+            String current_folder = Path.Combine(baseDirectory, "..");
+            base_folder = Directory.GetParent(current_folder).ToString() + "\\";
+#endif
+            
             return base_folder;
         }
 
