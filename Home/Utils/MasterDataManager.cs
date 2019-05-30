@@ -268,7 +268,7 @@ namespace Home.Utils
         public List<Order> LoadAllOrder()
         {
             var jsonManager = new JavaScriptSerializer();
-            var listOrder = Master_Data_DB.Orders.Where(odr => odr.Status != Order.C_DELETED).ToList();
+            var listOrder = Master_Data_DB.Orders.Where(odr => odr.Status != Order.C_DELETED).OrderByDescending(odr => odr.CreateAt).ToList();
             for (int i = 0; i < listOrder.Count; i++)
             {
                 listOrder[i].ListProducts = jsonManager.Deserialize<List<ProductOfOrder>>(listOrder[i].Products);
@@ -333,7 +333,7 @@ namespace Home.Utils
         {
             return Master_Data_DB.Orders.Where(odr =>
                    odr.CustomerTel.ToLower().Contains(key.ToLower()) || odr.CustomerName.ToLower().Contains(key.ToLower())
-            ).ToList();
+            ).OrderByDescending(odr => odr.CreateAt).ToList();
         }
 
         public void saveChanged()
