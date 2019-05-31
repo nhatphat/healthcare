@@ -234,6 +234,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="models\master_data.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>master_data.edmx</DependentUpon>
+      <LastGenOutput>master_data.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="models\master_data.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>master_data.edmx</DependentUpon>
+      <LastGenOutput>master_data.cs</LastGenOutput>
+    </Content>
     <Resource Include="Images\app\add-btn.png" />
     <Resource Include="Images\app\appication-icon.ico" />
     <Resource Include="Images\app\arrow-left.png" />
@@ -319,16 +329,6 @@
     <Resource Include="application-icon.ico" />
     <Resource Include="Images\app\splash.png" />
     <Resource Include="Images\cosmetic\bo-san-pham-cham-soc-clinical.jpg" />
-    <Content Include="models\master_data.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>master_data.edmx</DependentUpon>
-      <LastGenOutput>master_data.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="models\master_data.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>master_data.edmx</DependentUpon>
-      <LastGenOutput>master_data.cs</LastGenOutput>
-    </Content>
     <Content Include="libs\Aspose.Cells.dll" />
   </ItemGroup>
   <ItemGroup>

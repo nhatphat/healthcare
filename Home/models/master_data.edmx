@@ -115,7 +115,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="master_dataEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="masterdataEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Cosmetics" EntityType="Self.Cosmetic" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
@@ -129,7 +129,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="master_dataModelStoreContainer" CdmEntityContainer="master_dataEntities">
+        <EntityContainerMapping StorageEntityContainer="master_dataModelStoreContainer" CdmEntityContainer="masterdataEntities">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="master_dataModel.Category">
               <MappingFragment StoreEntitySet="Category">
