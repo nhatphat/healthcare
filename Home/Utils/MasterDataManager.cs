@@ -11,7 +11,7 @@ namespace Home.Utils
     public class MasterDataManager
     {
         private static MasterDataManager instance;
-        private static master_dataEntities Master_Data_DB;
+        private static masterdataEntities Master_Data_DB;
 
         private MasterDataManager() { }
 
@@ -20,7 +20,7 @@ namespace Home.Utils
             if (instance == null)
             {
                 instance = new MasterDataManager();
-                Master_Data_DB = new master_dataEntities();
+                Master_Data_DB = new masterdataEntities();
             }
 
             return instance;

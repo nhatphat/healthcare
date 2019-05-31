@@ -13,10 +13,10 @@ namespace Home.models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class master_dataEntities : DbContext
+    public partial class masterdataEntities : DbContext
     {
-        public master_dataEntities()
-            : base("name=master_dataEntities")
+        public masterdataEntities()
+            : base("name=masterdataEntities")
         {
         }
     
