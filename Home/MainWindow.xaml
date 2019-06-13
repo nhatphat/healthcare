@@ -106,6 +106,7 @@
                                 <Button HorizontalContentAlignment="Center" Name="catogoryManager"  Content="Quản lý danh mục" Click="CatogoryManager_Click"/>
                                 <Button HorizontalContentAlignment="Center" Name="productManager" Content="Quản lý sản phẩm" Click="ProductManager_Click"/>
                                 <Button HorizontalContentAlignment="Center" Name="OrderManager" Content="Quản lý đơn hàng" Click="OrderManager_Click"/>
+                                <Button HorizontalContentAlignment="Center" Name="Statistical" Content="Thống kê" Click="Statistical_Click"/>
                             </StackPanel>
                         </materialDesign:PopupBox>
                     </StackPanel>

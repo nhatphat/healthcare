@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Home.Statistical"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Home"
+             xmlns:Chart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
+             
+             xmlns:CharToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="760" d:DesignWidth="1020">
+    <Grid Background="White">
+        <StackPanel Name="statiscalOption" VerticalAlignment="Center" Visibility="Collapsed">
+            <Button Click="statisticalByMonth_click" Margin="200 10 200 10">Theo tháng</Button>
+            <Button Click="statisticalByDate_click" Margin="100 10 100 10">Theo số lượng sản phẩm đã bán</Button>
+            <Button Click="statisticalContributeByDate_click" Margin="10 10 10 10">Theo tỉ lệ đóng góp doanh thu của mỗi loại sản phẩm</Button>
+        </StackPanel>
+
+        <Grid Name="statiscalContent">
+            <Button Name="btnBack" Click="btnBack_click" Margin="0,0,863,720">Quay lại</Button>
+            <Label Margin="444,0,535,725" FontSize="20">Từ: </Label>
+            <Label Margin="664,0,299,725" FontSize="20">Đến: </Label>
+            <DatePicker SelectedDateChanged="fromDate_SelectedDateChanged" Foreground="Black" Name="fromDate" Margin="490,6,377,724" Height="30" />
+            <DatePicker Foreground="Black" Name="toDate" Margin="721,6,149,724" Height="30"/>
+            <Button Click="btnStatistical_click" Margin="900,4,0,725">Thống kê</Button>
+            <Grid Margin="0,40,0,0">
+                <Chart:PieChart Name="pieChart" Visibility="Collapsed"  ChartSubTitle="blabla" ChartTitle="Tỷ lệ đóng góp sản phẩm" Grid.ColumnSpan="2">
+                    <Chart:PieChart.Series>
+                        <Chart:ChartSeries Name="piechart" SeriesTitle="Tỷ lệ đóng góp"
+                        DisplayMember="Name" ValueMember="Contribute"/>
+                    </Chart:PieChart.Series>
+                </Chart:PieChart>
+
+                <Chart:ClusteredColumnChart Name="colChart" Visibility="Collapsed" ChartSubTitle="blabla" ChartTitle="Số lượng sản phẩm đã bán theo ngày" Grid.ColumnSpan="2">
+                    <Chart:ClusteredColumnChart.Series>
+                        <Chart:ChartSeries Name="colchart" SeriesTitle="Số lượng sản phẩm đã bán"
+                        DisplayMember="Name" ValueMember="Quantity"/>
+                    </Chart:ClusteredColumnChart.Series>
+                </Chart:ClusteredColumnChart>
+
+                <CharToolkit:Chart Name="lineChart" Visibility="Collapsed" Grid.ColumnSpan="2">
+                    <CharToolkit:LineSeries Name="linechart" Title="Doanh thu"  
+                          IndependentValueBinding="{Binding Name}"  
+                          DependentValueBinding="{Binding Revenue}"/>
+                </CharToolkit:Chart>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</UserControl>

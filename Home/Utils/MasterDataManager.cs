@@ -1,6 +1,8 @@
 ﻿using Home.models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -336,6 +338,136 @@ namespace Home.Utils
             ).OrderByDescending(odr => odr.CreateAt).ToList();
         }
 
+        public int getNumberOfProductSoldByDate(DateTime date)
+        {
+            var listOrder = Master_Data_DB.Orders.Where(ord =>
+                DbFunctions.TruncateTime(ord.CreateAt) == DbFunctions.TruncateTime(date) && ord.Status == Order.C_COMPLETED
+            ).ToList();
+
+            var jsonManager = new JavaScriptSerializer();
+            int count = 0;
+            foreach(var odr in listOrder)
+            {
+                var listProduct = jsonManager.Deserialize<List<ProductOfOrder>>(odr.Products);
+                foreach (var pro in listProduct)
+                {
+                    count += pro.Quantity;
+                }
+            }
+
+            return count;
+        }
+
+        public List<StatisticalByDate> getStatisticalByDate(DateTime from, DateTime to)
+        {
+            var data = new List<StatisticalByDate>();
+
+            while ( from <= to  )
+            {
+                var st = new StatisticalByDate
+                {
+                    Date = from,
+                    Quantity = getNumberOfProductSoldByDate(from)
+                };
+                data.Add(st);
+                from = from.AddDays(1);
+            }
+
+            return data;
+        }
+
+
+        public int getRevenueByMonth(DateTime date)
+        {
+            var listOrder = Master_Data_DB.Orders.Where(ord =>
+                ord.CreateAt.Month == date.Month && ord.Status == Order.C_COMPLETED
+            ).ToList();
+
+            int revenue = 0;
+            foreach(var ord in listOrder)
+            {
+                revenue += ord.TotalPrice;
+            }
+
+            return revenue;
+        }
+
+        public List<StaticalByMonth> getStatisticalByMonth(DateTime from, DateTime to)
+        {
+            var data = new List<StaticalByMonth>();
+            
+            while (from.Year <= to.Year && from.Month <= to.Month)
+            {
+                var st = new StaticalByMonth
+                {
+                    Month = from.Month,
+                    Year = from.Year,
+                    Revenue = getRevenueByMonth(from)
+                };
+                data.Add(st);
+                from = from.AddMonths(1);
+            }
+
+            return data;
+        }
+    
+        private int checkProductExistsInListProducts(ProductOfOrder product, List<ProductOfOrder> listProducts)
+        {
+
+            for(int i = 0; i < listProducts.Count; i++)
+            {
+                if(listProducts[i].ID == product.ID)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public List<StatisticalProductsContributeByDate> getStatisticalProductsContributeByDate(DateTime fromDate, DateTime toDate)
+        {
+            var listOrder = Master_Data_DB.Orders.Where(ord =>
+                    DbFunctions.TruncateTime(ord.CreateAt) >= DbFunctions.TruncateTime(fromDate) 
+                &&  DbFunctions.TruncateTime(ord.CreateAt) <= DbFunctions.TruncateTime(toDate) 
+                &&  ord.Status == Order.C_COMPLETED
+            ).ToList();
+
+            var jsonManager = new JavaScriptSerializer();
+
+            int revenue = 0;
+            var listProducts = new List<ProductOfOrder>();
+
+            foreach(var ord in listOrder)
+            {
+                revenue += ord.TotalPrice;
+                var products = jsonManager.Deserialize<List<ProductOfOrder>>(ord.Products);
+                foreach(var pro in products)
+                {
+                    int index = checkProductExistsInListProducts(pro, listProducts);
+                    if(index != -1)
+                    {
+                        listProducts[index].Quantity += pro.Quantity;
+                    }
+                    else
+                    {
+                        listProducts.Add(pro);
+                    }
+                }
+            }
+
+            var result = new List<StatisticalProductsContributeByDate>();
+            foreach(var pro in listProducts)
+            {
+                result.Add(new StatisticalProductsContributeByDate {
+                    Name = pro.Name,
+                    Contribute = (float)(Math.Round((decimal)(pro.Total*1.0 / revenue), 2)*100)
+                });
+            }
+           
+            return result;
+        }
+        
         public void saveChanged()
         {
             Master_Data_DB.SaveChanges();
