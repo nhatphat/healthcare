@@ -40,7 +40,9 @@ namespace Home
             toDate.DisplayDate = DateTime.Today;
             fromDate.Text = DateTime.Today.ToString();
             toDate.Text = DateTime.Today.ToString();
-            monthPicker.Text = DateTime.Today.ToString();
+            monthFrom.Text = DateTime.Today.ToString();
+            monthTo.Text = DateTime.Today.ToString();
+
             statisticalByMonth_click(new object(), new RoutedEventArgs());
 
 
@@ -106,7 +108,6 @@ namespace Home
 
         private void btnStatistical_click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(monthPicker.Text.ToString());
             switch (type)
             {
                 case 0:
