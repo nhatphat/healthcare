@@ -163,7 +163,12 @@ namespace Home
         private void Statistical_Click(object sender, RoutedEventArgs e)
         {
             currentCatogoryName.Text = "Thống kê";
-            addChildForm(new Statistical());
+            var statistical = new Statistical();
+            statistical.closeListner += () =>
+            {
+                currentCatogoryName.Text = "Trang chủ";
+            };
+            addChildForm(statistical);
         }
     }
 }

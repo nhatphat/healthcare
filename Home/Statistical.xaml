@@ -70,7 +70,7 @@
             <Grid  Name="datePicker" Height="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 
@@ -80,7 +80,7 @@
                         <Border BorderBrush="#FFF78787" BorderThickness="2" CornerRadius="8" Padding="5 0 5 0" Height="35">
                             <StackPanel Orientation="Horizontal">
                                 <Label FontSize="17" FontWeight="Bold" VerticalAlignment="Center">Từ</Label>
-                                <DatePicker Name="monthFrom" local:DatePickerCalendar.IsMonthYear="True" local:DatePickerDateFormat.DateFormat="MM-yyyy" Text="mm-yyyy" Foreground="Black"  FontSize="17" FontWeight="Bold" Width="100" Height="30" Margin="10 0 0 0"></DatePicker>
+                                <DatePicker Name="monthFrom" SelectedDateChanged="fromDate_SelectedDateChanged" local:DatePickerCalendar.IsMonthYear="True" local:DatePickerDateFormat.DateFormat="MM-yyyy" Text="mm-yyyy" Foreground="Black"  FontSize="17" FontWeight="Bold" Width="100" Height="30" Margin="10 0 0 0"></DatePicker>
                             </StackPanel>
                         </Border>
                         <Border BorderBrush="#FFF78787" BorderThickness="2" CornerRadius="8" Padding="5 0 5 0" Margin="20 0 0 0" Height="35">
@@ -121,14 +121,14 @@
 
             <Grid Name="statiscalContent" Height="700">
                 <Grid>
-                    <Chart:PieChart Name="pieChart" Visibility="Collapsed"  ChartSubTitle="blabla" ChartTitle="Tỷ lệ đóng góp sản phẩm" Grid.ColumnSpan="2">
+                    <Chart:PieChart Name="pieChart" Visibility="Collapsed"  ChartSubTitle=" " ChartTitle="Tỷ lệ đóng góp sản phẩm" Grid.ColumnSpan="2">
                         <Chart:PieChart.Series>
                             <Chart:ChartSeries Name="piechart" SeriesTitle="Tỷ lệ đóng góp"
                         DisplayMember="Name" ValueMember="Contribute"/>
                         </Chart:PieChart.Series>
                     </Chart:PieChart>
 
-                    <Chart:ClusteredColumnChart Name="colChart" Visibility="Collapsed" ChartSubTitle="blabla" ChartTitle="Số lượng sản phẩm đã bán theo ngày" Grid.ColumnSpan="2">
+                    <Chart:ClusteredColumnChart Name="colChart" Visibility="Collapsed" ChartSubTitle=" " ChartTitle="Số lượng sản phẩm đã bán theo ngày" Grid.ColumnSpan="2">
                         <Chart:ClusteredColumnChart.Series>
                             <Chart:ChartSeries Name="colchart" SeriesTitle="Số lượng sản phẩm đã bán"
                         DisplayMember="Name" ValueMember="Quantity"/>

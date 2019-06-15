@@ -26,45 +26,48 @@ namespace Home
         private MasterDataManager masterDataManager;
         private int type = -1;
         BrushConverter bc = new BrushConverter();
-
+        public delegate void close();
+        public event close closeListner;
 
         public Statistical()
         {
             InitializeComponent();
             masterDataManager = MasterDataManager.getInstance();
 
-            //set ngày mặc định
-            //nó k hiện, khi chọn ngày tháng nó mới hiện => fix đi nhật :v
-            //Đã fix
-            fromDate.DisplayDate = DateTime.Today.AddDays(-7);
-            toDate.DisplayDate = DateTime.Today;
-            fromDate.Text = DateTime.Today.ToString();
-            toDate.Text = DateTime.Today.ToString();
-            monthFrom.Text = DateTime.Today.ToString();
-            monthTo.Text = DateTime.Today.ToString();
+            var today = DateTime.Today;
+
+            fromDate.DisplayDateEnd = today;
+            fromDate.Text = today.AddDays(-7).ToString();
+            fromDate.DisplayDate = today.AddDays(-7);
+
+            toDate.DisplayDateEnd = today;
+            toDate.Text = today.ToString();
+            toDate.DisplayDate = today;
+
+            monthFrom.DisplayDateEnd = today;
+            monthFrom.Text = today.AddMonths(-3).ToString();
+            monthTo.DisplayDate = today.AddMonths(-3);
+            
+            monthTo.DisplayDateEnd = today;
+            monthTo.Text = today.ToString();
+            monthTo.DisplayDate = today;
 
             statisticalByMonth_click(new object(), new RoutedEventArgs());
-
-
-         
         }
 
         private void statisticalByMonth_click(object sender, RoutedEventArgs e)
         {         
             EventWhenAButton_Click(btnStatisticalByMonth);
             type = 0;
-            
-            //setting cho nó chỉ chọn tháng và năm thôi
-            //chưa làm
 
             pieChart.Visibility = Visibility.Collapsed;
             colChart.Visibility = Visibility.Collapsed;
             statiscalContent.Visibility = Visibility.Visible;
             lineChart.Visibility = Visibility.Visible;
-
+            
             linechart.ItemsSource = masterDataManager.getStatisticalByMonth(
-                fromDate.DisplayDate,
-                toDate.DisplayDate
+                monthFrom.DisplayDate,
+                monthTo.DisplayDate
             );
         }
 
@@ -77,11 +80,10 @@ namespace Home
             lineChart.Visibility = Visibility.Collapsed;
             statiscalContent.Visibility = Visibility.Visible;
             colChart.Visibility = Visibility.Visible;
-
-
+            
             colchart.ItemsSource = masterDataManager.getStatisticalByDate(
-                fromDate.DisplayDate,
-                toDate.DisplayDate
+                (DateTime)fromDate.SelectedDate,
+                (DateTime)toDate.SelectedDate
             );
         }
 
@@ -94,15 +96,16 @@ namespace Home
             lineChart.Visibility = Visibility.Collapsed;
             statiscalContent.Visibility = Visibility.Visible;
             pieChart.Visibility = Visibility.Visible;
-
+            
             piechart.ItemsSource = masterDataManager.getStatisticalProductsContributeByDate(
-                fromDate.DisplayDate,
-                toDate.DisplayDate
+                (DateTime)fromDate.SelectedDate,
+                (DateTime)toDate.SelectedDate
             );
         }
 
         private void btnBack_click(object sender, RoutedEventArgs e)
         {
+            closeListner?.Invoke();
             this.Content = new HomeScreen();
         }
 
@@ -125,12 +128,9 @@ namespace Home
         private void fromDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             //giới hạn vùng chọn ngày giữa ngày bắt đầu và kết thúc
-            toDate.DisplayDateStart = fromDate.DisplayDate;
+            toDate.DisplayDateStart = fromDate.SelectedDate;
+            monthTo.DisplayDateStart = monthFrom.SelectedDate;
         }
-
-
-
-
 
         // Mấy cái này hiệu ứng hover leave này kia thôi.
         #region Event when click, mouse enter(hover) and leave
