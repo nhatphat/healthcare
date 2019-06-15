@@ -362,6 +362,7 @@ namespace Home.Utils
         {
             var data = new List<StatisticalByDate>();
 
+            Debug.WriteLine(from.ToString("d"));
             while ( from <= to  )
             {
                 var st = new StatisticalByDate
@@ -371,6 +372,7 @@ namespace Home.Utils
                 };
                 data.Add(st);
                 from = from.AddDays(1);
+                Debug.WriteLine(from.ToString("d"));
             }
 
             return data;
@@ -380,7 +382,9 @@ namespace Home.Utils
         public int getRevenueByMonth(DateTime date)
         {
             var listOrder = Master_Data_DB.Orders.Where(ord =>
-                ord.CreateAt.Month == date.Month && ord.Status == Order.C_COMPLETED
+                ord.CreateAt.Month == date.Month 
+                && ord.CreateAt.Year == date.Year
+                && ord.Status == Order.C_COMPLETED
             ).ToList();
 
             int revenue = 0;
@@ -396,7 +400,7 @@ namespace Home.Utils
         {
             var data = new List<StaticalByMonth>();
             
-            while (from.Year <= to.Year && from.Month <= to.Month)
+            while (from <= to)
             {
                 var st = new StaticalByMonth
                 {
