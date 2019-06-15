@@ -41,6 +41,8 @@
             <BeginStoryboard Storyboard="{StaticResource CloseDatePicker}"/>
         </EventTrigger>
     </UserControl.Triggers>
+    
+    
     <Grid Background="White">
         <StackPanel>
             <Grid  Name="header" Height="50" VerticalAlignment="Top" Background="Wheat">
@@ -71,19 +73,30 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Border BorderBrush="#FFF78787" BorderThickness="2" CornerRadius="8" Padding="5 0 5 0" Height="35">
+                
+
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Border Name="ChooseMonthOnly" BorderBrush="#FFF78787" BorderThickness="2" CornerRadius="8" Padding="5 0 5 0" Height="35">
                         <StackPanel Orientation="Horizontal">
-                            <Label FontSize="17" FontWeight="Bold" VerticalAlignment="Center">Từ:</Label>
-                            <DatePicker SelectedDateChanged="fromDate_SelectedDateChanged" Foreground="Black" Name="fromDate" FontSize="17" FontWeight="Bold" Width="150" Height="30" />
+                            <Label FontSize="17" FontWeight="Bold" VerticalAlignment="Center">Chọn tháng</Label>
+                            <DatePicker Name="monthPicker" local:DatePickerCalendar.IsMonthYear="True" local:DatePickerDateFormat.DateFormat="MM-yyyy" Text="mm-yyyy" Foreground="Black"  FontSize="17" FontWeight="Bold" Width="100" Height="30" Margin="10 0 0 0"></DatePicker>
                         </StackPanel>
                     </Border>
-                    <Border BorderBrush="#FFF78787" BorderThickness="2" CornerRadius="8" Margin="20 0 0 0" Padding="5 0 5 0" Height="35">
-                        <StackPanel Orientation="Horizontal">
-                            <Label FontSize="17" FontWeight="Bold" VerticalAlignment="Center">Đến:</Label>
-                            <DatePicker Foreground="Black" Name="toDate" FontSize="17" FontWeight="Bold" Width="150" Height="30"/>
-                        </StackPanel>
-                    </Border>
+                    <StackPanel Name="ChooseDateFromTo" Orientation="Horizontal" Visibility="Collapsed">
+                        <Border BorderBrush="#FFF78787" BorderThickness="2" CornerRadius="8" Padding="5 0 5 0" Height="35">
+                            <StackPanel Orientation="Horizontal">
+                                <Label FontSize="17" FontWeight="Bold" VerticalAlignment="Center">Từ:</Label>
+                                <DatePicker SelectedDateChanged="fromDate_SelectedDateChanged" Foreground="Black" Name="fromDate" FontSize="17" FontWeight="Bold" Width="150" Height="30" />
+                            </StackPanel>
+                        </Border>
+                        <Border BorderBrush="#FFF78787" BorderThickness="2" CornerRadius="8" Margin="20 0 0 0" Padding="5 0 5 0" Height="35">
+                            <StackPanel Orientation="Horizontal">
+                                <Label FontSize="17" FontWeight="Bold" VerticalAlignment="Center">Đến:</Label>
+                                <DatePicker Foreground="Black" Name="toDate" FontSize="17" FontWeight="Bold" Width="150" Height="30"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                    
                     <Button Click="btnStatistical_click" Width="100" Height="35" Background="#FFF78787"  Margin="20 0 0 0"  BorderBrush="{x:Null}">
                         <StackPanel Orientation="Horizontal" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="/Images/app/filter-icon-white.png" Height="20" Stretch="Uniform"/>

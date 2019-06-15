@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 
 namespace Home
 {
+
     /// <summary>
     /// Interaction logic for Statistical.xaml
     /// </summary>
@@ -25,6 +26,7 @@ namespace Home
         private MasterDataManager masterDataManager;
         private int type = -1;
         BrushConverter bc = new BrushConverter();
+
 
         public Statistical()
         {
@@ -38,6 +40,7 @@ namespace Home
             toDate.DisplayDate = DateTime.Today;
             fromDate.Text = DateTime.Today.ToString();
             toDate.Text = DateTime.Today.ToString();
+            monthPicker.Text = DateTime.Today.ToString();
             statisticalByMonth_click(new object(), new RoutedEventArgs());
 
 
@@ -46,7 +49,7 @@ namespace Home
 
         private void statisticalByMonth_click(object sender, RoutedEventArgs e)
         {         
-            changeBackgroundWhenAButton_Click(btnStatisticalByMonth);
+            EventWhenAButton_Click(btnStatisticalByMonth);
             type = 0;
             
             //setting cho nó chỉ chọn tháng và năm thôi
@@ -65,7 +68,7 @@ namespace Home
 
         private void statisticalByDate_click(object sender, RoutedEventArgs e)
         {
-            changeBackgroundWhenAButton_Click(btnStatisticalByDate);
+            EventWhenAButton_Click(btnStatisticalByDate);
             type = 1;
 
             pieChart.Visibility = Visibility.Collapsed;
@@ -82,7 +85,7 @@ namespace Home
 
         private void statisticalContributeByDate_click(object sender, RoutedEventArgs e)
         {
-            changeBackgroundWhenAButton_Click(btnStatisticalContributeByDate);
+            EventWhenAButton_Click(btnStatisticalContributeByDate);
             type = 2;
 
             colChart.Visibility = Visibility.Collapsed;
@@ -103,6 +106,7 @@ namespace Home
 
         private void btnStatistical_click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show(monthPicker.Text.ToString());
             switch (type)
             {
                 case 0:
@@ -135,7 +139,7 @@ namespace Home
         bool btnStatisticalContributeByDate_State = false;
 
 
-        private void changeBackgroundWhenAButton_Click(Button btn_clicked)
+        private void EventWhenAButton_Click(Button btn_clicked)
         {
             if (btn_clicked == btnStatisticalByMonth)
             {
@@ -144,10 +148,12 @@ namespace Home
                 unSelected(btnStatisticalContributeByDate);
                 btnStatisticalByDate_State = false;
                 btnStatisticalContributeByDate_State = false;
+                ChooseDateFromTo.Visibility = Visibility.Collapsed;
 
                 //select this
                 Selected(btnStatisticalByMonth);
                 btnStatisticalByMonth_State = true;
+                ChooseMonthOnly.Visibility = Visibility.Visible;
                 //
             }
             else if (btn_clicked == btnStatisticalByDate)
@@ -157,10 +163,13 @@ namespace Home
                 unSelected(btnStatisticalContributeByDate);
                 btnStatisticalByMonth_State = false;
                 btnStatisticalContributeByDate_State = false;
+                ChooseMonthOnly.Visibility = Visibility.Collapsed;
 
                 //select this
                 Selected(btnStatisticalByDate);
                 btnStatisticalByDate_State = true;
+                ChooseDateFromTo.Visibility = Visibility.Visible;
+
                 //
             }
             else
@@ -170,10 +179,12 @@ namespace Home
                 unSelected(btnStatisticalByDate);
                 btnStatisticalByMonth_State = false;
                 btnStatisticalByDate_State = false;
+                ChooseMonthOnly.Visibility = Visibility.Collapsed;
 
                 //select this
                 Selected(btnStatisticalContributeByDate);
                 btnStatisticalContributeByDate_State = true;
+                ChooseDateFromTo.Visibility = Visibility.Visible;
 
                 //
             }
