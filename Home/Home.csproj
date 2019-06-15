@@ -172,7 +172,7 @@
     </Compile>
     <Compile Include="Utils\DatePickerCalendar.cs" />
     <Compile Include="Utils\Global.cs" />
-    <Compile Include="MasterDataManager.cs" />
+    <Compile Include="Utils\MasterDataManager.cs" />
     <Page Include="CosmeticScreenOf.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
