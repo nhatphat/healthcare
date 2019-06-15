@@ -9,42 +9,119 @@
              xmlns:CharToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="760" d:DesignWidth="1020">
+    <UserControl.Resources>
+        <Storyboard x:Key="OpenDatePicker">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="datePicker">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="50"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="statiscalContent">
+                <EasingDoubleKeyFrame KeyTime="0" Value="700"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="650"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseDatePicker">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="datePicker">
+                <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="statiscalContent">
+                <EasingDoubleKeyFrame KeyTime="0" Value="650"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="700"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        
+    </UserControl.Resources>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnOpenDatePicker">
+            <BeginStoryboard Storyboard="{StaticResource OpenDatePicker}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCloseDatePicker">
+            <BeginStoryboard Storyboard="{StaticResource CloseDatePicker}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
     <Grid Background="White">
-        <StackPanel Name="statiscalOption" VerticalAlignment="Center" Visibility="Collapsed">
-            <Button Click="statisticalByMonth_click" Margin="200 10 200 10">Theo tháng</Button>
-            <Button Click="statisticalByDate_click" Margin="100 10 100 10">Theo số lượng sản phẩm đã bán</Button>
-            <Button Click="statisticalContributeByDate_click" Margin="10 10 10 10">Theo tỉ lệ đóng góp doanh thu của mỗi loại sản phẩm</Button>
-        </StackPanel>
+        <StackPanel>
+            <Grid  Name="header" Height="50" VerticalAlignment="Top" Background="Wheat">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Name="btnBack" Background="#FFF78787" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0" Height="35" Width="110" Visibility="Visible" Click="btnBack_click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/app/back-icon.ico" Height="20"/>
+                        <Label Content="Trở về" Foreground="White" FontSize="15" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+                <StackPanel Grid.Column="1" Name="statiscalOption" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Visibility="Visible"  Background="White">
+                    <Button Name="btnStatisticalByMonth" Click="statisticalByMonth_click" Mouse.MouseEnter="BtnStatisticalByMonth_MouseEnter" MouseLeave="BtnStatisticalByMonth_MouseLeave" Width="160" Height="35" Background="Transparent" BorderBrush="#FFF78787"  FontSize="15" FontWeight="Bold" Foreground="#DD000000">Doanh thu</Button>
+                    <Button Name="btnStatisticalByDate" Click="statisticalByDate_click" MouseEnter="BtnStatisticalByDate_MouseEnter" MouseLeave="BtnStatisticalByDate_MouseLeave" Width="160" Height="35" BorderBrush="#FFF78787" Background="Transparent"  FontSize="15" FontWeight="Bold" Foreground="#DD000000">Doanh số</Button>
+                    <Button Name="btnStatisticalContributeByDate" Click="statisticalContributeByDate_click" MouseEnter="BtnStatisticalContributeByDate_MouseEnter" MouseLeave="BtnStatisticalContributeByDate_MouseLeave"  Width="160" Height="35"  FontSize="15" FontWeight="Bold" Background="Transparent" BorderBrush="#FFF78787" Foreground="#DD000000">Tỉ lệ đóng góp</Button>
+                </StackPanel>
+                <Button ToolTip="Lọc theo ngày" Grid.Column="2" Name="btnOpenDatePicker" Click="BtnOpenDatePicker_Click"  Width="35" Height="35" Background="#FFF78787"  Margin="0 0 20 0" Padding="0"  HorizontalAlignment="Right" BorderBrush="{x:Null}">
+                    <Image Source="/Images/app/filter-icon-white.png" Height="20" Stretch="Uniform" HorizontalAlignment="Center"/>
+                </Button>
+            </Grid>
 
-        <Grid Name="statiscalContent">
-            <Button Name="btnBack" Click="btnBack_click" Margin="0,0,863,720">Quay lại</Button>
-            <Label Margin="444,0,535,725" FontSize="20">Từ: </Label>
-            <Label Margin="664,0,299,725" FontSize="20">Đến: </Label>
-            <DatePicker SelectedDateChanged="fromDate_SelectedDateChanged" Foreground="Black" Name="fromDate" Margin="490,6,377,724" Height="30" />
-            <DatePicker Foreground="Black" Name="toDate" Margin="721,6,149,724" Height="30"/>
-            <Button Click="btnStatistical_click" Margin="900,4,0,725">Thống kê</Button>
-            <Grid Margin="0,40,0,0">
-                <Chart:PieChart Name="pieChart" Visibility="Collapsed"  ChartSubTitle="blabla" ChartTitle="Tỷ lệ đóng góp sản phẩm" Grid.ColumnSpan="2">
-                    <Chart:PieChart.Series>
-                        <Chart:ChartSeries Name="piechart" SeriesTitle="Tỷ lệ đóng góp"
+            <Grid  Name="datePicker" Height="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Border BorderBrush="#FFF78787" BorderThickness="2" CornerRadius="8" Padding="5 0 5 0" Height="35">
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontSize="17" FontWeight="Bold" VerticalAlignment="Center">Từ:</Label>
+                            <DatePicker SelectedDateChanged="fromDate_SelectedDateChanged" Foreground="Black" Name="fromDate" FontSize="17" FontWeight="Bold" Width="150" Height="30" />
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="#FFF78787" BorderThickness="2" CornerRadius="8" Margin="20 0 0 0" Padding="5 0 5 0" Height="35">
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontSize="17" FontWeight="Bold" VerticalAlignment="Center">Đến:</Label>
+                            <DatePicker Foreground="Black" Name="toDate" FontSize="17" FontWeight="Bold" Width="150" Height="30"/>
+                        </StackPanel>
+                    </Border>
+                    <Button Click="btnStatistical_click" Width="100" Height="35" Background="#FFF78787"  Margin="20 0 0 0"  BorderBrush="{x:Null}">
+                        <StackPanel Orientation="Horizontal" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Source="/Images/app/filter-icon-white.png" Height="20" Stretch="Uniform"/>
+                            <Label Content="Lọc" Foreground="White" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <Button Grid.Column="2" Name="btnCloseDatePicker" Click="BtnCloseDatePicker_Click" Width="30" Height="30" Background="Transparent" Padding="0" Margin="0 0 20 0"  BorderBrush="{x:Null}" HorizontalAlignment="Right">
+                    <Image Source="/Images/app/close-mini.png" Height="20" Stretch="Uniform"/>
+                </Button>
+            </Grid>
+
+
+            <Grid Name="statiscalContent" Height="700">
+                <Grid>
+                    <Chart:PieChart Name="pieChart" Visibility="Collapsed"  ChartSubTitle="blabla" ChartTitle="Tỷ lệ đóng góp sản phẩm" Grid.ColumnSpan="2">
+                        <Chart:PieChart.Series>
+                            <Chart:ChartSeries Name="piechart" SeriesTitle="Tỷ lệ đóng góp"
                         DisplayMember="Name" ValueMember="Contribute"/>
-                    </Chart:PieChart.Series>
-                </Chart:PieChart>
+                        </Chart:PieChart.Series>
+                    </Chart:PieChart>
 
-                <Chart:ClusteredColumnChart Name="colChart" Visibility="Collapsed" ChartSubTitle="blabla" ChartTitle="Số lượng sản phẩm đã bán theo ngày" Grid.ColumnSpan="2">
-                    <Chart:ClusteredColumnChart.Series>
-                        <Chart:ChartSeries Name="colchart" SeriesTitle="Số lượng sản phẩm đã bán"
+                    <Chart:ClusteredColumnChart Name="colChart" Visibility="Collapsed" ChartSubTitle="blabla" ChartTitle="Số lượng sản phẩm đã bán theo ngày" Grid.ColumnSpan="2">
+                        <Chart:ClusteredColumnChart.Series>
+                            <Chart:ChartSeries Name="colchart" SeriesTitle="Số lượng sản phẩm đã bán"
                         DisplayMember="Name" ValueMember="Quantity"/>
-                    </Chart:ClusteredColumnChart.Series>
-                </Chart:ClusteredColumnChart>
+                        </Chart:ClusteredColumnChart.Series>
+                    </Chart:ClusteredColumnChart>
 
-                <CharToolkit:Chart Name="lineChart" Visibility="Collapsed" Grid.ColumnSpan="2">
-                    <CharToolkit:LineSeries Name="linechart" Title="Doanh thu"  
+                    <CharToolkit:Chart Name="lineChart" Visibility="Collapsed" Grid.ColumnSpan="2">
+                        <CharToolkit:LineSeries Name="linechart" Title="Doanh thu"  
                           IndependentValueBinding="{Binding Name}"  
                           DependentValueBinding="{Binding Revenue}"/>
-                </CharToolkit:Chart>
+                    </CharToolkit:Chart>
+                </Grid>
             </Grid>
-        </Grid>
+        </StackPanel>
     </Grid>
 
 </UserControl>
