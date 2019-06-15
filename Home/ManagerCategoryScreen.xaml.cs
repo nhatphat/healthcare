@@ -84,7 +84,6 @@ namespace Home
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             functionForm.Visibility = Visibility.Visible;
-            btnBack.Visibility = Visibility.Collapsed;
             if (editForm.Visibility == Visibility.Visible)
             {
                 //quay lại form chọn category để chỉnh sửa

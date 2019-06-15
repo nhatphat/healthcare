@@ -115,7 +115,7 @@ namespace Home
             addChildForm(new HomeScreen());
         }
 
-        private void Grid_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        public void Grid_Home(object sender, MouseButtonEventArgs e)
         {
             currentCatogoryName.Text = "Trang chủ";
             addChildForm(new HomeScreen());

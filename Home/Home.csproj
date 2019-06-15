@@ -259,6 +259,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\app\filter-icon-white.png" />
+    <Resource Include="Images\app\close-mini.png" />
+    <Resource Include="Images\app\category-manager.png" />
+    <Resource Include="Images\app\cosmetics-manager.png" />
+    <Resource Include="Images\app\dashboard-manager.png" />
+    <Resource Include="Images\app\order-manager.png" />
     <Content Include="models\master_data.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>master_data.edmx</DependentUpon>

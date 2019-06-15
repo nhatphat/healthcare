@@ -30,7 +30,7 @@
                 </Border>
             </Grid>
 
-            <ListView Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" Name="listOrder" HorizontalAlignment="Center" Background="Pink">
+            <ListView Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="650" ScrollViewer.VerticalScrollBarVisibility="Hidden" Name="listOrder" HorizontalAlignment="Center" Background="Pink">
                 <!--<ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
